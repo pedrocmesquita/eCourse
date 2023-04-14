@@ -1,0 +1,79 @@
+#####################################################
+##
+## eCafeteria
+##
+#####################################################
+
+eapli.ecafeteria.ui.menu.layout=horizontal
+
+#
+# simpledb event dispatcher
+#
+eapli.framework.pubsub.instanceKey=app.000
+eapli.framework.pubsub.poolInterval=5000
+
+
+#----------------------------------------------------
+#
+# Spring
+#
+#----------------------------------------------------
+
+#
+# Profiles
+# The application recognizes the following profiles:
+#	- Repositories.SpringData
+#	- Repositories.Jpa
+#	- Repositories.InMemory
+#	- UseCaseDemos.Eventful
+#	- UseCaseDemos.Transactional
+#	- PubSub.InMemory
+#	- PubSub.Persistent
+#
+spring.profiles.active=UseCaseDemos.Eventful, PubSub.InMemory, Repositories.SpringData
+
+spring.banner.location=classpath:banner-ecafeteria.txt
+
+#
+# web
+#
+spring.main.web-application-type=NONE
+
+#
+# jackson
+#
+spring.jackson.serialization.indent_output=true
+
+#
+# logging
+#
+logging.level.org.springframework=INFO
+logging.level.org.hibernate=ERROR
+logging.level.org.hibernate.SQL=ERROR
+logging.level.eapli.framework=INFO
+logging.level.eapli.ecafeteria=INFO
+#logging.level.eapli.ecafeteria.infrastructure.smoketests.backoffice.ConnectionPoolingSmokeTester=DEBUG
+
+#
+# Database Configuration
+#
+spring.datasource.url=jdbc:h2:~/ecafeteria-ext;MV_STORE=FALSE;AUTO_SERVER=true;
+#spring.datasource.url=jdbc:h2:tcp://localhost/~/ecafeteria-ext  
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=  
+
+spring.h2.console.enabled=false
+
+spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto=create
+#spring.jpa.hibernate.hbm2ddl.auto=create
+
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+#spring.jpa.hibernate.dialect=org.hibernate.dialect.H2Dialect
+
+spring.jpa.show-sql=false
+hibernate.show_sql=false
+spring.jpa.hibernate.format_sql=true
+
+hibernate.ejb.naming_strategy=org.hibernate.cfg.ImprovedNamingStrategy
