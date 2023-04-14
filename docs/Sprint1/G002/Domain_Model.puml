@@ -3,13 +3,13 @@ hide methods
 left to right direction
 skinparam classAttributeIconSize 0
 skinparam classFontColor automatic
-
 skinparam classHeaderBackgroundColor #4
 
 '//--//--//--//--//--/ User /--//--//--//--//--//--//
 
-package authz{
-    Entity User {
+package "User Aggregate" <<Rectangle>> {
+
+    Entity User <<Root>> {
         email
         password
     }
@@ -34,21 +34,23 @@ package authz{
         birthdate
         taxNumber
     }
+
+    User "1" <-- "1" Teacher
+    User "1" <-- "1" Student
+    User "1" <-- "1" Manager
+
+    Teacher "1" ---> "1" designation
+    Student "1" ---> "1" designation
+    Teacher "1" ---> "1" personaInformation
+    Student "1" ---> "1" personaInformation
 }
-    User "1"<--"1" Teacher
-    User "1"<--"1" Student
-    User "1"<--"1" Manager
-
-    Teacher "1"-->"1" designation
-    Student "1"-->"1" designation
-    Teacher "1"-->"1" personaInformation
-    Student "1"-->"1" personaInformation
-
 
 
 '//--//--//--//--//--/ Exam /--//--//--//--//--//--//
 
-    Entity Exam {
+package "Exam Aggregate" <<Rectangle>> {
+
+    Entity Exam <<Root>> {
         title
         description
         openDate
@@ -69,14 +71,17 @@ package authz{
     Object QuestionAnswer {
     }
 
+}
+
     Exam "1" --> "1..*" Question
-    Exam "1"<--"0..*" ExamSubmission
-    Student "1"-->"1" ExamSubmission : takes
+    Exam "1" <- "0..*" ExamSubmission
+    Student "1"--->"1" ExamSubmission : takes
     QuestionAnswer "1"<--"1" Feedback
     ExamSubmission "1"<--"1..*" QuestionAnswer
 
-'//--//--//--//--//--/ Board /--//--//--//--//--//--//
 
+'//--//--//--//--//--/ Board /--//--//--//--//--//--//
+package "Board Aggregate" <<Rectangle>> {
     Entity Board
     {
         title
@@ -108,29 +113,19 @@ package authz{
     {
         content
     }
+}
 
-    Entity User
-    {
-        name
-        birthdate
-        taxNumber
-        email
-        nameFull
-        nameShort
-        password
-    }
-
-    User "1" ----> "*" Board : creates
+    User "1" -> "*" Board : creates
     'Board "1" ----> "*" Column : has
     'Board "1" ----> "*" Row : has
-    Board "1" ----> "*" Post : has
+    Board "1" -> "*" Post : has
     'Post "*" ----> "1" Column : is in
     'Post "*" ----> "1" Row : is in
-    User "1" ----> "*" Post : creates
-    Post "1" ----> "0..1" Content : has
+    User "1" --> "*" Post : creates
+    Post "1" --> "0..1" Content : has
 
 '//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
-
+package "Meeting Aggregate" <<Rectangle>> {
     Entity Meeting
     {
         schedule
@@ -141,11 +136,11 @@ package authz{
     }
 
 
-    User "*" ----> "1" MeetingInvitation
+    User "*" --> "1" MeetingInvitation
     MeetingInvitation "*" --> "1" Meeting
-
+}
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
-
+package "Course Aggregate" <<Rectangle>> {
 Entity Course
 {
     id
@@ -179,21 +174,21 @@ Object EnrolledStudents {
 
 Object TeacherCourse{
 }
+}
 
-
-Class "*" ----> "1" Course : of a
-ExtraClass "*" ----> "1" Course : of a
-EnrollmentRequest "*" ----> "*" Course
-Student "1" ----> "1" EnrollmentRequest
-Student "*" ----> "1" Class : attends
-Student "*" ----> "1" ExtraClass : attends
-Teacher "1" ----> "*" Class : schedules
-Teacher "1" ----> "*" ExtraClass : schedules
-Teacher "1" ----> "*" TeacherCourse
-TeacherCourse "1" ----> "*" Course : coordinates
+Class "*" --> "1" Course : of a
+ExtraClass "*" --> "1" Course : of a
+EnrollmentRequest "*" --> "*" Course
+Student "1" --> "1" EnrollmentRequest
+Student "*" --> "1" Class : attends
+Student "*" --> "1" ExtraClass : attends
+Teacher "1" --> "*" Class : schedules
+Teacher "1" --> "*" ExtraClass : schedules
+Teacher "1" --> "*" TeacherCourse
+TeacherCourse "1" --> "*" Course : coordinates
 'Manager "1" ----> "*" EnrollmentRequest : approves
-EnrolledStudents "1" ----> "*" Course : enrolled in
-EnrolledStudents "1" ----> "*" ExtraClass : attend
+EnrolledStudents "1" --> "*" Course : enrolled in
+EnrolledStudents "1" --> "*" ExtraClass : attend
 
 
 
