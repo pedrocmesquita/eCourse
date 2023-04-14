@@ -7,11 +7,13 @@ skinparam classHeaderBackgroundColor #4
 
 '//--//--//--//--//--/ User /--//--//--//--//--//--//
 
-package "User Aggregate" <<Rectangle>> {
+package "User Aggregate"     <<Rectangle>> {
 
     Entity User <<Root>> {
-        email
         password
+    }
+
+    Object email <<Identity>> {
     }
 
     Object designation {
@@ -20,11 +22,15 @@ package "User Aggregate" <<Rectangle>> {
     }
 
     Entity Teacher {
-        acronym
+    }
+
+    Object acronym <<Identity>>{
     }
 
     Entity Student {
-        mechanographicNumber
+    }
+
+    Object mechanographicNumber <<Identity>>{
     }
 
     Entity Manager {
@@ -35,26 +41,19 @@ package "User Aggregate" <<Rectangle>> {
         taxNumber
     }
 
-    User "1" <-- "1" Teacher
-    User "1" <-- "1" Student
-    User "1" <-- "1" Manager
-
-    Teacher "1" ---> "1" designation
-    Student "1" ---> "1" designation
-    Teacher "1" ---> "1" personaInformation
-    Student "1" ---> "1" personaInformation
 }
-
 
 '//--//--//--//--//--/ Exam /--//--//--//--//--//--//
 
 package "Exam Aggregate" <<Rectangle>> {
 
     Entity Exam <<Root>> {
-        title
         description
         openDate
         closeDate
+    }
+
+    Object title <<Identity>>{
     }
 
     Object Question {
@@ -66,18 +65,13 @@ package "Exam Aggregate" <<Rectangle>> {
     }
 
     Entity ExamSubmission {
+    grade
     }
 
     Object QuestionAnswer {
     }
 
 }
-
-    Exam "1" --> "1..*" Question
-    Exam "1" <- "0..*" ExamSubmission
-    Student "1"--->"1" ExamSubmission : takes
-    QuestionAnswer "1"<--"1" Feedback
-    ExamSubmission "1"<--"1..*" QuestionAnswer
 
 
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
@@ -115,15 +109,6 @@ package "Board Aggregate" <<Rectangle>> {
     }
 }
 
-    User "1" -> "*" Board : creates
-    'Board "1" ----> "*" Column : has
-    'Board "1" ----> "*" Row : has
-    Board "1" -> "*" Post : has
-    'Post "*" ----> "1" Column : is in
-    'Post "*" ----> "1" Row : is in
-    User "1" --> "*" Post : creates
-    Post "1" --> "0..1" Content : has
-
 '//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
 package "Meeting Aggregate" <<Rectangle>> {
     Entity Meeting
@@ -136,11 +121,10 @@ package "Meeting Aggregate" <<Rectangle>> {
     }
 
 
-    User "*" --> "1" MeetingInvitation
-    MeetingInvitation "*" --> "1" Meeting
 }
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
 package "Course Aggregate" <<Rectangle>> {
+
 Entity Course
 {
     id
@@ -176,20 +160,60 @@ Object TeacherCourse{
 }
 }
 
-Class "*" --> "1" Course : of a
-ExtraClass "*" --> "1" Course : of a
-EnrollmentRequest "*" --> "*" Course
-Student "1" --> "1" EnrollmentRequest
-Student "*" --> "1" Class : attends
-Student "*" --> "1" ExtraClass : attends
-Teacher "1" --> "*" Class : schedules
-Teacher "1" --> "*" ExtraClass : schedules
-Teacher "1" --> "*" TeacherCourse
-TeacherCourse "1" --> "*" Course : coordinates
-'Manager "1" ----> "*" EnrollmentRequest : approves
-EnrolledStudents "1" --> "*" Course : enrolled in
-EnrolledStudents "1" --> "*" ExtraClass : attend
+'//--//--//
+
+'//--//--//--//--//--/ User /--//--//--//--//--//--//
+
+    User "1" <-- "1" Teacher
+    User "1" <-- "1" Student
+    User "1" <-- "1" Manager
+    Teacher -l-> acronym
+    Student -l-> mechanographicNumber
+    User -l-> email
 
 
+    Teacher "1" ---> "1" designation
+    Student "1" ---> "1" designation
+    Teacher "1" ---> "1" personaInformation
+    Student "1" ---> "1" personaInformation
+
+'//--//--//--//--//--/ Exam /--//--//--//--//--//--//
+
+    Exam "1" --> "1..*" Question
+    Exam "1" <-l- "0..*" ExamSubmission
+    Student "1" <---- "1" ExamSubmission : of a
+    QuestionAnswer "1"<--"1" Feedback
+    ExamSubmission "1"<--"1..*" QuestionAnswer
+    Exam "*" -> "1" Course : of a
+    Exam "1" --> "1" title
+
+'//--//--//--//--//--/ Board /--//--//--//--//--//--//
+
+    User "1" -u---> "*" Board : creates
+    'Board "1" ----> "*" Column : has
+    'Board "1" ----> "*" Row : has
+    Board "1" -> "*" Post : has
+    'Post "*" ----> "1" Column : is in
+    'Post "*" ----> "1" Row : is in
+    User "1" --> "*" Post : creates
+    Post "1" --> "0..1" Content : has
+
+'//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
+
+    User "*" -u---> "1" MeetingInvitation
+    MeetingInvitation "*" -r-> "1" Meeting
+
+'//--//--//--//--//--/ Course /--//--//--//--//--//--//
+
+    Class "*" --> "1" Course : of a
+    ExtraClass "*" ---> "1" Course : of a
+    EnrollmentRequest "*" --> "*" Course
+    Student "1" -> "1" EnrollmentRequest
+    Student "*" -> "1" ExtraClass : attends
+    Teacher "1" -> "*" Class : schedules
+    Teacher "1" -> "*" ExtraClass : schedules
+    Teacher "1" -> "*" TeacherCourse
+    EnrolledStudents "1" --> "*" Course : enrolled in
+    EnrolledStudents "1" --> "*" ExtraClass : attend
 
 @enduml
