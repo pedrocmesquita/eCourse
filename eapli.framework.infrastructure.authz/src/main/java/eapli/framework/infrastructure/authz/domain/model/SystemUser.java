@@ -21,6 +21,8 @@
 package eapli.framework.infrastructure.authz.domain.model;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Set;
@@ -71,17 +73,16 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
     @Version
     private Long version;
 
-    @EmbeddedId
     private Username username;
 
     private Password password;
 
     private Name name;
 
+    @EmbeddedId
     private EmailAddress email;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER)
-    private RoleSet roles;
+    private Role role;
 
     @Temporal(TemporalType.DATE)
     private Calendar createdOn;
@@ -94,18 +95,22 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
     // the password reset token
     private String resetToken;
 
+    private Acronym acronym;
+    private BirthDate birthDate;
+    private MecNumber mecNumber;
+    private Nif nif;
+
     /**
-     * Convenience constructor for today's date of creation
-     *
      * @param username
      * @param password
      * @param name
      * @param email
-     * @param roles
+     * @param role
      */
     /* package */ SystemUser(final Username username, final Password password, final Name name,
-            final EmailAddress email, final Set<Role> roles) {
-        this(username, password, name, email, roles, CurrentTimeCalendars.now());
+                             final EmailAddress email, final Role role, final Acronym acronym,
+                             final BirthDate birthDate, final MecNumber mecNumber, final Nif nif) {
+        this(username, password, name, email, role, CurrentTimeCalendars.now(), acronym, birthDate, mecNumber, nif);
     }
 
     /**
@@ -113,53 +118,30 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
      * @param password
      * @param name
      * @param email
-     * @param roles
+     * @param role
      * @param createdOn
      */
     /* package */ SystemUser(final Username username, final Password password, final Name name,
-            final EmailAddress email, final Set<Role> roles, final Calendar createdOn) {
-        Preconditions.nonNull(roles, "roles cannot be null");
-
-        final RoleSet roleset = new RoleSet();
-        roleset.addAll(roles.stream().map(rt -> new RoleAssignment(rt, createdOn)).collect(Collectors.toList()));
-        init(username, password, name, email, roleset, createdOn);
-    }
-
-    /**
-     * @param username
-     * @param password
-     * @param name
-     * @param email
-     * @param roles
-     */
-    /* package */ SystemUser(final Username username, final Password password, final Name name,
-            final EmailAddress email, final RoleSet roles) {
-        this(username, password, name, email, roles, CurrentTimeCalendars.now());
-    }
-
-    /**
-     * @param username
-     * @param password
-     * @param name
-     * @param email
-     * @param roles
-     * @param createdOn
-     */
-    /* package */ SystemUser(final Username username, final Password password, final Name name,
-            final EmailAddress email, final RoleSet roles, final Calendar createdOn) {
-        init(username, password, name, email, roles, createdOn);
+                             final EmailAddress email, final Role role, final Calendar createdOn, final Acronym acronym,
+                             final BirthDate birthDate, final MecNumber mecNumber, final Nif nif) {
+        init(username, password, name, email, role, createdOn, acronym, birthDate, mecNumber, nif);
     }
 
     private void init(final Username username, final Password password, final Name name, final EmailAddress email,
-            final RoleSet roles, final Calendar createdOn) {
-        Preconditions.noneNull(roles, username, password, name, email, createdOn);
+                      final Role role, final Calendar createdOn, final Acronym acronym,
+                      final BirthDate birthDate, final MecNumber mecNumber, final Nif nif) {
+        Preconditions.noneNull(role, username, password, name, email, createdOn);
 
         this.createdOn = createdOn;
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
+        this.acronym = acronym;
+        this.birthDate = birthDate;
+        this.mecNumber = mecNumber;
+        this.nif = nif;
 
         // accounts are already active upon creation
         active = true;
@@ -183,7 +165,7 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
             return true;
         }
         if (!username.equals(that.username) || !password.equals(that.password) || !name.equals(that.name)
-                || !email.equals(that.email) || roles.equals(that.roles)) {
+                || !email.equals(that.email) || role.equals(that.role)) {
             return false;
         }
         return resetToken == null ? that.resetToken == null : resetToken.equals(that.resetToken);
@@ -207,41 +189,9 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
      * @param role
      *            Role to assign to SystemUser.
      */
-    public void assignToRole(final RoleAssignment role) {
-        roles.add(role);
-    }
-
-    /**
-     * Add role to user.
-     *
-     * @param role
-     *            Role to assign to SystemUser.
-     */
     public void assignToRole(final Role role) {
         Preconditions.nonNull(role);
-        roles.add(new RoleAssignment(role));
-    }
-
-    /**
-     * Unassigns a role from user, marking the assignment as expired. The role
-     * assignment is kept in the roles of the user. if the user is not assigned to
-     * the role, this method does nothing.
-     *
-     * @param role
-     *            Role to remove from SystemUser.
-     *
-     * @return true if the user had the role and it was unassigned. false otherwise.
-     */
-    public boolean unassignRole(final Role role) {
-        Preconditions.nonNull(role);
-        return roles.getAssignment(role).map(RoleAssignment::unassign).orElse(false);
-    }
-
-    /**
-     * @return the user's roles
-     */
-    public Collection<Role> roleTypes() {
-        return roles.roleTypes();
+        this.role = role;
     }
 
     @Override
@@ -252,7 +202,7 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
         // so we never have something like ret.put("password", password.toString())
         ret.put("name", name.toString());
         ret.put("email", email.toString());
-        ret.put("roles", roles.roleTypes().toString());
+        ret.put("roles", role.toString());
 
         return ret;
     }
@@ -391,30 +341,8 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
      * @return true if the user has at least one of the roles
      */
     public boolean hasAny(final Role... roles) {
-        for (final Role r : roles) {
-            if (this.roles.hasAssignment(r)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks if this user's non-expired roles comply with all of a set of roles.
-     *
-     * @param roles
-     *
-     * @return true if the user has all the roles
-     */
-    public boolean hasAll(final Role... roles) {
-        for (final Role r : roles) {
-            if (!(this.roles.hasAssignment(r))) {
-                return false;
-            }
-        }
-
-        return true;
+        return Arrays.asList(roles)
+                .contains(this.role);
     }
 
     /**
@@ -428,3 +356,4 @@ public class SystemUser implements AggregateRoot<Username>, DTOable<GeneralDTO>,
         return (Calendar) createdOn.clone();
     }
 }
+

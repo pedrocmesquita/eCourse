@@ -47,23 +47,23 @@ import eapli.framework.time.util.CurrentTimeCalendars;
  */
 @Component
 public class UserManagementService {
-    private final UserRepository userRepository;
-    private final PasswordEncoder encoder;
-    private final PasswordPolicy policy;
+	private final UserRepository userRepository;
+	private final PasswordEncoder encoder;
+	private final PasswordPolicy policy;
 
-    /**
-     *
-     * @param userRepo
-     * @param encoder
-     * @param policy
-     */
-    @Autowired
-    public UserManagementService(final UserRepository userRepo, final PasswordPolicy policy,
-                                 final PasswordEncoder encoder) {
-        userRepository = userRepo;
-        this.policy = policy;
-        this.encoder = encoder;
-    }
+	/**
+	 *
+	 * @param userRepo
+	 * @param encoder
+	 * @param policy
+	 */
+	@Autowired
+	public UserManagementService(final UserRepository userRepo, final PasswordPolicy policy,
+								 final PasswordEncoder encoder) {
+		userRepository = userRepo;
+		this.policy = policy;
+		this.encoder = encoder;
+	}
 
 	/**
 	 * Registers a new user in the system allowing to specify when the user account
@@ -74,15 +74,15 @@ public class UserManagementService {
 	 * @param firstName
 	 * @param lastName
 	 * @param email
-	 * @param roles
+	 * @param role
 	 * @param createdOn
 	 * @return the new user
 	 */
 	@Transactional
 	public SystemUser registerNewUser(final String username, final String rawPassword, final String firstName,
-			final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
+									  final String lastName, final String email, final Role role, final Calendar createdOn) {
 		final var userBuilder = new SystemUserBuilder(policy, encoder);
-		userBuilder.with(username, rawPassword, firstName, lastName, email).createdOn(createdOn).withRoles(roles);
+		userBuilder.with(username, rawPassword, firstName, lastName, email).createdOn(createdOn).withRole(role);
 		final var newUser = userBuilder.build();
 		return userRepository.save(newUser);
 	}
@@ -95,13 +95,13 @@ public class UserManagementService {
 	 * @param firstName
 	 * @param lastName
 	 * @param email
-	 * @param roles
+	 * @param role
 	 * @return the new user
 	 */
 	@Transactional
 	public SystemUser registerNewUser(final String username, final String rawPassword, final String firstName,
-			final String lastName, final String email, final Set<Role> roles) {
-		return registerNewUser(username, rawPassword, firstName, lastName, email, roles, CurrentTimeCalendars.now());
+									  final String lastName, final String email, final Role role) {
+		return registerNewUser(username, rawPassword, firstName, lastName, email, role, CurrentTimeCalendars.now());
 	}
 
 	/**
@@ -113,63 +113,64 @@ public class UserManagementService {
 	 * @param password
 	 * @param name
 	 * @param email
-	 * @param roles
+	 * @param role
 	 * @return the enw user
 	 */
 	@Transactional
 	public SystemUser registerUser(final Username username, final Password password, final Name name,
-			final EmailAddress email, final Set<Role> roles) {
+								   final EmailAddress email, final Role role) {
 		final var userBuilder = new SystemUserBuilder(policy, encoder);
-		userBuilder.with(username, password, name, email).withRoles(roles);
+		userBuilder.with(username, password, name, email).withRole(role);
 		final var newUser = userBuilder.build();
 		return userRepository.save(newUser);
 	}
 
-    /**
-     *
-     * @return all active users
-     */
-    public Iterable<SystemUser> activeUsers() {
-        return userRepository.findByActive(true);
-    }
+	/**
+	 *
+	 * @return all active users
+	 */
+	public Iterable<SystemUser> activeUsers() {
+		return userRepository.findByActive(true);
+	}
 
-    /**
-     *
-     * @return all deactivated users
-     */
-    public Iterable<SystemUser> deactivatedUsers() {
-        return userRepository.findByActive(false);
-    }
+	/**
+	 *
+	 * @return all deactivated users
+	 */
+	public Iterable<SystemUser> deactivatedUsers() {
+		return userRepository.findByActive(false);
+	}
 
-    /**
-     *
-     * @return all users no matter their status
-     */
-    public Iterable<SystemUser> allUsers() {
-        return userRepository.findAll();
-    }
+	/**
+	 *
+	 * @return all users no matter their status
+	 */
+	public Iterable<SystemUser> allUsers() {
+		return userRepository.findAll();
+	}
 
-    /**
-     * Looks up a user by its username.
-     *
-     * @param id
-     * @return an Optional which value is the user with the desired identify. an
-     *         empty Optional if there is no user with that username
-     */
-    public Optional<SystemUser> userOfIdentity(final Username id) {
-        return userRepository.ofIdentity(id);
-    }
+	/**
+	 * Looks up a user by its username.
+	 *
+	 * @param id
+	 * @return an Optional which value is the user with the desired identify. an
+	 *         empty Optional if there is no user with that username
+	 */
+	public Optional<SystemUser> userOfIdentity(final Username id) {
+		return userRepository.ofIdentity(id);
+	}
 
-    /**
-     * Deactivates a user. Client code must not reference the input parameter after
-     * calling this method and must use the returned object instead.
-     *
-     * @param user
-     * @return the updated user.
-     */
-    @Transactional
-    public SystemUser deactivateUser(final SystemUser user) {
-        user.deactivate(CurrentTimeCalendars.now());
-        return userRepository.save(user);
-    }
+	/**
+	 * Deactivates a user. Client code must not reference the input parameter after
+	 * calling this method and must use the returned object instead.
+	 *
+	 * @param user
+	 * @return the updated user.
+	 */
+	@Transactional
+	public SystemUser deactivateUser(final SystemUser user) {
+		user.deactivate(CurrentTimeCalendars.now());
+		return userRepository.save(user);
+	}
 }
+

@@ -51,10 +51,11 @@ public class Role implements ValueObject, Serializable {
         roleName = role;
     }
 
-    private Role() {
-        // for ORM
-        roleName = null;
+    protected Role(){
+        // for orm
+        this.roleName = null;
     }
+
 
     @Override
     public String toString() {
@@ -65,3 +66,4 @@ public class Role implements ValueObject, Serializable {
         return new Role(role);
     }
 }
+
