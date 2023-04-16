@@ -80,38 +80,31 @@ package "Exam Aggregate" <<Rectangle>> {
 package "Board Aggregate" <<Rectangle>> {
     Entity Board <<Root>>
     {
-        Title
         permissions_write
         permissions_read
-        archived
-    }
-
-    Entity Column
-    {
-        id
-        Title
-    }
-
-    Entity Row
-    {
-        id
-        Title
     }
 
     Entity Post
     {
-        Title
-    '    author
         timestamp
     }
 
-    Entity Content
-    {
-        content
+    Object Content {
+
     }
-    Entity Position
+    Entity Cell
     {
     }
+
+    Object BoardID {
+    }
+
+    Object BoardTitle <<Identity>> {
+    }
+
+    Object CellTitle <<Identity>> {
+    }
+
 }
 
 '//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
@@ -125,8 +118,11 @@ package "Meeting Aggregate" <<Rectangle>> {
     response
     }
 
-    Object meetingID <<Identity>> {
-        }
+    Object BoardID <<Identity>> {
+    }
+
+    Object MeetingID <<Identity>>{
+    }
 }
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
 package "Course Aggregate" <<Rectangle>> {
@@ -137,13 +133,15 @@ Entity Course <<Root>>
     minEnroll
 }
 
-Object ID <<Identity>>{
+Object CourseID <<Identity>>{
 }
 
 Object Name {
 }
 
-Object State <<enum>> {
+Object CourseState <<enum>> {
+}
+Object StudentEnrollmentState <<enum>> {
 }
 
 Object Description {
@@ -157,7 +155,7 @@ Object EnrolledTeachers{
     isInCharge
 }
 
-Object State <<Enum>> {
+Object CourseState <<Enum>> {
 
 }
 
@@ -181,25 +179,25 @@ package "Class Aggregate" <<Rectangle>> {
 
 '//--//--//--//--//--/ User /--//--//--//--//--//--//
 
-    User "1" <-d- "1" Teacher
-    User "1" <-r- "1" Student
+    User "1" <-- "1" Teacher
+    User "1" <-l- "1" Student
     User "1" <-r- "1" Manager
-    Teacher "1"--> "1"acronym
-    Student "1"--> "1" mechanographicNumber
-    User --> email
+    Teacher "1" --> "1"acronym
+    Student "1" --> "1" mechanographicNumber
+    User "1"-->"1" email
 
     Teacher "1" -l-> "1" designation
     Student "1" --> "1" designation
-    Teacher "1" -l-> "1" personaInformation
+    Teacher "1" --> "1" personaInformation
     Student "1" --> "1" personaInformation
 
 '//--//--//--//--//--/ Exam /--//--//--//--//--//--//
 
     Exam "1" --> "1..*" Question : has
-    Exam "1" <-- "0..*" ExamSubmission : of a
+    Exam "1" <-- "*" ExamSubmission : of a
     Student "1" <----- "1" ExamSubmission : of a
     Teacher "1" --> "*" Exam : creates
-    Answer "1"-->"1" Feedback : has
+    Answer "1"<--"1" Feedback : of
     ExamSubmission "1"-->"1..*" Answer
     Exam "*" <-- "1" Course : has
     Exam "1" --> "1" Title
@@ -207,23 +205,21 @@ package "Class Aggregate" <<Rectangle>> {
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
 
     User "1" -u----> "*" Board : creates
-    'Board "1" --> "*" Column : has
-    'Board "1" --> "*" Row : has
-    Board "1" --> "*" Post : has
-    'Post "*" --> "1" Column : is in
-    'Post "*" --> "1" Row : is in
     User "1" --> "*" Post : creates
     Post "1" --> "0..1" Content : has
-    Position "1" --> "1" Column : is in
-    Position "1" --> "1" Row : is in
-    Board --> Position : has
-    Post --> Position : is in
+    Board "1" --> "1..*" Cell : has
+    Board "1" --> "1" BoardID
+    Board "1" -l-> "1" BoardTitle
+    Post "1" --> "*" Cell : is in
+    Cell "1" --> "1" CellTitle
+
+    note right of Cell : number of cells must form a rectangle
 
 '//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
 
     User "*" -u---> "1" MeetingInvitation
     MeetingInvitation "*" <-- "1" Meeting
-    Meeting --> meetingID
+    Meeting "1"--> "1"MeetingID
 
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
 
@@ -231,13 +227,15 @@ package "Class Aggregate" <<Rectangle>> {
     ExtraClass "*" <-- "1" Course : has
     Teacher "1" --> "*" Class : schedules
     Teacher "1" --> "*" ExtraClass : schedules
-    Teacher "1" --> "*" EnrolledTeachers
+    Teacher "1" --> "*" EnrolledTeachers : is in
     EnrolledTeachers "*" <-- "1" Course : has
     EnrolledStudents "*" <-- "1" Course : has
-    Course --> State
-    Course --> ID
-    Course --> Name
-    Course --> Description
-    Student --> EnrolledStudents : requests
+    Course "1"-r->"1" CourseState
+    Course "1" --> "1" CourseID
+    Course "1"-->"1" Name
+    Course "1"--> "1"Description
+    Student "1"--> "1"EnrolledStudents : requests
+    EnrolledStudents"1" -r-> "1"StudentEnrollmentState
 
+    note right of EnrolledTeachers : only one teacher is in charge of a course
 @enduml
