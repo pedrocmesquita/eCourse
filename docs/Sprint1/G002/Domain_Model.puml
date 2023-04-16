@@ -4,10 +4,12 @@ left to right direction
 skinparam classAttributeIconSize 0
 skinparam classFontColor automatic
 skinparam classHeaderBackgroundColor #4
+skinparam packageStyle rectangle
+
 
 '//--//--//--//--//--/ User /--//--//--//--//--//--//
 
-package "User Aggregate"     <<Rectangle>> {
+package "User Aggregate"{
 
     Entity User <<Root>> {
         password
@@ -53,7 +55,7 @@ package "Exam Aggregate" <<Rectangle>> {
         closeDate
     }
 
-    Object title <<Identity>>{
+    Object Title <<Identity>>{
     }
 
     Object Question {
@@ -68,7 +70,7 @@ package "Exam Aggregate" <<Rectangle>> {
     grade
     }
 
-    Object QuestionAnswer {
+    Object Answer {
     }
 
 }
@@ -76,9 +78,9 @@ package "Exam Aggregate" <<Rectangle>> {
 
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
 package "Board Aggregate" <<Rectangle>> {
-    Entity Board
+    Entity Board <<Root>>
     {
-        title
+        Title
         permissions_write
         permissions_read
         archived
@@ -87,18 +89,18 @@ package "Board Aggregate" <<Rectangle>> {
     Entity Column
     {
         id
-        title
+        Title
     }
 
     Entity Row
     {
         id
-        title
+        Title
     }
 
     Entity Post
     {
-        title
+        Title
     '    author
         timestamp
     }
@@ -111,7 +113,7 @@ package "Board Aggregate" <<Rectangle>> {
 
 '//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
 package "Meeting Aggregate" <<Rectangle>> {
-    Entity Meeting
+    Entity Meeting <<Root>>
     {
         schedule
         duration
@@ -125,103 +127,108 @@ package "Meeting Aggregate" <<Rectangle>> {
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
 package "Course Aggregate" <<Rectangle>> {
 
-Entity Course
+Entity Course <<Root>>
 {
-    id
-    name
-    boolean open //A course may be open or closed
-    desc
     maxEnroll
     minEnroll
 }
 
-Entity Class
-{
-    schedule
-    duration
+Object ID <<Identity>>{
 }
 
-Entity ExtraClass
-{
-    schedule
-    duration
+Object Name {
 }
 
+Object State <<enum>> {
+}
 
-'Entity EnrollmentRequest
-'{
-'    response
-'}
+Object Description {
+}
+
 
 Object EnrolledStudents {
 }
 
-Object TeacherCourse{
+Object EnrolledTeachers{
+    isInCharge
 }
 
-Object Participant {
+Object State <<Enum>> {
+
 }
 
+}
+
+package "Class Aggregate" <<Rectangle>> {
+    Entity Class
+    {
+        date
+        duration
+    }
+
+    Entity ExtraClass
+    {
+        date
+        duration
+    }
 }
 
 '//--//--//
 
 '//--//--//--//--//--/ User /--//--//--//--//--//--//
 
-    User "1" <-- "1" Teacher
-    User "1" <-- "1" Student
-    User "1" <-- "1" Manager
-    Teacher -l-> acronym
-    Student -l-> mechanographicNumber
-    User -l-> email
+    User "1" <-d- "1" Teacher
+    User "1" <-r- "1" Student
+    User "1" <-r- "1" Manager
+    Teacher "1"--> "1"acronym
+    Student "1"--> "1" mechanographicNumber
+    User --> email
 
-
-    Teacher "1" ---> "1" designation
-    Student "1" ---> "1" designation
-    Teacher "1" ---> "1" personaInformation
-    Student "1" ---> "1" personaInformation
+    Teacher "1" -l-> "1" designation
+    Student "1" --> "1" designation
+    Teacher "1" -l-> "1" personaInformation
+    Student "1" --> "1" personaInformation
 
 '//--//--//--//--//--/ Exam /--//--//--//--//--//--//
 
-    Exam "1" --> "1..*" Question
-    Exam "1" <-l- "0..*" ExamSubmission
-    Student "1" <---- "1" ExamSubmission : of a
-    QuestionAnswer "1"<--"1" Feedback
-    ExamSubmission "1"<--"1..*" QuestionAnswer
-    Exam "*" -> "1" Course : of a
-    Exam "1" --> "1" title
+    Exam "1" --> "1..*" Question : has
+    Exam "1" <-- "0..*" ExamSubmission : of a
+    Student "1" <----- "1" ExamSubmission : of a
+    Teacher "1" --> "*" Exam : creates
+    Answer "1"-->"1" Feedback : has
+    ExamSubmission "1"-->"1..*" Answer
+    Exam "*" <-- "1" Course : has
+    Exam "1" --> "1" Title
 
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
 
-    User "1" -u---> "*" Board : creates
-    Board "1" ----> "*" Column : has
-    Board "1" ----> "*" Row : has
-    Board "1" -> "*" Post : has
-    Post "*" ----> "1" Column : is in
-    Post "*" ----> "1" Row : is in
+    User "1" -u----> "*" Board : creates
+    Board "1" --> "*" Column : has
+    Board "1" --> "*" Row : has
+    Board "1" --> "*" Post : has
+    Post "*" --> "1" Column : is in
+    Post "*" --> "1" Row : is in
     User "1" --> "*" Post : creates
     Post "1" --> "0..1" Content : has
 
 '//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
 
     User "*" -u---> "1" MeetingInvitation
-    MeetingInvitation "*" -r-> "1" Meeting
+    MeetingInvitation "*" <-- "1" Meeting
 
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
 
-    Class "*" --> "1" Course : of a
-    ExtraClass "*" ---> "1" Course : of a
-    'EnrollmentRequest "*" --> "*" Course
-    'Student "1" -> "1" EnrollmentRequest
-    'Student "*" -> "1" ExtraClass : attends
-    Teacher "1" -> "*" Class : schedules
-    Teacher "1" -> "*" ExtraClass : schedules
-    Teacher "1" -> "*" TeacherCourse
-    EnrolledStudents "1" --> "*" Course : enrolled in
-    EnrolledStudents "1" --> "*" ExtraClass : attend
+    Class "*" <--l- "1" Course : has
+    ExtraClass "*" <-- "1" Course : has
+    Teacher "1" --> "*" Class : schedules
+    Teacher "1" --> "*" ExtraClass : schedules
+    Teacher "1" --> "*" EnrolledTeachers
+    EnrolledTeachers "*" <-- "1" Course : has
+    EnrolledStudents "*" <-- "1" Course : has
+    Course --> State
+    Course --> ID
+    Course --> Name
+    Course --> Description
+    Student --> EnrolledStudents : requests
 
-    Student -> EnrolledStudents : is
-
-
-    'O que falta: entre student / enrolledstudents e classes/extra classes por uma classe participants, como o stor tinha dito, tal como por valueof das coisas principais, eliminar também a classe enrollmentrequest
 @enduml
