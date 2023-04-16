@@ -84,17 +84,17 @@ package "Board Aggregate" <<Rectangle>> {
         archived
     }
 
-    'Entity Column
-    '{
-    '    id
-    '    title
-    '}
-    '
-    'Entity Row
-    '{
-    '    id
-    '    title
-    '}
+    Entity Column
+    {
+        id
+        title
+    }
+
+    Entity Row
+    {
+        id
+        title
+    }
 
     Entity Post
     {
@@ -148,16 +148,20 @@ Entity ExtraClass
 }
 
 
-Entity EnrollmentRequest
-{
-    response
-}
+'Entity EnrollmentRequest
+'{
+'    response
+'}
 
 Object EnrolledStudents {
 }
 
 Object TeacherCourse{
 }
+
+Object Participant {
+}
+
 }
 
 '//--//--//
@@ -190,11 +194,11 @@ Object TeacherCourse{
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
 
     User "1" -u---> "*" Board : creates
-    'Board "1" ----> "*" Column : has
-    'Board "1" ----> "*" Row : has
+    Board "1" ----> "*" Column : has
+    Board "1" ----> "*" Row : has
     Board "1" -> "*" Post : has
-    'Post "*" ----> "1" Column : is in
-    'Post "*" ----> "1" Row : is in
+    Post "*" ----> "1" Column : is in
+    Post "*" ----> "1" Row : is in
     User "1" --> "*" Post : creates
     Post "1" --> "0..1" Content : has
 
@@ -207,13 +211,17 @@ Object TeacherCourse{
 
     Class "*" --> "1" Course : of a
     ExtraClass "*" ---> "1" Course : of a
-    EnrollmentRequest "*" --> "*" Course
-    Student "1" -> "1" EnrollmentRequest
-    Student "*" -> "1" ExtraClass : attends
+    'EnrollmentRequest "*" --> "*" Course
+    'Student "1" -> "1" EnrollmentRequest
+    'Student "*" -> "1" ExtraClass : attends
     Teacher "1" -> "*" Class : schedules
     Teacher "1" -> "*" ExtraClass : schedules
     Teacher "1" -> "*" TeacherCourse
     EnrolledStudents "1" --> "*" Course : enrolled in
     EnrolledStudents "1" --> "*" ExtraClass : attend
 
+    Student -> EnrolledStudents : is
+
+
+    'O que falta: entre student / enrolledstudents e classes/extra classes por uma classe participants, como o stor tinha dito, tal como por valueof das coisas principais, eliminar também a classe enrollmentrequest
 @enduml
