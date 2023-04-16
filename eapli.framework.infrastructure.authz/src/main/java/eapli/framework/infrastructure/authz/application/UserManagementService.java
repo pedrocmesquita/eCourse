@@ -47,23 +47,23 @@ import eapli.framework.time.util.CurrentTimeCalendars;
  */
 @Component
 public class UserManagementService {
-	private final UserRepository userRepository;
-	private final PasswordEncoder encoder;
-	private final PasswordPolicy policy;
+    private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
+    private final PasswordPolicy policy;
 
-	/**
-	 *
-	 * @param userRepo
-	 * @param encoder
-	 * @param policy
-	 */
-	@Autowired
-	public UserManagementService(final UserRepository userRepo, final PasswordPolicy policy,
-			final PasswordEncoder encoder) {
-		userRepository = userRepo;
-		this.policy = policy;
-		this.encoder = encoder;
-	}
+    /**
+     *
+     * @param userRepo
+     * @param encoder
+     * @param policy
+     */
+    @Autowired
+    public UserManagementService(final UserRepository userRepo, final PasswordPolicy policy,
+                                 final PasswordEncoder encoder) {
+        userRepository = userRepo;
+        this.policy = policy;
+        this.encoder = encoder;
+    }
 
 	/**
 	 * Registers a new user in the system allowing to specify when the user account
@@ -125,51 +125,51 @@ public class UserManagementService {
 		return userRepository.save(newUser);
 	}
 
-	/**
-	 *
-	 * @return all active users
-	 */
-	public Iterable<SystemUser> activeUsers() {
-		return userRepository.findByActive(true);
-	}
+    /**
+     *
+     * @return all active users
+     */
+    public Iterable<SystemUser> activeUsers() {
+        return userRepository.findByActive(true);
+    }
 
-	/**
-	 *
-	 * @return all deactivated users
-	 */
-	public Iterable<SystemUser> deactivatedUsers() {
-		return userRepository.findByActive(false);
-	}
+    /**
+     *
+     * @return all deactivated users
+     */
+    public Iterable<SystemUser> deactivatedUsers() {
+        return userRepository.findByActive(false);
+    }
 
-	/**
-	 *
-	 * @return all users no matter their status
-	 */
-	public Iterable<SystemUser> allUsers() {
-		return userRepository.findAll();
-	}
+    /**
+     *
+     * @return all users no matter their status
+     */
+    public Iterable<SystemUser> allUsers() {
+        return userRepository.findAll();
+    }
 
-	/**
-	 * Looks up a user by its username.
-	 *
-	 * @param id
-	 * @return an Optional which value is the user with the desired identify. an
-	 *         empty Optional if there is no user with that username
-	 */
-	public Optional<SystemUser> userOfIdentity(final Username id) {
-		return userRepository.ofIdentity(id);
-	}
+    /**
+     * Looks up a user by its username.
+     *
+     * @param id
+     * @return an Optional which value is the user with the desired identify. an
+     *         empty Optional if there is no user with that username
+     */
+    public Optional<SystemUser> userOfIdentity(final Username id) {
+        return userRepository.ofIdentity(id);
+    }
 
-	/**
-	 * Deactivates a user. Client code must not reference the input parameter after
-	 * calling this method and must use the returned object instead.
-	 *
-	 * @param user
-	 * @return the updated user.
-	 */
-	@Transactional
-	public SystemUser deactivateUser(final SystemUser user) {
-		user.deactivate(CurrentTimeCalendars.now());
-		return userRepository.save(user);
-	}
+    /**
+     * Deactivates a user. Client code must not reference the input parameter after
+     * calling this method and must use the returned object instead.
+     *
+     * @param user
+     * @return the updated user.
+     */
+    @Transactional
+    public SystemUser deactivateUser(final SystemUser user) {
+        user.deactivate(CurrentTimeCalendars.now());
+        return userRepository.save(user);
+    }
 }
