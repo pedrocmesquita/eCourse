@@ -59,7 +59,7 @@ public class UserManagementService {
 	 */
 	@Autowired
 	public UserManagementService(final UserRepository userRepo, final PasswordPolicy policy,
-			final PasswordEncoder encoder) {
+								 final PasswordEncoder encoder) {
 		userRepository = userRepo;
 		this.policy = policy;
 		this.encoder = encoder;
@@ -74,15 +74,15 @@ public class UserManagementService {
 	 * @param firstName
 	 * @param lastName
 	 * @param email
-	 * @param roles
+	 * @param role
 	 * @param createdOn
 	 * @return the new user
 	 */
 	@Transactional
 	public SystemUser registerNewUser(final String username, final String rawPassword, final String firstName,
-			final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
+									  final String lastName, final String email, final Role role, final Calendar createdOn) {
 		final var userBuilder = new SystemUserBuilder(policy, encoder);
-		userBuilder.with(username, rawPassword, firstName, lastName, email).createdOn(createdOn).withRoles(roles);
+		userBuilder.with(username, rawPassword, firstName, lastName, email).createdOn(createdOn).withRole(role);
 		final var newUser = userBuilder.build();
 		return userRepository.save(newUser);
 	}
@@ -95,13 +95,13 @@ public class UserManagementService {
 	 * @param firstName
 	 * @param lastName
 	 * @param email
-	 * @param roles
+	 * @param role
 	 * @return the new user
 	 */
 	@Transactional
 	public SystemUser registerNewUser(final String username, final String rawPassword, final String firstName,
-			final String lastName, final String email, final Set<Role> roles) {
-		return registerNewUser(username, rawPassword, firstName, lastName, email, roles, CurrentTimeCalendars.now());
+									  final String lastName, final String email, final Role role) {
+		return registerNewUser(username, rawPassword, firstName, lastName, email, role, CurrentTimeCalendars.now());
 	}
 
 	/**
@@ -113,14 +113,14 @@ public class UserManagementService {
 	 * @param password
 	 * @param name
 	 * @param email
-	 * @param roles
+	 * @param role
 	 * @return the enw user
 	 */
 	@Transactional
 	public SystemUser registerUser(final Username username, final Password password, final Name name,
-			final EmailAddress email, final Set<Role> roles) {
+								   final EmailAddress email, final Role role) {
 		final var userBuilder = new SystemUserBuilder(policy, encoder);
-		userBuilder.with(username, password, name, email).withRoles(roles);
+		userBuilder.with(username, password, name, email).withRole(role);
 		final var newUser = userBuilder.build();
 		return userRepository.save(newUser);
 	}
@@ -173,3 +173,4 @@ public class UserManagementService {
 		return userRepository.save(user);
 	}
 }
+
