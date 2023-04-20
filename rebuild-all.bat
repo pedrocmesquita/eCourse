@@ -1,1 +1,1 @@
-call build-all.bat clean
+call build-all.bat %1 clean
