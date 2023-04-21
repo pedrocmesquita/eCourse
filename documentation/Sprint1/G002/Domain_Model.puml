@@ -217,7 +217,7 @@ package "Class Aggregate" <<Rectangle>> {
 
 '//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
 
-    User "*" -u---> "1" MeetingInvitation
+    User "1" -u---> "1" MeetingInvitation
     MeetingInvitation "*" <-- "1" Meeting
     Meeting "1"--> "1"MeetingID
 
