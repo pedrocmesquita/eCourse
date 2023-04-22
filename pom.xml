@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eapli</groupId>
-    <artifactId>base</artifactId>
+    <artifactId>ecourse</artifactId>
     <version>1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -21,14 +21,14 @@
     </properties>
 
     <modules>
-        <module>base.app.backoffice.console</module>
-        <module>base.app.user.console</module>
-        <module>base.app.other.console</module>
-        <module>base.app.common.console</module>
-        <module>base.app.bootstrap</module>
-        <module>base.bootstrappers</module>
-        <module>base.core</module>
-        <module>base.persistence.impl</module>
+        <module>ecourse.app.backoffice.console</module>
+        <module>ecourse.app.student.console</module>
+        <module>ecourse.app.other.console</module>
+        <module>ecourse.app.common.console</module>
+        <module>ecourse.app.bootstrap</module>
+        <module>ecourse.bootstrappers</module>
+        <module>ecourse.core</module>
+        <module>ecourse.persistence.impl</module>
     </modules>
 
     <dependencies>
