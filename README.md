@@ -74,16 +74,16 @@ or
 
 ## Project structure
 
-- eapli.base.consoleapp
+- eapli.ecourse.consoleapp
 
   - presentation using console
   - Main class 
   - application properties in resource folder
 
-- eapli.base.bootstrap 
+- eapli.ecourse.bootstrap 
   - bootstrap data. should be ignored on a "real" instalation
 
-- eapli.base.core 
+- eapli.ecourse.core 
   - use case controllers, model, and persistence
 
 ## Architecture
