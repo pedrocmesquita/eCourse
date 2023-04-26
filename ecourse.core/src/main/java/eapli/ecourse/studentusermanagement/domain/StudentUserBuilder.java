@@ -20,7 +20,6 @@
  */
 package eapli.ecourse.studentusermanagement.domain;
 
-import eapli.ecourse.teacherusermanagement.domain.Acronym;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 

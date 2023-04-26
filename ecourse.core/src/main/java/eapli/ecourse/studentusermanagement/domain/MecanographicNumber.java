@@ -34,6 +34,7 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
 
     private static final long serialVersionUID = 1L;
 
+    //TODO autogenerate value
     private String number;
 
     public MecanographicNumber(final String mecanographicNumber) {
