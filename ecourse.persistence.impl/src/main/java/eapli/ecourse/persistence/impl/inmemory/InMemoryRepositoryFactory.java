@@ -20,6 +20,8 @@
  */
 package eapli.ecourse.persistence.impl.inmemory;
 
+import eapli.ecourse.Application;
+import eapli.ecourse.persistence.impl.jpa.JpaCourseRepository;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
@@ -68,6 +70,17 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public SignupRequestRepository signupRequests(final TransactionalContext tx) {
 		return new InMemorySignupRequestRepository();
+	}
+
+	//todo in memory
+	@Override
+	public JpaCourseRepository courses(final TransactionalContext autoTx) {
+		return null;
+	}
+
+	@Override
+	public JpaCourseRepository courses() {
+		return null;
 	}
 
 	@Override

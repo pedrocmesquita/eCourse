@@ -8,6 +8,8 @@ import java.util.Objects;
 @Embeddable
 public class Description implements ValueObject {
 
+    private static final long serialVersionUID = 1L;
+
     private String description;
 
     public Description() {

@@ -20,6 +20,7 @@
  */
 package eapli.ecourse.infrastructure.persistence;
 
+import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -82,5 +83,9 @@ public interface RepositoryFactory {
      * @return
      */
     SignupRequestRepository signupRequests();
+
+    CourseRepository courses(TransactionalContext autoTx);
+
+    CourseRepository courses();
 
 }

@@ -7,6 +7,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EnrollLimit implements ValueObject {
 
+    private static final long serialVersionUID = 1L;
+
     private Integer minEnroll;
     private Integer maxEnroll;
 

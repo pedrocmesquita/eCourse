@@ -2,17 +2,19 @@ package eapli.ecourse.coursemanagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
-import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 
 @Entity
-public class Course implements AggregateRoot<CourseID> {
+public class Course implements AggregateRoot<CourseId> {
 
-    @Id
-    private CourseID id;
+    private static final long serialVersionUID = 1L;
+
+    @EmbeddedId
+    private CourseId courseId;
 
     @Embedded
+    @Column(unique=true)
     private Name name;
 
     @Embedded
@@ -35,6 +37,7 @@ public class Course implements AggregateRoot<CourseID> {
         this.description = description;
         this.enrollLimit = enrollLimit;
         this.state = State.CLOSED;
+        courseId = new CourseId(4L);
     }
 
     @Override
@@ -52,13 +55,13 @@ public class Course implements AggregateRoot<CourseID> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public CourseID id() {
+    public CourseId id() {
         return identity();
     }
 
     @Override
-    public CourseID identity() {
-        return this.id;
+    public CourseId identity() {
+        return this.courseId;
     }
 
 }

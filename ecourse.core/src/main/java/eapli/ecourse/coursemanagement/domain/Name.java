@@ -8,6 +8,8 @@ import java.util.Objects;
 @Embeddable
 public class Name implements ValueObject, Comparable<Name>{
 
+    private static final long serialVersionUID = 1L;
+
     private String name;
 
     public Name() {
