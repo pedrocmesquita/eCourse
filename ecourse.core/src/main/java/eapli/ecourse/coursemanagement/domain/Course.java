@@ -6,15 +6,15 @@ import eapli.framework.domain.model.DomainEntities;
 import javax.persistence.*;
 
 @Entity
-public class Course implements AggregateRoot<CourseId> {
+public class Course implements AggregateRoot<Long> {
 
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    private CourseId courseId;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long courseId;
 
     @Embedded
-    @Column(unique=true)
     private Name name;
 
     @Embedded
@@ -37,7 +37,6 @@ public class Course implements AggregateRoot<CourseId> {
         this.description = description;
         this.enrollLimit = enrollLimit;
         this.state = State.CLOSED;
-        courseId = new CourseId(4L);
     }
 
     @Override
@@ -55,12 +54,12 @@ public class Course implements AggregateRoot<CourseId> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public CourseId id() {
+    public Long id() {
         return identity();
     }
 
     @Override
-    public CourseId identity() {
+    public Long identity() {
         return this.courseId;
     }
 

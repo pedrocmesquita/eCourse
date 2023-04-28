@@ -1,6 +1,7 @@
 package eapli.ecourse.coursemanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
+import eapli.framework.math.util.NumberPredicates;
 
 import javax.persistence.Embeddable;
 
@@ -17,6 +18,12 @@ public class EnrollLimit implements ValueObject {
     }
 
     public EnrollLimit(Integer minEnroll, Integer maxEnroll) {
+        if(NumberPredicates.isNegative(minEnroll) || NumberPredicates.isNonNegative(maxEnroll)) {
+            throw new IllegalArgumentException("Limits cannot be negative");
+        }
+        if(minEnroll > maxEnroll) {
+            throw new IllegalArgumentException("Maximum limit must be higher than minimum");
+        }
         this.minEnroll = minEnroll;
         this.maxEnroll = maxEnroll;
     }

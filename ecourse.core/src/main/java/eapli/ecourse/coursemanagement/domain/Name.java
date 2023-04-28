@@ -2,6 +2,7 @@ package eapli.ecourse.coursemanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ public class Name implements ValueObject, Comparable<Name>{
 
     private static final long serialVersionUID = 1L;
 
+    @Column(unique=true)
     private String name;
 
     public Name() {

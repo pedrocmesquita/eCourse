@@ -8,7 +8,6 @@ import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import org.springframework.transaction.annotation.Transactional;
 
 @UseCaseController
 public class CreateCourseController {
@@ -16,12 +15,10 @@ public class CreateCourseController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
 
-    @Transactional
     public Course createCourse(String name, String description) {
         return createCourse(name, description,null, null);
     }
 
-    @Transactional
     public Course createCourse(String name, String description, Integer minEnroll, Integer maxEnroll) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
