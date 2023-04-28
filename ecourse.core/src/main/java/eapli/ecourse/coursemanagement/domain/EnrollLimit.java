@@ -18,14 +18,16 @@ public class EnrollLimit implements ValueObject {
     }
 
     public EnrollLimit(Integer minEnroll, Integer maxEnroll) {
-        if(NumberPredicates.isNegative(minEnroll) || NumberPredicates.isNonNegative(maxEnroll)) {
-            throw new IllegalArgumentException("Limits cannot be negative");
+        if(minEnroll != null && maxEnroll != null) {
+            if (NumberPredicates.isNegative(minEnroll) || NumberPredicates.isNegative(maxEnroll)) {
+                throw new IllegalArgumentException("Limits cannot be negative");
+            }
+            if (minEnroll > maxEnroll) {
+                throw new IllegalArgumentException("Maximum limit must be higher than minimum");
+            }
         }
-        if(minEnroll > maxEnroll) {
-            throw new IllegalArgumentException("Maximum limit must be higher than minimum");
-        }
-        this.minEnroll = minEnroll;
-        this.maxEnroll = maxEnroll;
+            this.minEnroll = minEnroll;
+            this.maxEnroll = maxEnroll;
     }
 
 }

@@ -1,5 +1,6 @@
 package eapli.ecourse.coursemanagement.domain;
 
+import eapli.ecourse.studentusermanagement.domain.SignupRequest;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -51,7 +52,17 @@ public class Course implements AggregateRoot<Long> {
 
     @Override
     public boolean sameAs(final Object other) {
-        return DomainEntities.areEqual(this, other);
+        if (!(other instanceof Course)) {
+            return false;
+        }
+
+        final Course that = (Course) other;
+        if (this == that) {
+            return true;
+        }
+
+        return name.equals(that.name) && description.equals(that.description)
+                && enrollLimit.equals(that.enrollLimit) && state.equals(that.state);
     }
 
     public Long id() {

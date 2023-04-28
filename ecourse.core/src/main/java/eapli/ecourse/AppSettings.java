@@ -44,7 +44,7 @@ public class AppSettings {
     private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private static final String SCHEMA_GENERATION_KEY = "javax.persistence.schema-generation.database.action";
     private static final String HIGH_CALORIES_DISH_LIMIT = "HighCaloriesDishLimit";
-
+    private static final String COURSE_DESCRIPTION_CHARACTER_LIMIT = "CourseDescriptionCharacterLimit";
     private final Properties applicationProperties = new Properties();
 
     public AppSettings() {
@@ -72,8 +72,9 @@ public class AppSettings {
                 "eapli.ecourse.persistence.jpa.JpaRepositoryFactory");
         this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli"
-                + ".base");
+                + ".ecourse");
         this.applicationProperties.setProperty(HIGH_CALORIES_DISH_LIMIT, "300");
+        this.applicationProperties.setProperty(COURSE_DESCRIPTION_CHARACTER_LIMIT, "500");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -91,6 +92,10 @@ public class AppSettings {
 
     public Integer getHighCaloriesDishLimit() {
         return Integer.valueOf(this.applicationProperties.getProperty(HIGH_CALORIES_DISH_LIMIT));
+    }
+
+    public Integer getCourseDescriptionCharacterLimit() {
+        return Integer.valueOf(this.applicationProperties.getProperty(COURSE_DESCRIPTION_CHARACTER_LIMIT));
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

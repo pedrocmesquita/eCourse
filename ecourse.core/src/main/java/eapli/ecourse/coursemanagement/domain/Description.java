@@ -1,5 +1,6 @@
 package eapli.ecourse.coursemanagement.domain;
 
+import eapli.ecourse.Application;
 import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.Embeddable;
@@ -17,6 +18,8 @@ public class Description implements ValueObject {
     }
 
     public Description(String description) {
+        if(description.length() > Application.settings().getCourseDescriptionCharacterLimit())
+            throw new IllegalArgumentException("Description excess character limit");
         this.description = description;
     }
 

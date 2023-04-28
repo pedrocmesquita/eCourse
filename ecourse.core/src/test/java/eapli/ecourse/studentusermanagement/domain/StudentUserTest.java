@@ -67,7 +67,7 @@ public class StudentUserTest {
                 .withSystemUser(getNewDummyUser()).build();
 
         final StudentUser anotherStudentUser = new StudentUserBuilder().withMecanographicNumber("DUMMY")
-                .withSystemUser(getNewDummyUser()).build();
+                .withSystemUser(getNewDummyUserTwo()).build();
 
         final boolean expected = aStudentUser.equals(anotherStudentUser);
 

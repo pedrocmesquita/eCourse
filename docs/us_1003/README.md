@@ -1,19 +1,15 @@
-# US 1003/1004 - Open and close enrollements and courses
+# US 1003 - Open and close enrollments in courses
 
-As Manager, I want to open and close enrollements in courses.
-As Manager, I want to open and close courses.
+As Manager, I want to open and close enrollments in courses.
 
 ## 1. Context
 
-Both US aim to change the state of a course, therefore they were transformed in a singular US
+
 
 ## 2. Requirements
 
-* FRC02/FRC03 - Only managers are able to execute this functionality
-* Must have a teacher in charge before being "in progress"
-* Students enrollment requests must be dealt with before being "in progress"
-* States: close, open, enroll, progress
-* Closed course cannot have any activities(exams, classes, etc...) 
+* FRC02 - Only managers are able to execute this functionality
+* A course must be open to open enrollments (refer to us_1004)
 
 ## 3. Analysis
 
