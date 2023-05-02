@@ -31,7 +31,6 @@ import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 /**
- *
  * @author Fernando
  */
 @UseCaseController

@@ -1,24 +1,41 @@
 package eapli.ecourse.coursemanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
+import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @Embeddable
-public class Name implements ValueObject, Comparable<Name>{
+public class Name implements ValueObject, Comparable<Name> {
 
-    private static final long serialVersionUID = 1L;
-
-    @Column(unique=true)
+    /**
+     * Course business ID
+     */
+    @Column(unique = true)
     private String name;
 
     public Name() {
         //ORM only
     }
 
+    /**
+     * Constructor
+     *
+     * @param name
+     */
     public Name(String name) {
+        setName(name);
+    }
+
+    /**
+     * Validates if name is not null or empty, then sets name
+     */
+    private void setName(String name) {
+        if (StringPredicates.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
         this.name = name;
     }
 
@@ -37,7 +54,7 @@ public class Name implements ValueObject, Comparable<Name>{
 
     @Override
     public String toString() {
-        return this.name;
+        return "Name: " + name;
     }
 
     @Override

@@ -20,11 +20,6 @@
  */
 package eapli.ecourse.infrastructure.bootstrapers;
 
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import eapli.ecourse.usermanagement.application.AddUserController;
 import eapli.ecourse.usermanagement.application.ListUsersController;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -32,6 +27,10 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Set;
 
 public class UsersBootstrapperBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersBootstrapperBase.class);
@@ -52,7 +51,7 @@ public class UsersBootstrapperBase {
      * @param roles
      */
     protected SystemUser registerUser(final String username, final String password, final String firstName,
-            final String lastName, final String email, final Set<Role> roles) {
+                                      final String lastName, final String email, final Set<Role> roles) {
         SystemUser u = null;
         try {
             u = userController.addUser(username, password, firstName, lastName, email, roles);

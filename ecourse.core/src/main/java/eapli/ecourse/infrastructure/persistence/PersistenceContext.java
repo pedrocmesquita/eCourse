@@ -20,11 +20,10 @@
  */
 package eapli.ecourse.infrastructure.persistence;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import eapli.ecourse.Application;
 import eapli.framework.util.Utility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * provides easy access to the persistence layer. works as a factory of

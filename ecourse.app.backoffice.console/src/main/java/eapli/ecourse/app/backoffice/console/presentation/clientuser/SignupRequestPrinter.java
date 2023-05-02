@@ -25,7 +25,6 @@ import eapli.framework.visitor.Visitor;
 
 /**
  * Created by AJS on 08/04/2016.
- *
  */
 @SuppressWarnings("squid:S106")
 class SignupRequestPrinter implements Visitor<SignupRequest> {

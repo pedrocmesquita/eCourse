@@ -20,15 +20,14 @@
  */
 package eapli.ecourse.studentusermanagement.repositories;
 
-import java.util.Optional;
-
-import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.studentusermanagement.domain.MecanographicNumber;
+import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import java.util.Optional;
+
 /**
- *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public interface ClientUserRepository
@@ -37,8 +36,7 @@ public interface ClientUserRepository
     /**
      * returns the client user (utente) whose username is given
      *
-     * @param name
-     *            the username to search for
+     * @param name the username to search for
      * @return
      */
     Optional<StudentUser> findByUsername(Username name);

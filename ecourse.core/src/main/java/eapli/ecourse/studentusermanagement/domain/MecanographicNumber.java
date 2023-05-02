@@ -20,13 +20,12 @@
  */
 package eapli.ecourse.studentusermanagement.domain;
 
-import javax.persistence.Embeddable;
-
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Embeddable;
+
 /**
- *
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 @Embeddable

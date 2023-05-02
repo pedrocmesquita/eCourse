@@ -23,14 +23,11 @@
  */
 package eapli.ecourse.studentusermanagement.application;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import eapli.ecourse.studentusermanagement.domain.StudentUserBuilder;
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.studentusermanagement.domain.SignupRequest;
+import eapli.ecourse.studentusermanagement.domain.StudentUserBuilder;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
-import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -39,6 +36,9 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The transactional controller for the use case "accept/refuse a signup
@@ -49,10 +49,9 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  * asynchronous events. However in this case we will take advantage of
  * TransactionalContext
  *
- * @todo handle the scenario where in the meantime the username is already used
- *       by some other user
- *
  * @author AJS on 08/04/2016.
+ * @todo handle the scenario where in the meantime the username is already used
+ * by some other user
  */
 @UseCaseController
 public class AcceptRefuseSignupRequestControllerTxImpl

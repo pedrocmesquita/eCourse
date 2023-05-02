@@ -29,10 +29,9 @@ import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 
 /**
- *
  * @author losa
  */
-@SuppressWarnings({ "squid:S106" })
+@SuppressWarnings({"squid:S106"})
 public class ListUsersUI extends AbstractListUI<SystemUser> {
     private ListUsersController theController = new ListUsersController();
 

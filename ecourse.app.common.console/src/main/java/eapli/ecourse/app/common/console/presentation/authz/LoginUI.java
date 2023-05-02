@@ -35,11 +35,10 @@ import eapli.framework.presentation.console.AbstractUI;
 @SuppressWarnings("squid:S106")
 public class LoginUI extends AbstractUI {
 
-    private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
-
-    private Role onlyWithThis;
     private static final int DEFAULT_MAX_ATTEMPTS = 3;
+    private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
     private final int maxAttempts;
+    private Role onlyWithThis;
 
     public LoginUI() {
         maxAttempts = DEFAULT_MAX_ATTEMPTS;

@@ -31,15 +31,14 @@ import eapli.framework.actions.Action;
  * Here you should call controllers that make a walkthru of the main use cases
  * of the system so that the system is "smoke tested" in an end-to-end manner.
  * Look for examples in the eCafeteria project.
- *
  */
 @SuppressWarnings("squid:S1126")
 public class BaseDemoSmokeTester implements Action {
 
-	@Override
-	public boolean execute() {
-		// TODO: Add your smoke test execute here. Look for examples in the eCafeteria
-		// project
-		return true;
-	}
+    @Override
+    public boolean execute() {
+        // TODO: Add your smoke test execute here. Look for examples in the eCafeteria
+        // project
+        return true;
+    }
 }

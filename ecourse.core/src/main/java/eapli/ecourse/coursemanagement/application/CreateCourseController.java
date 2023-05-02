@@ -16,16 +16,18 @@ public class CreateCourseController {
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
 
     public Course createCourse(String name, String description) {
-        return createCourse(name, description,null, null);
+        return createCourse(name, description, null, null);
     }
 
     public Course createCourse(String name, String description, Integer minEnroll, Integer maxEnroll) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
         final CourseBuilder courseBuilder = new CourseBuilder();
-        courseBuilder.withName(name).withDescription(description).withEnrollLimit(minEnroll, maxEnroll);
+        courseBuilder.withName(name).withDescription(description);
+        if (minEnroll != null && maxEnroll != null) {
+            courseBuilder.withEnrollLimit(minEnroll, maxEnroll);
+        }
         Course course = courseBuilder.build();
-
         return this.courseRepository.save(course);
     }
 }

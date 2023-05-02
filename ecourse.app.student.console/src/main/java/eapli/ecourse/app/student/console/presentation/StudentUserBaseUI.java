@@ -25,7 +25,6 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.presentation.console.AbstractUI;
 
 /**
- *
  * @author mcn
  */
 @SuppressWarnings("squid:S106")

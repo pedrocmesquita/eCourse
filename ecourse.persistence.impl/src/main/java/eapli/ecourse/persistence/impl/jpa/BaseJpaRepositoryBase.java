@@ -29,7 +29,6 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalRepo
  *
  * @param <T>
  * @param <K>
- *
  * @author Paulo Gandra de Sousa
  */
 /* package */ class BaseJpaRepositoryBase<T, K, I>

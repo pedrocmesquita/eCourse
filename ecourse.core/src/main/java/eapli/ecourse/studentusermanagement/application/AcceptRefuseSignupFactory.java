@@ -28,7 +28,6 @@ package eapli.ecourse.studentusermanagement.application;
  * {@link AcceptRefuseSignupController}.
  *
  * @author Paulo Gandra de Sousa 16/05/2019
- *
  */
 public final class AcceptRefuseSignupFactory {
     private AcceptRefuseSignupFactory() {

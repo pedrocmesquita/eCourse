@@ -27,7 +27,6 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 
 /**
  * @author Paulo Gandra Sousa
- *
  */
 public final class BaseRoles {
     //TODO remove base roles
@@ -67,7 +66,7 @@ public final class BaseRoles {
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, TEACHER };
+        return new Role[]{ADMIN, TEACHER};
     }
 
     public boolean isCollaborator(final Role role) {

@@ -28,7 +28,6 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
- *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 class JpaSignupRequestRepository extends JpaAutoTxRepository<SignupRequest, Username, Username>

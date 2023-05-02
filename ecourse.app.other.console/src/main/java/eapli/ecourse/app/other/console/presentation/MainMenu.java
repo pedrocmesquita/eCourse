@@ -23,8 +23,8 @@
  */
 package eapli.ecourse.app.other.console.presentation;
 
-import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.Application;
+import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;

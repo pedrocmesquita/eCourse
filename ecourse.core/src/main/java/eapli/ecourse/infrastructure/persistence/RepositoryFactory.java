@@ -28,7 +28,6 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
 /**
  * @author Paulo Gandra Sousa
- *
  */
 public interface RepositoryFactory {
 
@@ -40,9 +39,7 @@ public interface RepositoryFactory {
     TransactionalContext newTransactionalContext();
 
     /**
-     *
-     * @param autoTx
-     *            the transactional context to enrol
+     * @param autoTx the transactional context to enrol
      * @return
      */
     UserRepository users(TransactionalContext autoTx);
@@ -55,9 +52,7 @@ public interface RepositoryFactory {
     UserRepository users();
 
     /**
-     *
-     * @param autoTx
-     *            the transactional context to enroll
+     * @param autoTx the transactional context to enroll
      * @return
      */
     ClientUserRepository clientUsers(TransactionalContext autoTx);
@@ -70,9 +65,7 @@ public interface RepositoryFactory {
     ClientUserRepository clientUsers();
 
     /**
-     *
-     * @param autoTx
-     *            the transactional context to enroll
+     * @param autoTx the transactional context to enroll
      * @return
      */
     SignupRequestRepository signupRequests(TransactionalContext autoTx);

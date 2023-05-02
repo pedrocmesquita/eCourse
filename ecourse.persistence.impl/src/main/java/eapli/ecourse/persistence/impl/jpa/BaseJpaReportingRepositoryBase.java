@@ -28,7 +28,6 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalCont
  *
  * @param <T>
  * @param <K>
- *
  * @author Paulo Gandra de Sousa
  */
 /* package */ class BaseJpaReportingRepositoryBase extends JpaTransactionalContext {

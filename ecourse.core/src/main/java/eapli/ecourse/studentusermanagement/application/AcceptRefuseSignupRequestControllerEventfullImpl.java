@@ -23,12 +23,10 @@
  */
 package eapli.ecourse.studentusermanagement.application;
 
-import org.springframework.transaction.annotation.Transactional;
-
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.studentusermanagement.domain.SignupRequest;
 import eapli.ecourse.studentusermanagement.domain.events.SignupAcceptedEvent;
 import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
-import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.events.DomainEvent;
@@ -39,10 +37,11 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.pubsub.EventPublisher;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
 import eapli.framework.validations.Preconditions;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * the controller for the use case "Accept or refuse signup request"
- *
+ * <p>
  * this implementation makes use of domain events to (1) follow the rule that
  * one controller should only modify one aggregate, and (2) notify other parts
  * of the system to react accordingly. For an alternative transactional approach
@@ -53,59 +52,58 @@ import eapli.framework.validations.Preconditions;
 @UseCaseController
 public class AcceptRefuseSignupRequestControllerEventfullImpl implements AcceptRefuseSignupRequestController {
 
-	private final SignupRequestRepository signupRequestsRepository = PersistenceContext.repositories().signupRequests();
-	private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
-	private final EventPublisher dispatcher = InProcessPubSub.publisher();
+    private final SignupRequestRepository signupRequestsRepository = PersistenceContext.repositories().signupRequests();
+    private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
+    private final EventPublisher dispatcher = InProcessPubSub.publisher();
 
-	@Override
-	@SuppressWarnings("squid:S1226")
-	public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest) {
-		authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+    @Override
+    @SuppressWarnings("squid:S1226")
+    public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest) {
+        authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
-		Preconditions.nonNull(theSignupRequest);
+        Preconditions.nonNull(theSignupRequest);
 
-		theSignupRequest = markSignupRequestAsAccepted(theSignupRequest);
-		return theSignupRequest;
-	}
+        theSignupRequest = markSignupRequestAsAccepted(theSignupRequest);
+        return theSignupRequest;
+    }
 
-	/**
-	 * modify Signup Request to accepted
-	 *
-	 * @param theSignupRequest
-	 * @return
-	 * @throws ConcurrencyException
-	 * @throws IntegrityViolationException
-	 */
-	@SuppressWarnings("squid:S1226")
-	private SignupRequest markSignupRequestAsAccepted(SignupRequest theSignupRequest) {
-		// do just what is needed in the scope of this use case
-		theSignupRequest.accept();
-		theSignupRequest = signupRequestsRepository.save(theSignupRequest);
+    /**
+     * modify Signup Request to accepted
+     *
+     * @param theSignupRequest
+     * @return
+     * @throws ConcurrencyException
+     * @throws IntegrityViolationException
+     */
+    @SuppressWarnings("squid:S1226")
+    private SignupRequest markSignupRequestAsAccepted(SignupRequest theSignupRequest) {
+        // do just what is needed in the scope of this use case
+        theSignupRequest.accept();
+        theSignupRequest = signupRequestsRepository.save(theSignupRequest);
 
-		// notify interested parties (if any)
-		final DomainEvent event = new SignupAcceptedEvent(theSignupRequest);
-		dispatcher.publish(event);
+        // notify interested parties (if any)
+        final DomainEvent event = new SignupAcceptedEvent(theSignupRequest);
+        dispatcher.publish(event);
 
-		return theSignupRequest;
-	}
+        return theSignupRequest;
+    }
 
-	@Override
-	@Transactional
-	public SignupRequest refuseSignupRequest(final SignupRequest theSignupRequest) {
-		authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+    @Override
+    @Transactional
+    public SignupRequest refuseSignupRequest(final SignupRequest theSignupRequest) {
+        authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
-		Preconditions.nonNull(theSignupRequest);
+        Preconditions.nonNull(theSignupRequest);
 
-		theSignupRequest.refuse();
-		return signupRequestsRepository.save(theSignupRequest);
-	}
+        theSignupRequest.refuse();
+        return signupRequestsRepository.save(theSignupRequest);
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	@Override
-	public Iterable<SignupRequest> listPendingSignupRequests() {
-		return signupRequestsRepository.pendingSignupRequests();
-	}
+    /**
+     * @return
+     */
+    @Override
+    public Iterable<SignupRequest> listPendingSignupRequests() {
+        return signupRequestsRepository.pendingSignupRequests();
+    }
 }

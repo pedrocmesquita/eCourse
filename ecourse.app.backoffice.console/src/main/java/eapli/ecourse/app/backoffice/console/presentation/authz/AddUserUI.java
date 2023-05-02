@@ -23,9 +23,6 @@
  */
 package eapli.ecourse.app.backoffice.console.presentation.authz;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import eapli.ecourse.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -39,9 +36,12 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * UI for adding a user to the application.
- *
+ * <p>
  * Created by nuno on 22/03/16.
  */
 public class AddUserUI extends AbstractUI {

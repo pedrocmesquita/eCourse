@@ -35,7 +35,7 @@ import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
  * a persistent mechanism like a database or file system in order not to loose
  * data.
  * <p>
- *
+ * <p>
  * Each repository must call this static initialiser, e.g.:
  *
  * <pre>
@@ -54,25 +54,25 @@ import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
  */
 final class InMemoryInitializer {
 
-	private static class LazyHolder {
-		private static final InMemoryInitializer INSTANCE = new InMemoryInitializer();
+    private InMemoryInitializer() {
+        // to ensure some default test data is available, specially when using
+        // in memory persistence
+        new BaseBootstrapper().execute();
+    }
 
-		private LazyHolder() {
-		}
-	}
+    public static void init() {
+        LazyHolder.INSTANCE.initialize();
+    }
 
-	private InMemoryInitializer() {
-		// to ensure some default test data is available, specially when using
-		// in memory persistence
-		new BaseBootstrapper().execute();
-	}
+    private void initialize() {
+        // nothing to do; data has already been initialized in the singleton
+        // constructor.
+    }
 
-	private void initialize() {
-		// nothing to do; data has already been initialized in the singleton
-		// constructor.
-	}
+    private static class LazyHolder {
+        private static final InMemoryInitializer INSTANCE = new InMemoryInitializer();
 
-	public static void init() {
-		LazyHolder.INSTANCE.initialize();
-	}
+        private LazyHolder() {
+        }
+    }
 }

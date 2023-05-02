@@ -30,7 +30,6 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
  * @author Paulo Gandra de Sousa
- *
  */
 public class SignupAcceptedEvent extends DomainEventBase {
 

@@ -20,20 +20,19 @@
  */
 package eapli.ecourse.persistence.impl.jpa;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import eapli.ecourse.Application;
-import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.studentusermanagement.domain.MecanographicNumber;
+import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 /**
- *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 class JpaStudentUserRepository

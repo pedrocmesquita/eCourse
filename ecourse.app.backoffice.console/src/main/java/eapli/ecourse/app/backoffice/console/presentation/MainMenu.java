@@ -23,13 +23,14 @@
  */
 package eapli.ecourse.app.backoffice.console.presentation;
 
-import eapli.ecourse.app.backoffice.console.presentation.course.CreateCourseUI;
-import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.Application;
 import eapli.ecourse.app.backoffice.console.presentation.authz.AddUserUI;
 import eapli.ecourse.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import eapli.ecourse.app.backoffice.console.presentation.authz.ListUsersAction;
 import eapli.ecourse.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
+import eapli.ecourse.app.backoffice.console.presentation.course.CreateCourseUI;
+import eapli.ecourse.app.backoffice.console.presentation.course.ListCourseUI;
+import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -63,6 +64,7 @@ public class MainMenu extends AbstractUI {
 
     //COURSE
     private static final int CREATE_COURSE = 1;
+    private static final int ALL_COURSE = 2;
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -160,11 +162,11 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Courses >");
 
         menu.addItem(CREATE_COURSE, "Create Course", new CreateCourseUI()::show);
+        menu.addItem(ALL_COURSE, "All Course", new ListCourseUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
     }
-
 
 
 }

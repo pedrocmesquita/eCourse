@@ -12,31 +12,31 @@ import org.slf4j.LoggerFactory;
 public class CreateCourseUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateCourseUI.class);
-
-    private final CreateCourseController controller = new CreateCourseController();
     private static final Integer DESCRIPTION_CARACTER_LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
+    private final CreateCourseController controller = new CreateCourseController();
 
     @Override
     protected boolean doShow() {
         String name = Console.readLine("Name");
         String description = Console.readLine("Description (max " + DESCRIPTION_CARACTER_LIMIT + " characters)");
-        Integer minEnroll = null;
-        Integer maxEnroll = null;
         System.out.println("\nAdd enrollment limits?\n");
         System.out.println("1. Yes");
         System.out.println("2. No");
         int option = Console.readOption(1, 1, 2);
-        if(option == 1) {
-            minEnroll = Console.readInteger("Minimum enrollment limit");
-            maxEnroll = Console.readInteger("Maximum enrollment limit");
-        }
         try {
-        controller.createCourse(name, description, minEnroll, maxEnroll);
-    } catch (IntegrityViolationException | ConcurrencyException ex) {
+            if (option == 1) {
+                Integer minEnroll = Console.readInteger("Minimum enrollment limit");
+                Integer maxEnroll = Console.readInteger("Maximum enrollment limit");
+                controller.createCourse(name, description, minEnroll, maxEnroll);
+            } else {
+                controller.createCourse(name, description);
+            }
+            System.out.println("Course created with success!");
+        } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
-        System.out.println("Unfortunatelly there was an unexpected error in the application. " +
-                "Please try again and if the problem persists, contact your system admnistrator.");
-    }
+            System.out.println("Unfortunatelly there was an unexpected error in the application. " +
+                    "Please try again and if the problem persists, contact your system admnistrator.");
+        }
         return false;
     }
 

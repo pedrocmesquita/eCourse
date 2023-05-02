@@ -23,21 +23,19 @@
  */
 package eapli.ecourse.studentusermanagement.application.eventhandlers;
 
-import java.util.Optional;
-
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.studentusermanagement.domain.StudentUserBuilder;
 import eapli.ecourse.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
-import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.functional.Functions;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
+import java.util.Optional;
+
 /**
- *
  * @author Paulo Gandra de Sousa
- *
  */
 /* package */ class AddStudentUserOnSignupAcceptedController {
 

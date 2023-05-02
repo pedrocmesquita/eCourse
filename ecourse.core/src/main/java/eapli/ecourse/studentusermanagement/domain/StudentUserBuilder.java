@@ -25,7 +25,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 /**
  * A factory for User entities.
- *
+ * <p>
  * This class demonstrates the use of the factory (DDD) pattern using a fluent
  * interface. it acts as a Builder (GoF).
  *

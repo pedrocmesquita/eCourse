@@ -20,13 +20,13 @@
  */
 package eapli.ecourse.infrastructure.bootstrapers.demo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import eapli.ecourse.infrastructure.bootstrapers.UsersBootstrapperBase;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Paulo Gandra Sousa
@@ -45,7 +45,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerCashier(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                 final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CASHIER);
 
@@ -53,7 +53,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerKitchenManager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                        final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.KITCHEN_MANAGER);
 
@@ -61,7 +61,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerMenuManager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                     final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.MENU_MANAGER);
 

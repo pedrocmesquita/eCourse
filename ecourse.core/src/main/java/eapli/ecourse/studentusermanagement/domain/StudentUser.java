@@ -23,25 +23,27 @@
  */
 package eapli.ecourse.studentusermanagement.domain;
 
-import javax.persistence.*;
-
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Version;
+
 /**
  * A Client User.
- *
+ * <p>
  * This class represents client users. It follows a DDD approach where User
  * is the root entity of the Base User Aggregate and all of its properties
  * are instances of value objects. A Client User references a System User
- *
+ * <p>
  * This approach may seem a little more complex than just having String or
  * native type attributes but provides for real semantic of the domain and
  * follows the Single Responsibility Pattern
  *
  * @author Jorge Santos ajs@isep.ipp.pt
- *
  */
 @Entity
 public class StudentUser implements AggregateRoot<MecanographicNumber> {

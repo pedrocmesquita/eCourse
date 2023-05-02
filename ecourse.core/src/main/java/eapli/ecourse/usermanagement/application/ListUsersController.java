@@ -23,8 +23,6 @@
  */
 package eapli.ecourse.usermanagement.application;
 
-import java.util.Optional;
-
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -33,12 +31,13 @@ import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import java.util.Optional;
+
 /**
- *
  * @author losa
  */
 @UseCaseController
-public class ListUsersController{
+public class ListUsersController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();

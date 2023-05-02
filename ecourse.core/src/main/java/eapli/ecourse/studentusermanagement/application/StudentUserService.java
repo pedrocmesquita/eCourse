@@ -23,10 +23,10 @@
  */
 package eapli.ecourse.studentusermanagement.application;
 
-import eapli.ecourse.studentusermanagement.domain.StudentUser;
-import eapli.ecourse.studentusermanagement.domain.MecanographicNumber;
-import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
+import eapli.ecourse.studentusermanagement.domain.MecanographicNumber;
+import eapli.ecourse.studentusermanagement.domain.StudentUser;
+import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

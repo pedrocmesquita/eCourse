@@ -20,16 +20,15 @@
  */
 package eapli.ecourse.persistence.impl.inmemory;
 
-import java.util.Optional;
-
-import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.studentusermanagement.domain.MecanographicNumber;
+import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
+import java.util.Optional;
+
 /**
- *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public class InMemoryClientUserRepository

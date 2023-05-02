@@ -23,16 +23,6 @@
  */
 package eapli.ecourse.studentusermanagement.domain;
 
-import java.util.Calendar;
-
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
-
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.EmailAddress;
@@ -40,6 +30,9 @@ import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.authz.domain.model.Password;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.validations.Preconditions;
+
+import javax.persistence.*;
+import java.util.Calendar;
 
 /**
  * A Signup Request. This class represents the Signup Request created right
@@ -52,7 +45,6 @@ import eapli.framework.validations.Preconditions;
  * follows the Single Responsibility Pattern.
  *
  * @author Jorge Santos ajs@isep.ipp.pt
- *
  */
 @Entity
 public class SignupRequest implements AggregateRoot<Username> {
@@ -76,8 +68,8 @@ public class SignupRequest implements AggregateRoot<Username> {
     private Calendar createdOn;
 
     /* package */ SignupRequest(final Username username, final Password password, final Name name,
-            final EmailAddress email, final MecanographicNumber mecanographicNumber,
-            final Calendar createdOn) {
+                                final EmailAddress email, final MecanographicNumber mecanographicNumber,
+                                final Calendar createdOn) {
         Preconditions.noneNull(username, password, name, email, mecanographicNumber);
 
         this.username = username;

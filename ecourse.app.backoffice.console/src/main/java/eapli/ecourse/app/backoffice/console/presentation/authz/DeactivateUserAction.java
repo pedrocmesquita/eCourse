@@ -23,7 +23,6 @@ package eapli.ecourse.app.backoffice.console.presentation.authz;
 import eapli.framework.actions.Action;
 
 /**
- *
  * @author Fernando
  */
 public class DeactivateUserAction implements Action {

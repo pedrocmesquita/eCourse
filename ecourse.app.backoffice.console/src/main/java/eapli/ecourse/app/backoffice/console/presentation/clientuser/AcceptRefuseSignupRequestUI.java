@@ -20,9 +20,6 @@
  */
 package eapli.ecourse.app.backoffice.console.presentation.clientuser;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import eapli.ecourse.studentusermanagement.application.AcceptRefuseSignupFactory;
 import eapli.ecourse.studentusermanagement.application.AcceptRefuseSignupRequestController;
 import eapli.ecourse.studentusermanagement.domain.SignupRequest;
@@ -31,9 +28,10 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- *
  * Created by AJS on 08/04/2016.
  */
 @SuppressWarnings("squid:S106")
@@ -57,15 +55,15 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
             final int option = Console.readOption(1, 2, 0);
             try {
                 switch (option) {
-                case 1:
-                    this.theController.acceptSignupRequest(theSignupRequest);
-                    break;
-                case 2:
-                    this.theController.refuseSignupRequest(theSignupRequest);
-                    break;
-                default:
-                    System.out.println("No valid option selected");
-                    break;
+                    case 1:
+                        this.theController.acceptSignupRequest(theSignupRequest);
+                        break;
+                    case 2:
+                        this.theController.refuseSignupRequest(theSignupRequest);
+                        break;
+                    default:
+                        System.out.println("No valid option selected");
+                        break;
                 }
             } catch (IntegrityViolationException | ConcurrencyException ex) {
                 LOGGER.error("Error performing the operation", ex);

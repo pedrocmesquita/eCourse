@@ -20,19 +20,18 @@
  */
 package eapli.ecourse.mystudentuser.application;
 
-import java.util.Optional;
-
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
-import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import java.util.Optional;
+
 /**
- *
  * @author Paulo Gandra de Sousa
  */
 public class MyStudentUserService {

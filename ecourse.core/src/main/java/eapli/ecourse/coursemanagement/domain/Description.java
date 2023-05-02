@@ -2,6 +2,7 @@ package eapli.ecourse.coursemanagement.domain;
 
 import eapli.ecourse.Application;
 import eapli.framework.domain.model.ValueObject;
+import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Embeddable;
 import java.util.Objects;
@@ -9,18 +10,39 @@ import java.util.Objects;
 @Embeddable
 public class Description implements ValueObject {
 
-    private static final long serialVersionUID = 1L;
-
     private String description;
 
     public Description() {
         //ORM only
     }
 
+    /**
+     * Constructor
+     *
+     * @param description
+     */
     public Description(String description) {
-        if(description.length() > Application.settings().getCourseDescriptionCharacterLimit())
+        setDescription(description);
+    }
+
+    /**
+     * Validates if description doesnt excess value defined in config file, then sets description
+     */
+    private void setDescription(String description) {
+        if (StringPredicates.isNullOrEmpty(description)) {
+            throw new IllegalArgumentException("Description cannot be null or empty");
+        }
+        if (description.length() > Application.settings().getCourseDescriptionCharacterLimit())
             throw new IllegalArgumentException("Description excess character limit");
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Description that = (Description) o;
+        return Objects.equals(description, that.description);
     }
 
     @Override
@@ -30,6 +52,6 @@ public class Description implements ValueObject {
 
     @Override
     public String toString() {
-        return description;
+        return "Description: " + description;
     }
 }

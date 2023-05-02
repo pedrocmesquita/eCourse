@@ -20,17 +20,15 @@
  */
 package eapli.ecourse.app.student.console.presentation.myuser;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import eapli.ecourse.mystudentuser.application.SignupController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 @SuppressWarnings("squid:S106")

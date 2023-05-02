@@ -36,7 +36,6 @@ import eapli.framework.strings.util.StringPredicates;
  * for example rules of password strength
  *
  * @author Paulo Gandra de Sousa 24/05/2019
- *
  */
 public class BasePasswordPolicy implements PasswordPolicy {
 
@@ -75,9 +74,7 @@ public class BasePasswordPolicy implements PasswordPolicy {
      * https://documentation.cpanel.net/display/CKB/How+to+Determine+Password+Strength
      * for example rules of password strength
      *
-     * @param rawPassword
-     *            the string to check
-     *
+     * @param rawPassword the string to check
      * @return how strong a password is
      */
     public PasswordStrength strength(final String rawPassword) {

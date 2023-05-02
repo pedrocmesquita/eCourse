@@ -30,7 +30,6 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
  * @author Paulo Gandra de Sousa
- *
  */
 public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements DomainEvent {
 
@@ -40,7 +39,7 @@ public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements
     private final Username newUser;
 
     public NewUserRegisteredFromSignupEvent(final MecanographicNumber mecanographicNumber,
-            final Username newUser) {
+                                            final Username newUser) {
         this.mecanographicNumber = mecanographicNumber;
         this.newUser = newUser;
     }

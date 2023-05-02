@@ -35,10 +35,8 @@ public class LoginAction implements Action {
     }
 
     /**
-     *
-     * @param onlyWithThis
-     *            only if the user has this specific action right will be
-     *            allowed to login
+     * @param onlyWithThis only if the user has this specific action right will be
+     *                     allowed to login
      */
     public LoginAction(final Role onlyWithThis) {
         this.onlyWithThis = onlyWithThis;

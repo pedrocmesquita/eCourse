@@ -24,7 +24,7 @@ import eapli.framework.io.util.Console;
 
 /**
  * TODO move to console.common to allow reuse from both backoffice and UtenteApp
- *
+ * <p>
  * widget for reading user data Jorge Santos ajs@isp.ipp.pt
  */
 class UserDataWidget {

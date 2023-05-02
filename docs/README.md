@@ -13,7 +13,6 @@ The members of the group:
 | **[1201424](1201424/readme.md)** | João Torres    |
 | **[1212123](1212123/readme.md)** | Harry Laranja  |
 
-
 ## 2. Task Assignment
 
 The assignment of tasks (requirements/user stories/use cases) during the project.
@@ -27,13 +26,19 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 | [1201424](1201424/readme.md) | none                                                                   | TBD                                                                                                                                                                  | TBD      |
 | [1212123](1212123/readme.md) | none                                                                   | TBD                                                                                                                                                                  | TBD      |
 
-
 [comment]: <> ()
+
 [comment]: <> (Markdown Comment)
+
 [comment]: <> (G001 - As Project Manager, I want the team to follow the technical constraints and concerns of the project )
+
 [comment]: <> (G002 - As Project Manager, I want the team to elaborate a Domain Model using DDD.)
+
 [comment]: <> (G003 - As Project Manager, I want the team to use the defined project repository and continuous integration server.)
+
 [comment]: <> (G004 - As Project Manager, I want the team to add to the project the necessary scripts, so that build/executions/deployments/... can be executed effortlessly.)
+
 [comment]: <> (G005 - As Project Manager, I want the team to configure the project structure to facilitate / accelerate the development of upcoming user stories.)
+
 [comment]: <> (G006 - As a Project Managers, I want the system to support and apply authentication and authorization for all its users and functionalities.)
 

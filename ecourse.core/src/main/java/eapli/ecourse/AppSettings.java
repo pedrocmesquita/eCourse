@@ -20,15 +20,15 @@
  */
 package eapli.ecourse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * the application settings.
@@ -98,7 +98,7 @@ public class AppSettings {
         return Integer.valueOf(this.applicationProperties.getProperty(COURSE_DESCRIPTION_CHARACTER_LIMIT));
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Map getExtendedPersistenceProperties() {
         final Map ret = new HashMap();
         ret.put(SCHEMA_GENERATION_KEY,

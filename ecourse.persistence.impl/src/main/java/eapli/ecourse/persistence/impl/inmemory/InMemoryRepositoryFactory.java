@@ -20,73 +20,71 @@
  */
 package eapli.ecourse.persistence.impl.inmemory;
 
-import eapli.ecourse.Application;
+import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
+import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
 import eapli.ecourse.persistence.impl.jpa.JpaCourseRepository;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
-import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
-import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
 
 /**
- *
  * @author nuno on 20/03/16.
  */
 public class InMemoryRepositoryFactory implements RepositoryFactory {
 
-	static {
-		// only needed because of the in memory persistence
-		new BaseBootstrapper().execute();
-	}
+    static {
+        // only needed because of the in memory persistence
+        new BaseBootstrapper().execute();
+    }
 
-	@Override
-	public UserRepository users(final TransactionalContext tx) {
-		return new InMemoryUserRepository();
-	}
+    @Override
+    public UserRepository users(final TransactionalContext tx) {
+        return new InMemoryUserRepository();
+    }
 
-	@Override
-	public UserRepository users() {
-		return users(null);
-	}
+    @Override
+    public UserRepository users() {
+        return users(null);
+    }
 
-	@Override
-	public ClientUserRepository clientUsers(final TransactionalContext tx) {
+    @Override
+    public ClientUserRepository clientUsers(final TransactionalContext tx) {
 
-		return new InMemoryClientUserRepository();
-	}
+        return new InMemoryClientUserRepository();
+    }
 
-	@Override
-	public ClientUserRepository clientUsers() {
-		return clientUsers(null);
-	}
+    @Override
+    public ClientUserRepository clientUsers() {
+        return clientUsers(null);
+    }
 
-	@Override
-	public SignupRequestRepository signupRequests() {
-		return signupRequests(null);
-	}
+    @Override
+    public SignupRequestRepository signupRequests() {
+        return signupRequests(null);
+    }
 
-	@Override
-	public SignupRequestRepository signupRequests(final TransactionalContext tx) {
-		return new InMemorySignupRequestRepository();
-	}
+    @Override
+    public SignupRequestRepository signupRequests(final TransactionalContext tx) {
+        return new InMemorySignupRequestRepository();
+    }
 
-	//todo in memory
-	@Override
-	public JpaCourseRepository courses(final TransactionalContext autoTx) {
-		return null;
-	}
+    //todo in memory
+    @Override
+    public JpaCourseRepository courses(final TransactionalContext autoTx) {
+        return null;
+    }
 
-	@Override
-	public JpaCourseRepository courses() {
-		return null;
-	}
+    @Override
+    public JpaCourseRepository courses() {
+        return null;
+    }
 
-	@Override
-	public TransactionalContext newTransactionalContext() {
-		// in memory does not support transactions...
-		return null;
-	}
+    @Override
+    public TransactionalContext newTransactionalContext() {
+        // in memory does not support transactions...
+        return null;
+    }
 
 }

@@ -21,65 +21,63 @@
 package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
-import eapli.ecourse.coursemanagement.repositories.CourseRepository;
-import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
+import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserRepository;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
- *
  * @author nuno on 21/03/16.
  */
 public class JpaRepositoryFactory implements RepositoryFactory {
 
-	@Override
-	public UserRepository users(final TransactionalContext autoTx) {
-		return new JpaAutoTxUserRepository(autoTx);
-	}
+    @Override
+    public UserRepository users(final TransactionalContext autoTx) {
+        return new JpaAutoTxUserRepository(autoTx);
+    }
 
-	@Override
-	public UserRepository users() {
-		return new JpaAutoTxUserRepository(Application.settings().getPersistenceUnitName(),
-				Application.settings().getExtendedPersistenceProperties());
-	}
+    @Override
+    public UserRepository users() {
+        return new JpaAutoTxUserRepository(Application.settings().getPersistenceUnitName(),
+                Application.settings().getExtendedPersistenceProperties());
+    }
 
-	@Override
-	public JpaStudentUserRepository clientUsers(final TransactionalContext autoTx) {
-		return new JpaStudentUserRepository(autoTx);
-	}
+    @Override
+    public JpaStudentUserRepository clientUsers(final TransactionalContext autoTx) {
+        return new JpaStudentUserRepository(autoTx);
+    }
 
-	@Override
-	public JpaStudentUserRepository clientUsers() {
-		return new JpaStudentUserRepository(Application.settings().getPersistenceUnitName());
-	}
+    @Override
+    public JpaStudentUserRepository clientUsers() {
+        return new JpaStudentUserRepository(Application.settings().getPersistenceUnitName());
+    }
 
-	@Override
-	public SignupRequestRepository signupRequests(final TransactionalContext autoTx) {
-		return new JpaSignupRequestRepository(autoTx);
-	}
+    @Override
+    public SignupRequestRepository signupRequests(final TransactionalContext autoTx) {
+        return new JpaSignupRequestRepository(autoTx);
+    }
 
-	@Override
-	public SignupRequestRepository signupRequests() {
-		return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
-	}
+    @Override
+    public SignupRequestRepository signupRequests() {
+        return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
+    }
 
-	@Override
-	public JpaCourseRepository courses(final TransactionalContext autoTx) {
-		return new JpaCourseRepository(autoTx);
-	}
+    @Override
+    public JpaCourseRepository courses(final TransactionalContext autoTx) {
+        return new JpaCourseRepository(autoTx);
+    }
 
-	@Override
-	public JpaCourseRepository courses() {
-		return new JpaCourseRepository(Application.settings().getPersistenceUnitName());
-	}
+    @Override
+    public JpaCourseRepository courses() {
+        return new JpaCourseRepository(Application.settings().getPersistenceUnitName());
+    }
 
-	@Override
-	public TransactionalContext newTransactionalContext() {
-		return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
-				Application.settings().getExtendedPersistenceProperties());
-	}
+    @Override
+    public TransactionalContext newTransactionalContext() {
+        return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
+                Application.settings().getExtendedPersistenceProperties());
+    }
 
 }

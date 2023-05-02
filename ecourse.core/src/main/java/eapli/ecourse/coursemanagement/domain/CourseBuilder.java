@@ -6,12 +6,7 @@ public class CourseBuilder implements DomainFactory<Course> {
 
     private Name name;
     private Description description;
-    private EnrollLimit enrollLimit;
-
-    public CourseBuilder withName(Name name) {
-        this.name = name;
-        return this;
-    }
+    private EnrollLimit enrollLimit = null;
 
     public CourseBuilder withName(String name) {
         this.name = new Name(name);

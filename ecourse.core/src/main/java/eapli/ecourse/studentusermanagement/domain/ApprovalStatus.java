@@ -21,7 +21,6 @@
 package eapli.ecourse.studentusermanagement.domain;
 
 /**
- *
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 public enum ApprovalStatus {
