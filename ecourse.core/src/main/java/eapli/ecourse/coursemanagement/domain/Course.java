@@ -50,6 +50,57 @@ public class Course implements AggregateRoot<Name> {
         this.state = State.CLOSED;
     }
 
+    public Name getName() {
+        return identity();
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public EnrollLimit getEnrollLimit() {
+        return enrollLimit;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public void toggleOpenClose() {
+        if (this.state.equals(State.CLOSED)) {
+            open();
+        } else if (this.state.equals(State.OPEN) || this.state.equals(State.PROGRESS)) {
+            close();
+        } else {
+            throw new IllegalStateException("Cannot open/close course that is in enrollment state");
+        }
+    }
+
+    private void open() {
+        this.setState(State.OPEN);
+    }
+
+    private void close() {
+        //todo check activity
+        this.setState(State.CLOSED);
+    }
+
+    public void toggleOpenCloseEnroll() {
+        if (this.state.equals(State.OPEN)) {
+            this.setState(State.ENROLL);
+        } else if (this.state.equals(State.ENROLL)) {
+            //todo check teacher leader assigned
+            this.setState(State.PROGRESS);
+        } else {
+            throw new IllegalStateException("Cannot open/close enrollment of a course that is closed");
+        }
+    }
+
+
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
@@ -75,22 +126,6 @@ public class Course implements AggregateRoot<Name> {
                 && enrollLimit.equals(that.enrollLimit) && state.equals(that.state);
     }
 
-    public Name getName() {
-        return identity();
-    }
-
-    public Description getDescription() {
-        return description;
-    }
-
-    public EnrollLimit getEnrollLimit() {
-        return enrollLimit;
-    }
-
-    public State getState() {
-        return state;
-    }
-
     @Override
     public Name identity() {
         return this.name;
@@ -98,9 +133,6 @@ public class Course implements AggregateRoot<Name> {
 
     @Override
     public String toString() {
-        return name.toString() + "\n"
-                + description.toString() + "\n"
-                + (enrollLimit == null ? "" : enrollLimit + "\n")
-                + state.name();
+        return name.toString();
     }
 }

@@ -5,9 +5,11 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
+@Entity
 public class TeacherUser implements AggregateRoot<Acronym> {
     @Version
     private Long version;

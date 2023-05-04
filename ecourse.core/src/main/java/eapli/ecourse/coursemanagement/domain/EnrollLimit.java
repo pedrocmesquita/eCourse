@@ -39,6 +39,22 @@ public class EnrollLimit implements ValueObject {
         this.maxEnroll = maxEnroll;
     }
 
+    public Integer getMinEnroll() {
+        return minEnroll;
+    }
+
+    public void setMinEnroll(Integer minEnroll) {
+        this.minEnroll = minEnroll;
+    }
+
+    public Integer getMaxEnroll() {
+        return maxEnroll;
+    }
+
+    public void setMaxEnroll(Integer maxEnroll) {
+        this.maxEnroll = maxEnroll;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,7 +70,8 @@ public class EnrollLimit implements ValueObject {
 
     @Override
     public String toString() {
-        return "Minimum Enrollment: " + (minEnroll == null ? "0" : minEnroll)
-                + "\nMaximum Enrollment: " + (maxEnroll == null ? "0" : maxEnroll);
+//        return "Minimum Enrollment: " + (minEnroll == null ? "0" : minEnroll)
+//                + "\nMaximum Enrollment: " + (maxEnroll == null ? "0" : maxEnroll);
+        return minEnroll.toString() + maxEnroll.toString();
     }
 }

@@ -23,19 +23,34 @@ public class ListCourseService {
         return courseRepository.findAllCoursesWithState(State.CLOSED);
     }
 
-    public Iterable<Course> allOpenCourses() {
+    public Iterable<Course> allNotClosedCourses() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.TEACHER);
         return courseRepository.findAllCoursesWithOtherState(State.CLOSED);
     }
 
+    public Iterable<Course> allOpenCourses() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.TEACHER);
+        return courseRepository.findAllCoursesWithState(State.OPEN);
+    }
+
     public Iterable<Course> allEnrollCourses() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.STUDENT);
+        return courseRepository.findAllCoursesWithState(State.ENROLL);
+    }
+
+    public Iterable<Course> allNotEnrollCourses() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER);
         return courseRepository.findAllCoursesWithOtherState(State.ENROLL);
     }
 
     public Iterable<Course> allProgressCourses() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        return courseRepository.findAllCoursesWithOtherState(State.PROGRESS);
+        return courseRepository.findAllCoursesWithState(State.PROGRESS);
+    }
+
+    public Iterable<Course> allCoursesEnrollOrProgress() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER);
+        return courseRepository.findAllCoursesEnrollOrProgressState();
     }
 
     public Iterable<Course> allCourses() {

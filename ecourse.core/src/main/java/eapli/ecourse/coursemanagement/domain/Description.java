@@ -45,6 +45,10 @@ public class Description implements ValueObject {
         return Objects.equals(description, that.description);
     }
 
+    public void tesssss() {
+
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(description);
@@ -52,6 +56,6 @@ public class Description implements ValueObject {
 
     @Override
     public String toString() {
-        return "Description: " + description;
+        return this.description;
     }
 }

@@ -54,7 +54,7 @@ public class Name implements ValueObject, Comparable<Name> {
 
     @Override
     public String toString() {
-        return "Name: " + name;
+        return this.name;
     }
 
     @Override

@@ -30,6 +30,8 @@ import eapli.ecourse.app.backoffice.console.presentation.authz.ListUsersAction;
 import eapli.ecourse.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
 import eapli.ecourse.app.backoffice.console.presentation.course.CreateCourseUI;
 import eapli.ecourse.app.backoffice.console.presentation.course.ListCourseUI;
+import eapli.ecourse.app.backoffice.console.presentation.course.OpenCloseCourseUI;
+import eapli.ecourse.app.backoffice.console.presentation.course.OpenCloseEnrollmentUI;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
@@ -64,7 +66,9 @@ public class MainMenu extends AbstractUI {
 
     //COURSE
     private static final int CREATE_COURSE = 1;
-    private static final int ALL_COURSE = 2;
+    private static final int LIST_COURSE = 2;
+    private static final int OPEN_CLOSE_COURSE = 3;
+    private static final int OPEN_CLOSE_ENROLL = 4;
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -162,7 +166,9 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Courses >");
 
         menu.addItem(CREATE_COURSE, "Create Course", new CreateCourseUI()::show);
-        menu.addItem(ALL_COURSE, "All Course", new ListCourseUI()::show);
+        menu.addItem(LIST_COURSE, "List Courses", new ListCourseUI()::show);
+        menu.addItem(OPEN_CLOSE_COURSE, "Open/Close Courses", new OpenCloseCourseUI()::show);
+        menu.addItem(OPEN_CLOSE_ENROLL, "Open/Close Enrollments", new OpenCloseEnrollmentUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

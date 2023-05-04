@@ -22,4 +22,11 @@ public interface CourseRepository extends DomainRepository<Name, Course> {
      * @return
      */
     Iterable<Course> findAllCoursesWithOtherState(State state);
+
+    /**
+     * Finds all course in enroll or progress state
+     *
+     * @return
+     */
+    Iterable<Course> findAllCoursesEnrollOrProgressState();
 }
