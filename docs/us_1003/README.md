@@ -17,7 +17,7 @@ As Manager, I want to open and close enrollments in courses.
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+![a class diagram](class-diagram-01.svg)
 
 ### 4.3. Applied Patterns
 
