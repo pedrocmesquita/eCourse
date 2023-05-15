@@ -25,6 +25,7 @@ import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
 import eapli.ecourse.persistence.impl.jpa.JpaCourseRepository;
 import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
+import eapli.ecourse.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
@@ -78,6 +79,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JpaCourseRepository courses() {
+        return null;
+    }
+
+    @Override
+    public TeacherUserRepository teacherUsers(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public TeacherUserRepository teacherUsers() {
         return null;
     }
 
