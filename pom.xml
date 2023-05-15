@@ -29,6 +29,7 @@
         <module>ecourse.bootstrappers</module>
         <module>ecourse.core</module>
         <module>ecourse.persistence.impl</module>
+        <module>eCourse.util.ci</module>
     </modules>
 
     <dependencies>
