@@ -48,9 +48,9 @@ public class ListCourseService {
         return courseRepository.findAllCoursesWithState(State.PROGRESS);
     }
 
-    public Iterable<Course> allCoursesEnrollOrProgress() {
+    public Iterable<Course> allCoursesOpenOrProgress() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        return courseRepository.findAllCoursesEnrollOrProgressState();
+        return courseRepository.findAllCoursesOpenOrProgressState();
     }
 
     public Iterable<Course> allCourses() {
