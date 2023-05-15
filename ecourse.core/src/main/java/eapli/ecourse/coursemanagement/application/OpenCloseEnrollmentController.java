@@ -4,16 +4,18 @@ import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
+import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+@UseCaseController
 public class OpenCloseEnrollmentController {
     private final ListCourseService service = new ListCourseService();
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
 
     public Iterable<Course> allCoursesEnrollOrProgress() {
-        return service.allCoursesEnrollOrProgress();
+        return service.allCoursesOpenOrProgress();
     }
 
     public Course toggleOpenCloseEnroll(Course course) {

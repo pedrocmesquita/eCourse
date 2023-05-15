@@ -4,10 +4,15 @@ As Manager, I want to open and close enrollments in courses.
 
 ## 1. Context
 
+The goal of this US is to change the state of a course from 'open' to 'enroll', and 'enroll' to 'open'.
+While in state 'enroll', students can request to enroll in that course.
+
+
 ## 2. Requirements
 
 * FRC02 - Only managers are able to execute this functionality
-* A course must be open to open enrollments (refer to us_1004)
+* A course must be in state open to open enrollments (refer to us_1004)
+* To close enrollment, change back to open
 
 ## 3. Analysis
 
