@@ -3,8 +3,7 @@ package eapli.ecourse.coursemanagement.domain;
 import eapli.ecourse.Application;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {
 
@@ -42,30 +41,32 @@ public class CourseTest {
     }
 
     @Test
-    public void ensureCourseEqualsSameAttributes() throws Exception {
+    public void ensureCourseSameEqualAttributes() throws Exception {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
-        assertEquals(course1, course2);
+        assertTrue(course1.sameAs(course2));
     }
 
     @Test
-    public void ensureCourseNotEqualsDifferentName() throws Exception {
+    public void ensureCourseNotSameDifferentName() throws Exception {
         Course course1 = new CourseBuilder().withName("Java-2").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
-        assertNotEquals(course1, course2);
+        assertFalse(course1.sameAs(course2));
     }
 
-//    @Test
-//    public void ensureCourseNotEqualsDifferentDescription() throws Exception {
-//        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").build();
-//        Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 23").build();
-//        assertNotEquals(course1, course2);
-//    }
-//
-//    @Test
-//    public void ensureCourseNotEqualsDifferentLimits() throws Exception {
-//        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
-//        Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 140).build();
-//        assertNotEquals(course1, course2);
-//    }
+    @Test
+    public void ensureCourseNotSameDifferentDescription() throws Exception {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").build();
+        Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 23").build();
+        System.out.println(course1.getDescription());
+        System.out.println(course2.getDescription());
+        assertFalse(course1.sameAs(course2));
+    }
+
+    @Test
+    public void ensureCourseNotSameDifferentLimits() throws Exception {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 140).build();
+        assertFalse(course1.sameAs(course2));
+    }
 }

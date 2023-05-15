@@ -30,13 +30,8 @@ public class EnrollLimit implements ValueObject {
      * Validates if values are not negative nor maximum value smaller than minimum, then sets values
      */
     private void setEnrollLimit(Integer minEnroll, Integer maxEnroll) {
-        Preconditions.nonNegative(minEnroll, "Minimum enrollment cannot be negative");
-        Preconditions.nonNegative(maxEnroll, "Maximum enrollment cannot be negative");
-        if (minEnroll > maxEnroll) {
-            throw new IllegalArgumentException("Maximum limit must be higher than minimum");
-        }
-        this.minEnroll = minEnroll;
-        this.maxEnroll = maxEnroll;
+        setMinEnroll(minEnroll);
+        setMaxEnroll(maxEnroll);
     }
 
     public Integer getMinEnroll() {
@@ -44,6 +39,10 @@ public class EnrollLimit implements ValueObject {
     }
 
     public void setMinEnroll(Integer minEnroll) {
+        Preconditions.nonNegative(minEnroll, "Minimum enrollment cannot be negative");
+        if (this.maxEnroll!=null && minEnroll > this.maxEnroll) {
+            throw new IllegalArgumentException("Maximum limit must be higher than minimum");
+        }
         this.minEnroll = minEnroll;
     }
 
@@ -52,6 +51,10 @@ public class EnrollLimit implements ValueObject {
     }
 
     public void setMaxEnroll(Integer maxEnroll) {
+        Preconditions.nonNegative(maxEnroll, "Maximum enrollment cannot be negative");
+        if (this.minEnroll != null && this.minEnroll > maxEnroll) {
+            throw new IllegalArgumentException("Maximum limit must be higher than minimum");
+        }
         this.maxEnroll = maxEnroll;
     }
 
@@ -74,4 +77,5 @@ public class EnrollLimit implements ValueObject {
 //                + "\nMaximum Enrollment: " + (maxEnroll == null ? "0" : maxEnroll);
         return minEnroll.toString() + maxEnroll.toString();
     }
+
 }

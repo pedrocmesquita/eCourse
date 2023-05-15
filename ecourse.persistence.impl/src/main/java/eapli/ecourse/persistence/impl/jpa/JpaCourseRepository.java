@@ -37,9 +37,9 @@ public class JpaCourseRepository extends JpaAutoTxRepository<Course, Long, Name>
     }
 
     @Override
-    public Iterable<Course> findAllCoursesEnrollOrProgressState() {
+    public Iterable<Course> findAllCoursesOpenOrProgressState() {
         final TypedQuery<Course> query = entityManager().createQuery(
-                "SELECT c FROM Course c WHERE c.state = 'PROGRESS' OR c.state = 'ENROLL'", Course.class);
+                "SELECT c FROM Course c WHERE c.state = 'OPEN' OR c.state = 'ENROLL'", Course.class);
 
         return query.getResultList();
     }

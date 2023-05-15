@@ -23,7 +23,7 @@ public class InMemoryCourseRepository extends InMemoryDomainRepository<Course, N
     }
 
     @Override
-    public Iterable<Course> findAllCoursesEnrollOrProgressState() {
+    public Iterable<Course> findAllCoursesOpenOrProgressState() {
         return null;
     }
 

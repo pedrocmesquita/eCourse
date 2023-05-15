@@ -28,5 +28,5 @@ public interface CourseRepository extends DomainRepository<Name, Course> {
      *
      * @return
      */
-    Iterable<Course> findAllCoursesEnrollOrProgressState();
+    Iterable<Course> findAllCoursesOpenOrProgressState();
 }

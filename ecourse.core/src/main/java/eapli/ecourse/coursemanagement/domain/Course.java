@@ -44,9 +44,9 @@ public class Course implements AggregateRoot<Name> {
      */
     public Course(Name name, Description description, EnrollLimit enrollLimit) {
         Preconditions.noneNull(name, description);
-        this.name = name;
-        this.description = description;
-        this.enrollLimit = enrollLimit;
+        setName(name);
+        setDescription(description);
+        setEnrollLimit(enrollLimit);
         this.state = State.CLOSED;
     }
 
@@ -54,12 +54,24 @@ public class Course implements AggregateRoot<Name> {
         return identity();
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
     public Description getDescription() {
         return description;
     }
 
+    public void setDescription(Description description) {
+        this.description = description;
+    }
+
     public EnrollLimit getEnrollLimit() {
         return enrollLimit;
+    }
+
+    public void setEnrollLimit(EnrollLimit enrollLimit) {
+        this.enrollLimit = enrollLimit;
     }
 
     public State getState() {
@@ -99,7 +111,6 @@ public class Course implements AggregateRoot<Name> {
             throw new IllegalStateException("Cannot open/close enrollment of a course that is closed");
         }
     }
-
 
     @Override
     public boolean equals(final Object o) {
