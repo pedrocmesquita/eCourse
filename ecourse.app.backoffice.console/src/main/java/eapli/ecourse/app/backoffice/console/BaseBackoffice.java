@@ -71,12 +71,12 @@ public final class BaseBackoffice extends BaseApplication {
 
     @Override
     protected String appTitle() {
-        return "Base Back Office";
+        return "eCourse Back Office";
     }
 
     @Override
     protected String appGoodbye() {
-        return "Base Back Office";
+        return "eCourse Back Office";
     }
 
     @SuppressWarnings("unchecked")

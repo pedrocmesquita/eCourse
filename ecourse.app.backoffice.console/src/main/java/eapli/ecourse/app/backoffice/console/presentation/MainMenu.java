@@ -107,8 +107,8 @@ public class MainMenu extends AbstractUI {
     @Override
     public String headline() {
 
-        return authz.session().map(s -> "Base [ @" + s.authenticatedUser().identity() + " ]")
-                .orElse("Base [ ==Anonymous== ]");
+        return authz.session().map(s -> "eCourse [ @" + s.authenticatedUser().identity() + " ]")
+                .orElse("eCourse [ ==Anonymous== ]");
     }
 
     private Menu buildMainMenu() {
