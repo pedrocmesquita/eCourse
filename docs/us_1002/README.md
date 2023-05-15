@@ -19,15 +19,20 @@ The goal of this US is to generate a Course and store it within the database.
 
 ## 3. Analysis
 
+...
+
 ## 4. Design
 
 ### 4.1. Realization
+
+![](CreateCourse_SD.svg)
+*Create Course System Diagram*
 
 ### 4.2. Class Diagram
 
 ![](CreateCourseUI_CD.svg)
 *Class Diagram*
-![](Course_CD.svg "Course Class Diagram")
+![](Course_CD.svg)
 *Course Class Diagram*
 
 ### 4.3. Applied Patterns
@@ -54,14 +59,13 @@ The goal of this US is to generate a Course and store it within the database.
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureEnrollmentLimitsMaximumHigherThanMinimum() {
-        EnrollLimit enrollLimit = new EnrollLimit(1, -1);
+        EnrollLimit enrollLimit = new EnrollLimit(11, 10);
     }
 
 **Test 3:** *Verifies that it is not possible to create an instance of the Description that excesses character limit defined in config file*
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureDescriptionLimit() {
-        final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
         Description description = new Description("a".repeat(Math.max(0, LIMIT + 1)));
     }
 
@@ -69,52 +73,52 @@ The goal of this US is to generate a Course and store it within the database.
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureDescriptionNotNullOrEmpty() {
-        final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
-        Description description = new Description("a".repeat(Math.max(0, LIMIT + 1)));
+        Description description1 = new Description("");
+        Description description2 = new Description(null);
     }
 
 **Test 5:** *Verifies that it is not possible to create an instance of the Name null or empty*
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureNameNotNullOrEmpty() {
-        final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
-        Description description = new Description("a".repeat(Math.max(0, LIMIT + 1)));
+        Name name1 = new Name("");
+        Name name2 = new Name(null);
     }
 
-**Test 6:** *Verifies that 2 different courses with the same attributes are equal*
+**Test 6:** *Verifies that 2 different courses with the same attributes are the same*
 
     @Test
-    public void ensureCourseEqualsSameAttributes() throws Exception {
+    public void ensureCourseSameEqualAttributes() throws Exception {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
-        assertEquals(course1, course2);
+        assertTrue(course1.sameAs(course2));
     }
 
 **Test 7:** *Verifies that 2 different courses with a different Name are not equal*
 
     @Test
-    public void ensureCourseNotEqualsDifferentName() throws Exception {
+    public void ensureCourseNotSameDifferentName() throws Exception {
         Course course1 = new CourseBuilder().withName("Java-2").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
-        assertNotEquals(course1, course2);
+        assertFalse(course1.sameAs(course2));
     }
 
 **Test 7:** *Verifies that 2 different courses with a different Description are not equal*
 
     @Test
-    public void ensureCourseNotEqualsDifferentDescription() throws Exception {
+    public void ensureCourseNotSameDifferentDescription() throws Exception {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").build();
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 23").build();
-        assertNotEquals(course1, course2);
+        assertFalse(course1.sameAs(course2));
     }
 
 **Test 7:** *Verifies that 2 different courses with a different EnrollLimits are not equal*
 
     @Test
-    public void ensureCourseNotEqualsDifferentLimits() throws Exception {
+    public void ensureCourseNotSameDifferentLimits() throws Exception {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 140).build();
-        assertNotEquals(course1, course2);
+        assertFalse(course1.sameAs(course2));
     }
 
 
@@ -290,10 +294,4 @@ Course: *attribute and constructor*
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of
-alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the
-development this work.*
+No observations

@@ -19,18 +19,18 @@ public class CreateCourseUI extends AbstractUI {
     protected boolean doShow() {
         String name = Console.readLine("Name");
         String description = Console.readLine("Description (max " + DESCRIPTION_CARACTER_LIMIT + " characters)");
+        Integer minEnroll = null;
+        Integer maxEnroll = null;
         System.out.println("\nAdd enrollment limits?\n");
         System.out.println("1. Yes");
         System.out.println("2. No");
         int option = Console.readOption(1, 1, 2);
         try {
             if (option == 1) {
-                Integer minEnroll = Console.readInteger("Minimum enrollment limit");
-                Integer maxEnroll = Console.readInteger("Maximum enrollment limit");
-                controller.createCourse(name, description, minEnroll, maxEnroll);
-            } else {
-                controller.createCourse(name, description);
+                minEnroll = Console.readInteger("Minimum enrollment limit");
+                maxEnroll = Console.readInteger("Maximum enrollment limit");
             }
+            controller.createCourse(name, description, minEnroll, maxEnroll);
             System.out.println("Course created with success!");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);

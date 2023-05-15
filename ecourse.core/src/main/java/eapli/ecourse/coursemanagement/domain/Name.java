@@ -16,7 +16,7 @@ public class Name implements ValueObject, Comparable<Name> {
     @Column(unique = true)
     private String name;
 
-    public Name() {
+    protected Name() {
         //ORM only
     }
 
@@ -25,7 +25,7 @@ public class Name implements ValueObject, Comparable<Name> {
      *
      * @param name
      */
-    public Name(String name) {
+    protected Name(String name) {
         setName(name);
     }
 

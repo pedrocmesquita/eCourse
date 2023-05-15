@@ -42,11 +42,11 @@ public class Course implements AggregateRoot<Name> {
      * @param description Mandatory
      * @param enrollLimit Optional
      */
-    public Course(Name name, Description description, EnrollLimit enrollLimit) {
+    protected Course(Name name, Description description, EnrollLimit enrollLimit) {
         Preconditions.noneNull(name, description);
-        setName(name);
-        setDescription(description);
-        setEnrollLimit(enrollLimit);
+        this.name = name;
+        this.description = description;
+        this.enrollLimit = enrollLimit;
         this.state = State.CLOSED;
     }
 

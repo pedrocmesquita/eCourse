@@ -70,7 +70,7 @@ config=StructureConfiguration;
     "showPackageLevels": 2,
     "showDetailedClassStructure": true
   },
-  "rootClass": "eapli.ecourse.coursemanagement.domain.Course",
+  "rootClass": "eapli.ecourse.app.backoffice.console.presentation.course.CreateCourseUI",
   "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
 }
 diagram meta data end '/
@@ -89,25 +89,96 @@ subgraph cluster_1911013184 {
 	fillcolor="#ececec"
 	style=filled
    
-   subgraph cluster_861892108 { 
+   subgraph cluster_1386234867 { 
+   	label=app
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   CreateCourseUI375150821[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreateCourseUI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   controller: CreateCourseController [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># doShow(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ headline(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_489743759 { 
+   	label=persistence
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   InMemoryCourseRepository650943782[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)InMemoryCourseRepository</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JpaCourseRepository1852613913[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JpaCourseRepository</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_861892108 { 
    	label=coursemanagement
 	labeljust=l
 	fillcolor="#d8d8d8"
 	style=filled
    
-   Course1854509879[
+   CourseBuilder1854509879[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(C)Course</TD></TR>
+<TR><TD ALIGN="LEFT" >(C)CourseBuilder</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   courseId: Long [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   description: Description [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: Description [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   enrollLimit: EnrollLimit [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   name: Name [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   state: State [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: Name [1]</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >+ id(): Long</TD></TR>
-<TR><TD ALIGN="LEFT" >+ identity(): Long</TD></TR>
-<TR><TD ALIGN="LEFT" >+ sameAs(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ build(): Course</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CourseRepository816628141[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)CourseRepository</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+CreateCourseController427251605[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreateCourseController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   authz: AuthorizationService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   courseRepository: CourseRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createCourse(name: String, description: String): Course</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createCourse(name: String, description: String, minEnroll: Integer, maxEnroll: Integer): Course</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -119,7 +190,7 @@ Description1854509879[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Description</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: String [1]</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -144,7 +215,7 @@ Name1854509879[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Name</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ compareTo(o: Name): int</TD></TR>
 </TABLE>>
@@ -153,35 +224,22 @@ Name1854509879[
 	shape=plaintext
 	fillcolor="#FFFFFF"
 ];
-
-State1854509879[
-	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
-<TR><TD ALIGN="LEFT" >(E)State</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+   CLOSED: State [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >+   ENROLL: State [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >+   OPEN: State [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >+   PROGRESS: State [1]</TD></TR>
-<HR/>
-<TR><TD ALIGN="LEFT" >+ valueOf(name: String): State</TD></TR>
-<TR><TD ALIGN="LEFT" >+ values(): State[]</TD></TR>
-</TABLE>>
-	style=filled
-	margin=0
-	shape=plaintext
-	fillcolor="#DCFBD5"
-];
 } 
 } 
 
 'edges    
-Course1854509879 -> Description1854509879[label="description
+CourseBuilder1854509879 -> Description1854509879[label="description
 [0..1]"];
-Course1854509879 -> EnrollLimit1854509879[label="enrollLimit
+CourseBuilder1854509879 -> EnrollLimit1854509879[label="enrollLimit
 [0..1]"];
-Course1854509879 -> Name1854509879[label="name
+CourseBuilder1854509879 -> Name1854509879[label="name
 [0..1]"];
-Course1854509879 -> State1854509879[label="state
+CourseRepository816628141 -> InMemoryCourseRepository650943782[arrowhead=none, arrowtail=empty, dir=both];
+CourseRepository816628141 -> JpaCourseRepository1852613913[arrowhead=none, arrowtail=empty, dir=both];
+CreateCourseController427251605 -> CourseBuilder1854509879[label="createCourse() -> build()"];
+CreateCourseController427251605 -> CourseRepository816628141[label="courseRepository
+[0..1]"];
+CreateCourseUI375150821 -> CreateCourseController427251605[label="controller
 [0..1]"];
     
 }

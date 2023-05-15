@@ -12,7 +12,7 @@ public class Description implements ValueObject {
 
     private String description;
 
-    public Description() {
+    protected Description() {
         //ORM only
     }
 
@@ -21,7 +21,7 @@ public class Description implements ValueObject {
      *
      * @param description
      */
-    public Description(String description) {
+    protected Description(String description) {
         setDescription(description);
     }
 

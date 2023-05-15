@@ -12,7 +12,7 @@ public class EnrollLimit implements ValueObject {
     private Integer minEnroll;
     private Integer maxEnroll;
 
-    public EnrollLimit() {
+    protected EnrollLimit() {
         //ORM only
     }
 
@@ -22,7 +22,7 @@ public class EnrollLimit implements ValueObject {
      * @param minEnroll Mandatory (0, INTEGER.MAX)
      * @param maxEnroll Mandatory (0, INTEGER.MAX)
      */
-    public EnrollLimit(Integer minEnroll, Integer maxEnroll) {
+    protected EnrollLimit(Integer minEnroll, Integer maxEnroll) {
         setEnrollLimit(minEnroll, maxEnroll);
     }
 

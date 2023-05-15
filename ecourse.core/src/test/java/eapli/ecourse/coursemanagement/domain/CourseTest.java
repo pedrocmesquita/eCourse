@@ -3,9 +3,13 @@ package eapli.ecourse.coursemanagement.domain;
 import eapli.ecourse.Application;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CourseTest {
+
+    private static final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
+
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureEnrollmentLimitsMinimumNonNegative() {
@@ -19,25 +23,24 @@ public class CourseTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureEnrollmentLimitsMaximumHigherThanMinimum() {
-        EnrollLimit enrollLimit = new EnrollLimit(1, -1);
+        EnrollLimit enrollLimit = new EnrollLimit(11, 10);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureDescriptionLimit() {
-        final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
         Description description = new Description("a".repeat(Math.max(0, LIMIT + 1)));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureDescriptionNotNullOrEmpty() {
-        final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
-        Description description = new Description("a".repeat(Math.max(0, LIMIT + 1)));
+        Description description1 = new Description("");
+        Description description2 = new Description(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureNameNotNullOrEmpty() {
-        final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
-        Description description = new Description("a".repeat(Math.max(0, LIMIT + 1)));
+        Name name1 = new Name("");
+        Name name2 = new Name(null);
     }
 
     @Test
@@ -58,8 +61,6 @@ public class CourseTest {
     public void ensureCourseNotSameDifferentDescription() throws Exception {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").build();
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 23").build();
-        System.out.println(course1.getDescription());
-        System.out.println(course2.getDescription());
         assertFalse(course1.sameAs(course2));
     }
 
