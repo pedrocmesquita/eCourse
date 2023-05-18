@@ -142,8 +142,4 @@ public class Course implements AggregateRoot<Name> {
         return this.name;
     }
 
-    @Override
-    public String toString() {
-        return name.toString();
-    }
 }

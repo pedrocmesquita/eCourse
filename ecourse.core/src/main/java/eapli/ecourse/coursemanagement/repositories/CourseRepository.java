@@ -21,12 +21,12 @@ public interface CourseRepository extends DomainRepository<Name, Course> {
      * @param state
      * @return
      */
-    Iterable<Course> findAllCoursesWithOtherState(State state);
+    Iterable<Course> findAllCoursesWithoutState(State state);
 
     /**
      * Finds all course in enroll or progress state
      *
      * @return
      */
-    Iterable<Course> findAllCoursesOpenOrProgressState();
+    Iterable<Course> findAllCoursesOpenOrEnrollState();
 }

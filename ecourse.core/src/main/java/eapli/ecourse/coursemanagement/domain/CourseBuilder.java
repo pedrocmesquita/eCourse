@@ -1,9 +1,12 @@
 package eapli.ecourse.coursemanagement.domain;
 
 import eapli.framework.domain.model.DomainFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CourseBuilder implements DomainFactory<Course> {
 
+    private static final Logger LOGGER = LogManager.getLogger(CourseBuilder.class);
     private Name name;
     private Description description;
     private EnrollLimit enrollLimit = null;
@@ -33,8 +36,13 @@ public class CourseBuilder implements DomainFactory<Course> {
         return this;
     }
 
-    @Override
     public Course build() {
-        return new Course(this.name, this.description, this.enrollLimit);
+        Course course;
+        course =  new Course(this.name, this.description, this.enrollLimit);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Creating new course [{}] {}, {}, ({})", course, this.name, this.description,
+                    (enrollLimit == null ? null : this.enrollLimit.getMinEnroll() + ", "+ this.enrollLimit.getMaxEnroll()));
+        }
+        return course;
     }
 }

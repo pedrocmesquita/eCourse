@@ -71,11 +71,5 @@ public class EnrollLimit implements ValueObject {
         return Objects.hash(minEnroll, maxEnroll);
     }
 
-    @Override
-    public String toString() {
-//        return "Minimum Enrollment: " + (minEnroll == null ? "0" : minEnroll)
-//                + "\nMaximum Enrollment: " + (maxEnroll == null ? "0" : maxEnroll);
-        return minEnroll.toString() + maxEnroll.toString();
-    }
 
 }
