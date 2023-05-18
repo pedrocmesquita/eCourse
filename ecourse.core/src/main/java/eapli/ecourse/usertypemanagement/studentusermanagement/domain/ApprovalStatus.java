@@ -18,20 +18,11 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.ecourse.app.backoffice.console.presentation.studentuser;
-
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequest;
-import eapli.framework.visitor.Visitor;
+package eapli.ecourse.usertypemanagement.studentusermanagement.domain;
 
 /**
- * Created by AJS on 08/04/2016.
+ * @author Jorge Santos ajs@isep.ipp.pt
  */
-@SuppressWarnings("squid:S106")
-class SignupRequestPrinter implements Visitor<SignupRequest> {
-
-    @Override
-    public void visit(final SignupRequest visitee) {
-        System.out.printf("%-10s%-20s%-10s%n", visitee.identity(), visitee.name(),
-                visitee.mecanographicNumber());
-    }
+public enum ApprovalStatus {
+    PENDING, ACCEPTED, REFUSED;
 }

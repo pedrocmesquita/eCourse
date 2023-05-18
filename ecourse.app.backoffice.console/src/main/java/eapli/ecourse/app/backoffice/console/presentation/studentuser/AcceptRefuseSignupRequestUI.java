@@ -20,9 +20,9 @@
  */
 package eapli.ecourse.app.backoffice.console.presentation.studentuser;
 
-import eapli.ecourse.studentusermanagement.application.AcceptRefuseSignupFactory;
-import eapli.ecourse.studentusermanagement.application.AcceptRefuseSignupRequestController;
-import eapli.ecourse.studentusermanagement.domain.SignupRequest;
+import eapli.ecourse.usertypemanagement.studentusermanagement.application.AcceptRefuseSignupFactory;
+import eapli.ecourse.usertypemanagement.studentusermanagement.application.AcceptRefuseSignupRequestController;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequest;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

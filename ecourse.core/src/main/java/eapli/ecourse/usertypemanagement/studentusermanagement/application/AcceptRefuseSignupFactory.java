@@ -21,27 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.ecourse.usermanagement.domain;
-
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequestBuilder;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
-import eapli.framework.util.Utility;
+package eapli.ecourse.usertypemanagement.studentusermanagement.application;
 
 /**
- * @author Paulo Gandra de Sousa 27/05/2019
+ * A simple factory to obtain the desired implementation of the
+ * {@link AcceptRefuseSignupController}.
+ *
+ * @author Paulo Gandra de Sousa 16/05/2019
  */
-@Utility
-public class UserBuilderHelper {
-    private UserBuilderHelper() {
+public final class AcceptRefuseSignupFactory {
+    private AcceptRefuseSignupFactory() {
         // ensure utility
     }
 
-    public static SystemUserBuilder builder() {
-        return new SystemUserBuilder(new BasePasswordPolicy(), new PlainTextEncoder());
-    }
+    public static AcceptRefuseSignupRequestController build() {
+        // decide and try
 
-    public static SignupRequestBuilder signupBuilder() {
-        return new SignupRequestBuilder(new BasePasswordPolicy(), new PlainTextEncoder());
+        // return new AcceptRefuseSignupRequestControllerTxImpl();
+        return new AcceptRefuseSignupRequestControllerEventfullImpl();
     }
 }

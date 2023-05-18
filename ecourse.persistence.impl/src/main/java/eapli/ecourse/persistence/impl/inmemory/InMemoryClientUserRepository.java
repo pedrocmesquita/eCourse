@@ -20,9 +20,9 @@
  */
 package eapli.ecourse.persistence.impl.inmemory;
 
-import eapli.ecourse.studentusermanagement.domain.MecanographicNumber;
-import eapli.ecourse.studentusermanagement.domain.StudentUser;
-import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.MecanographicNumber;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 

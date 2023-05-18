@@ -20,6 +20,7 @@
  */
 package eapli.ecourse.app.student.console.presentation.myuser;
 
+import eapli.ecourse.app.common.console.presentation.myuser.UserDataWidget;
 import eapli.ecourse.mystudentuser.application.SignupController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -48,11 +49,11 @@ public class SignupRequestUI extends AbstractUI {
         try {
             this.theController.signup(userData.username(), userData.password(),
                     userData.firstName(), userData.lastName(), userData.email(),
-                    mecanographicNumber);
+                    mecanographicNumber, userData.taxPayerNumber(), userData.birthDate());
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             LOGGER.error("Error performing the operation", e);
             System.out.println(
-                    "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+                    "Unfortunately there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
         }
 
         return true;

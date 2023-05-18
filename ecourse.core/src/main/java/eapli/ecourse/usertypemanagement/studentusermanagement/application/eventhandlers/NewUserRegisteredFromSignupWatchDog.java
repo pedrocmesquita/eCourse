@@ -21,27 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.ecourse.usermanagement.domain;
+package eapli.ecourse.usertypemanagement.studentusermanagement.application.eventhandlers;
 
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequestBuilder;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
-import eapli.framework.util.Utility;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eapli.framework.domain.events.DomainEvent;
+import eapli.framework.infrastructure.pubsub.EventHandler;
 
 /**
- * @author Paulo Gandra de Sousa 27/05/2019
+ * @author Paulo Gandra de Sousa
  */
-@Utility
-public class UserBuilderHelper {
-    private UserBuilderHelper() {
-        // ensure utility
-    }
+public class NewUserRegisteredFromSignupWatchDog implements EventHandler {
 
-    public static SystemUserBuilder builder() {
-        return new SystemUserBuilder(new BasePasswordPolicy(), new PlainTextEncoder());
-    }
+    /*
+     * (non-Javadoc)
+     *
+     * @see eapli.framework.domain.events.EventHandler#onEvent(eapli.framework.
+     * domain. events.DomainEvent)
+     */
+    @Override
+    public void onEvent(final DomainEvent domainevent) {
+        assert domainevent instanceof NewUserRegisteredFromSignupEvent;
 
-    public static SignupRequestBuilder signupBuilder() {
-        return new SignupRequestBuilder(new BasePasswordPolicy(), new PlainTextEncoder());
+        final NewUserRegisteredFromSignupEvent event = (NewUserRegisteredFromSignupEvent) domainevent;
+
+        final AddStudentUserOnSignupAcceptedController controller = new AddStudentUserOnSignupAcceptedController();
+        controller.addClientUser(event);
     }
 }

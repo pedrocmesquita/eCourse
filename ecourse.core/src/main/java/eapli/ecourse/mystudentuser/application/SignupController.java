@@ -24,13 +24,14 @@
 package eapli.ecourse.mystudentuser.application;
 
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
-import eapli.ecourse.studentusermanagement.domain.SignupRequest;
-import eapli.ecourse.studentusermanagement.domain.SignupRequestBuilder;
-import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequest;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequestBuilder;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.ecourse.usermanagement.domain.UserBuilderHelper;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.time.util.CurrentTimeCalendars;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 /**
@@ -42,22 +43,26 @@ public class SignupController {
     private final SignupRequestRepository signupRequestRepository = PersistenceContext.repositories().signupRequests();
 
     public SignupRequest signup(final String username, final String password, final String firstName,
-                                final String lastName, final String email, String mecanographicNumber, final Calendar createdOn) {
+                                final String lastName, final String email, String mecanographicNumber,
+                                final String taxPayerNumber, final Calendar birthDate, final Calendar createdOn) {
 
         // there is no need for authorisation check in this method as even
         // unauthenticated users may request a signup
 
         final SignupRequestBuilder signupRequestBuilder = UserBuilderHelper.signupBuilder();
         signupRequestBuilder.withUsername(username).withPassword(password).withName(firstName, lastName)
-                .withEmail(email).createdOn(createdOn).withMecanographicNumber(mecanographicNumber);
+                .withEmail(email).createdOn(createdOn).withMecanographicNumber(mecanographicNumber).
+                withTaxPayerNumber(taxPayerNumber).withBirthDate(birthDate);
 
         final SignupRequest newSignupRequest = signupRequestBuilder.build();
         return this.signupRequestRepository.save(newSignupRequest);
     }
 
     public SignupRequest signup(final String username, final String password, final String firstName,
-                                final String lastName, final String email, String mecanographicNumber) {
+                                final String lastName, final String email, String mecanographicNumber,
+                                final String taxPayerNumber, final Calendar birthDate) {
 
-        return signup(username, password, firstName, lastName, email, mecanographicNumber, CurrentTimeCalendars.now());
+        return signup(username, password, firstName, lastName, email, mecanographicNumber,
+                      taxPayerNumber, birthDate, CurrentTimeCalendars.now());
     }
 }

@@ -24,8 +24,8 @@
 package eapli.ecourse.usermanagement.application.eventhandlers;
 
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
-import eapli.ecourse.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eapli.ecourse.studentusermanagement.domain.events.SignupAcceptedEvent;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.events.SignupAcceptedEvent;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.ecourse.usermanagement.domain.UserBuilderHelper;
 import eapli.framework.application.UseCaseController;
@@ -61,7 +61,7 @@ import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPub
 
         // notify interested parties
         final DomainEvent event = new NewUserRegisteredFromSignupEvent(theSignupRequest.mecanographicNumber(),
-                newUser.username());
+                newUser.username(), theSignupRequest.taxPayerNumber(), theSignupRequest.birthDate());
         dispatcher.publish(event);
 
         return newUser;

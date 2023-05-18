@@ -21,8 +21,8 @@
 package eapli.ecourse.mystudentuser.application;
 
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
-import eapli.ecourse.studentusermanagement.domain.StudentUser;
-import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

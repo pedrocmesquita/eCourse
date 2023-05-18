@@ -21,8 +21,8 @@
 package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
-import eapli.ecourse.studentusermanagement.domain.SignupRequest;
-import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequest;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

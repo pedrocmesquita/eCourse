@@ -21,9 +21,9 @@
 package eapli.ecourse.infrastructure.persistence;
 
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
-import eapli.ecourse.studentusermanagement.repositories.ClientUserRepository;
-import eapli.ecourse.studentusermanagement.repositories.SignupRequestRepository;
-import eapli.ecourse.teacherusermanagement.repositories.TeacherUserRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
+import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 

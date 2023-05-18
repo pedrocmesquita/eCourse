@@ -21,27 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.ecourse.usermanagement.domain;
+package eapli.ecourse.usertypemanagement.studentusermanagement.application;
 
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequestBuilder;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
-import eapli.framework.util.Utility;
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
+import eapli.ecourse.usermanagement.domain.BaseRoles;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 /**
- * @author Paulo Gandra de Sousa 27/05/2019
+ * @author losa
  */
-@Utility
-public class UserBuilderHelper {
-    private UserBuilderHelper() {
-        // ensure utility
-    }
+public class ListStudentUsersController {
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public static SystemUserBuilder builder() {
-        return new SystemUserBuilder(new BasePasswordPolicy(), new PlainTextEncoder());
-    }
+    private final ClientUserRepository repo = PersistenceContext.repositories().clientUsers();
 
-    public static SignupRequestBuilder signupBuilder() {
-        return new SignupRequestBuilder(new BasePasswordPolicy(), new PlainTextEncoder());
+    public Iterable<StudentUser> activeClientUsers() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+
+        return this.repo.findAllActive();
     }
 }

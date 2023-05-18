@@ -18,20 +18,38 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.ecourse.app.backoffice.console.presentation.studentuser;
+package eapli.ecourse.usertypemanagement.studentusermanagement.repositories;
 
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequest;
-import eapli.framework.visitor.Visitor;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.MecanographicNumber;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
+import eapli.framework.domain.repositories.DomainRepository;
+import eapli.framework.infrastructure.authz.domain.model.Username;
+
+import java.util.Optional;
 
 /**
- * Created by AJS on 08/04/2016.
+ * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-@SuppressWarnings("squid:S106")
-class SignupRequestPrinter implements Visitor<SignupRequest> {
+public interface ClientUserRepository
+        extends DomainRepository<MecanographicNumber, StudentUser> {
 
-    @Override
-    public void visit(final SignupRequest visitee) {
-        System.out.printf("%-10s%-20s%-10s%n", visitee.identity(), visitee.name(),
-                visitee.mecanographicNumber());
+    /**
+     * returns the client user (utente) whose username is given
+     *
+     * @param name the username to search for
+     * @return
+     */
+    Optional<StudentUser> findByUsername(Username name);
+
+    /**
+     * returns the client user (utente) with the given mecanographic number
+     *
+     * @param number
+     * @return
+     */
+    default Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
+        return ofIdentity(number);
     }
+
+    public Iterable<StudentUser> findAllActive();
 }

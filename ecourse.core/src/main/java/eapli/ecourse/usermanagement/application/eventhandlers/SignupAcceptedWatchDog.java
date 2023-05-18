@@ -20,7 +20,7 @@
  */
 package eapli.ecourse.usermanagement.application.eventhandlers;
 
-import eapli.ecourse.studentusermanagement.domain.events.SignupAcceptedEvent;
+import eapli.ecourse.usertypemanagement.studentusermanagement.domain.events.SignupAcceptedEvent;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.pubsub.EventHandler;
