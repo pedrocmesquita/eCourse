@@ -14,8 +14,8 @@ public class OpenCloseEnrollmentController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
 
-    public Iterable<Course> allCoursesEnrollOrProgress() {
-        return service.allCoursesOpenOrProgress();
+    public Iterable<Course> allCoursesOpenOrEnroll() {
+        return service.allCoursesOpenOrEnroll();
     }
 
     public Course toggleOpenCloseEnroll(Course course) {
