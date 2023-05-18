@@ -1,0 +1,30 @@
+@startuml
+Actor Manager as Actor
+participant OpenCloseEnrollmentUI as OpenCloseEnrollmentUI <<presentation>>
+participant SelectCourseWidget as SelectCourseWidget <<presentation>>
+participant OpenCloseEnrollmentController as OpenCloseEnrollmentController <<application>>
+participant Course as Course <<domain>>
+
+Actor -> OpenCloseEnrollmentUI : ask to open/close course enrollment
+activate OpenCloseEnrollmentUI
+OpenCloseEnrollmentUI -> SelectCourseWidget : selectCourse
+activate SelectCourseWidget
+SelectCourseWidget --> OpenCloseEnrollmentUI
+deactivate SelectCourseWidget
+OpenCloseEnrollmentUI --> Actor : shows and ask to select a
+deactivate OpenCloseEnrollmentUI
+Actor -> OpenCloseEnrollmentUI : selects a course
+activate OpenCloseEnrollmentUI
+OpenCloseEnrollmentUI -> OpenCloseEnrollmentController : toggleOpenCloseEnroll
+activate OpenCloseEnrollmentController
+OpenCloseEnrollmentController -> Course : toggleOpenCloseEnroll
+activate Course
+Course -> Course : setState
+activate Course
+deactivate Course
+Course --> OpenCloseEnrollmentController
+deactivate Course
+OpenCloseEnrollmentController --> OpenCloseEnrollmentUI
+deactivate OpenCloseEnrollmentController
+return informs operation success
+@enduml
