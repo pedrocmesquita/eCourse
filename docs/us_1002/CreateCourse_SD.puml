@@ -1,6 +1,24 @@
 @startuml
 actor Manager as Actor
-Actor -> CreateCourseUI : doShow
+participant CreateCourseUI as CreateCourseUI <<presentation>>
+participant CreateCourseController as CreateCourseController <<application>>
+participant Course as Course <<domain>>
+participant Name as Name <<domain>>
+participant Description as Description <<domain>>
+participant EnrollLimit as EnrollLimit <<domain>>
+participant AuthorizationService as AuthorizationService <<auth>>
+participant CourseBuilder as CourseBuilder <<domain>>
+participant Application as Application <<application>>
+participant AppSettings as AppSettings <<application>>
+participant Properties as Properties <<application>>
+participant DomainRepository as DomainRepository <<repository>>
+
+
+Actor -> CreateCourseUI : ask to create a Course
+activate CreateCourseUI
+CreateCourseUI --> Actor : ask for course data\n(name, description, enrollment limits)
+deactivate CreateCourseUI
+Actor -> CreateCourseUI : introduces data
 activate CreateCourseUI
 CreateCourseUI -> CreateCourseController : createCourse
 activate CreateCourseController
@@ -15,10 +33,6 @@ CourseBuilder -> Name : new
 activate Name
 Name -> Name : setName
 activate Name
-Name -> StringPredicates : isNullOrEmpty
-activate StringPredicates
-StringPredicates --> Name
-deactivate StringPredicates
 Name --> Name
 deactivate Name
 Name --> CourseBuilder
@@ -32,10 +46,6 @@ CourseBuilder -> Description : new
 activate Description
 Description -> Description : setDescription
 activate Description
-Description -> StringPredicates : isNullOrEmpty
-activate StringPredicates
-StringPredicates --> Description
-deactivate StringPredicates
 Description -> Application : settings
 activate Application
 Application --> Description
@@ -64,18 +74,10 @@ EnrollLimit -> EnrollLimit : setEnrollLimit
 activate EnrollLimit
 EnrollLimit -> EnrollLimit : setMinEnroll
 activate EnrollLimit
-EnrollLimit -> Preconditions : nonNegative
-activate Preconditions
-Preconditions --> EnrollLimit
-deactivate Preconditions
 EnrollLimit --> EnrollLimit
 deactivate EnrollLimit
 EnrollLimit -> EnrollLimit : setMaxEnroll
 activate EnrollLimit
-EnrollLimit -> Preconditions : nonNegative
-activate Preconditions
-Preconditions --> EnrollLimit
-deactivate Preconditions
 EnrollLimit --> EnrollLimit
 deactivate EnrollLimit
 EnrollLimit --> EnrollLimit
@@ -90,10 +92,6 @@ activate CourseBuilder
 create Course
 CourseBuilder -> Course : new
 activate Course
-Course -> Preconditions : noneNull
-activate Preconditions
-Preconditions --> Course
-deactivate Preconditions
 Course --> CourseBuilder
 deactivate Course
 CourseBuilder --> CreateCourseController
@@ -109,5 +107,5 @@ DomainRepository --> CreateCourseController
 deactivate DomainRepository
 CreateCourseController --> CreateCourseUI
 deactivate CreateCourseController
-return
+return informs operation success
 @enduml

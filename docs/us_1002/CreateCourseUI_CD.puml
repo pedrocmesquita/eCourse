@@ -229,18 +229,18 @@ Name1854509879[
 
 'edges    
 CourseBuilder1854509879 -> Description1854509879[label="description
-[0..1]"];
+[1]"];
 CourseBuilder1854509879 -> EnrollLimit1854509879[label="enrollLimit
 [0..1]"];
 CourseBuilder1854509879 -> Name1854509879[label="name
-[0..1]"];
+[1]"];
 CourseRepository816628141 -> InMemoryCourseRepository650943782[arrowhead=none, arrowtail=empty, dir=both];
 CourseRepository816628141 -> JpaCourseRepository1852613913[arrowhead=none, arrowtail=empty, dir=both];
 CreateCourseController427251605 -> CourseBuilder1854509879[label="createCourse() -> build()"];
 CreateCourseController427251605 -> CourseRepository816628141[label="courseRepository
-[0..1]"];
+[1]"];
 CreateCourseUI375150821 -> CreateCourseController427251605[label="controller
-[0..1]"];
+[1]"];
     
 }
 @enduml

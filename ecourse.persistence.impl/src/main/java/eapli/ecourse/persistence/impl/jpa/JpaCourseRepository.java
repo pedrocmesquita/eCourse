@@ -29,7 +29,7 @@ public class JpaCourseRepository extends JpaAutoTxRepository<Course, Long, Name>
     }
 
     @Override
-    public Iterable<Course> findAllCoursesWithOtherState(State state) {
+    public Iterable<Course> findAllCoursesWithoutState(State state) {
         final TypedQuery<Course> query = entityManager().createQuery(
                 "SELECT c FROM Course c WHERE NOT c.state = '" + state + "'", Course.class);
 
@@ -37,7 +37,7 @@ public class JpaCourseRepository extends JpaAutoTxRepository<Course, Long, Name>
     }
 
     @Override
-    public Iterable<Course> findAllCoursesOpenOrProgressState() {
+    public Iterable<Course> findAllCoursesOpenOrEnrollState() {
         final TypedQuery<Course> query = entityManager().createQuery(
                 "SELECT c FROM Course c WHERE c.state = 'OPEN' OR c.state = 'ENROLL'", Course.class);
 

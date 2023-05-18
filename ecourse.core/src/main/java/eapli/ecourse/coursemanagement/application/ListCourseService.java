@@ -6,6 +6,7 @@ import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.application.ApplicationService;
+import eapli.framework.infrastructure.InfrastructureService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
@@ -25,7 +26,7 @@ public class ListCourseService {
 
     public Iterable<Course> allNotClosedCourses() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.TEACHER);
-        return courseRepository.findAllCoursesWithOtherState(State.CLOSED);
+        return courseRepository.findAllCoursesWithoutState(State.CLOSED);
     }
 
     public Iterable<Course> allOpenCourses() {
@@ -40,7 +41,7 @@ public class ListCourseService {
 
     public Iterable<Course> allNotEnrollCourses() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        return courseRepository.findAllCoursesWithOtherState(State.ENROLL);
+        return courseRepository.findAllCoursesWithoutState(State.ENROLL);
     }
 
     public Iterable<Course> allProgressCourses() {
@@ -48,9 +49,9 @@ public class ListCourseService {
         return courseRepository.findAllCoursesWithState(State.PROGRESS);
     }
 
-    public Iterable<Course> allCoursesOpenOrProgress() {
+    public Iterable<Course> allCoursesOpenOrEnroll() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        return courseRepository.findAllCoursesOpenOrProgressState();
+        return courseRepository.findAllCoursesOpenOrEnrollState();
     }
 
     public Iterable<Course> allCourses() {
