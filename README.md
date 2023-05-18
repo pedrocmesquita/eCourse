@@ -1,11 +1,12 @@
-# Base Management
+# eCourse Management
 
-    ____                 
-    |  _ \                
-    | |_) | __ _ ___  ___ 
-    |  _ < / _` / __|/ _ \
-    | |_) | (_| \__ \  __/
-    |____/ \__,_|___/\___|
+           _____                          
+          / ____|                         
+      ___| |     ___  _   _ _ __ ___  ___ 
+     / _ \ |    / _ \| | | | '__/ __|/ _ \
+    |  __/ |___| (_) | |_| | |  \__ \  __/
+     \___|\_____\___/ \__,_|_|  |___/\___|
+
 
 Engenharia de Aplicações (EAPLI)
 
@@ -20,7 +21,7 @@ code this would obvisously be a problem as we should strive for consistency. In
 this case, it is acceptable as the inconsistencies are meant to provide samples
 of different valid approaches.
 
-_Base logo created with [kammerl ascii signature](https://www.kammerl.de/ascii/AsciiSignature.php) using font "big"_
+_eCourse logo created with [kammerl ascii signature](https://www.kammerl.de/ascii/AsciiSignature.php) using font "big"_
 
 ## Who do I talk to?
 
