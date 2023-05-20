@@ -31,7 +31,7 @@ public class CreateCourseUI extends AbstractUI {
                 maxEnroll = Console.readInteger("Maximum enrollment limit");
             }
             controller.createCourse(name, description, minEnroll, maxEnroll);
-            System.out.println("Course created with success!");
+            System.out.println("\nCourse created with success!");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println("Unfortunately there was an unexpected error in the application. " +

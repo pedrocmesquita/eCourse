@@ -1,7 +1,3 @@
-* Must have a teacher in charge before being "in progress"
-* Students enrollment requests must be dealt with before being "in progress"
-* States: close, open, enroll, progress
-* Closed course cannot have any activities(exams, classes, etc...)
 # US 1004 - Open and close courses
 
 As Manager, I want to open and close courses.
@@ -13,17 +9,24 @@ This US aims to change the state of a course to open/close
 ## 2. Requirements
 
 * FRC02 - Only managers are able to execute this functionality
-* A course must not have any activity (extra classes, exams)
+* Toggle between open and closed or progress and closed state
+* Closed course cannot have any activities(exams, classes, etc...)
 
 ## 3. Analysis
+
+...
 
 ## 4. Design
 
 ### 4.1. Realization
 
+![](OpenCloseCourse_SD.svg)
+*System Diagram*
+
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+![](OpenCloseCourse_CD.svg)
+*Class Diagram*
 
 ### 4.3. Applied Patterns
 
@@ -31,35 +34,66 @@ This US aims to change the state of a course to open/close
 
 **Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
+    @Test
+    public void ensureToggleOpenToClose() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.OPEN);
+        course1.toggleOpenClose();
+        assertEquals(course1.getState(), State.CLOSED);
+    }
+
+    @Test
+    public void ensureToggleCloseToOpen() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.CLOSED);
+        course1.toggleOpenClose();
+        assertEquals(course1.getState(), State.OPEN);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void ensureToggleCannotToggleEnroll() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.ENROLL);
+        course1.toggleOpenClose();
+    }
+
+    @Test//(expected = IllegalStateException.class)
+    public void ensureToggleCannotToggleToClosedWithActivity() {
+        //TODO, not implemented yet
+    }
+
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the
-design. It should also describe and explain other important artifacts necessary to fully understand the implementation
-like, for instance, configuration files.*
+    /**
+     * Toggles course state between open and Close. Can only toggle to open if course has no activity
+     */
+    public void toggleOpenClose() {
+        if (this.state.equals(State.CLOSED)) {
+            this.setState(State.OPEN);
+        } else if (this.state.equals(State.OPEN) || this.state.equals(State.PROGRESS)) {
+            checkActivity();
+            this.setState(State.CLOSED);
+        } else {
+            throw new IllegalStateException("Cannot open/close course that is in enrollment or progress");
+        }
+    }
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this
-requirement.*
+    /**
+     * checks if course as activity(schelude exams or extra classes).
+     * @throws IllegalStateException case course as activity
+     */
+    private void checkActivity() throws IllegalStateException{
+        //todo check activity
+    }
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other
-parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+![](DEMO_interaction.png)
+![](DEMO_db.png)
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of
-alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the
-development this work.*
+The feature to prevent a course from closing when there is ongoing activity (such as exams or extra classes) 
+has not been implemented yet, as these activities are not currently implemented. 
+This issue will be addressed in a future sprint when the activities are implemented
