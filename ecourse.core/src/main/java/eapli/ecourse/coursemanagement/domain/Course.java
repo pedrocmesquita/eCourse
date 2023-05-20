@@ -82,33 +82,38 @@ public class Course implements AggregateRoot<Name> {
         this.state = state;
     }
 
+    /**
+     * Toggles course state between open and Close. Can only toggle to open if course has no activity
+     */
     public void toggleOpenClose() {
         if (this.state.equals(State.CLOSED)) {
-            open();
+            this.setState(State.OPEN);
         } else if (this.state.equals(State.OPEN) || this.state.equals(State.PROGRESS)) {
-            close();
+            checkActivity();
+            this.setState(State.CLOSED);
         } else {
-            throw new IllegalStateException("Cannot open/close course that is in enrollment state");
+            throw new IllegalStateException("Cannot open/close course that is in enrollment or progress");
         }
     }
 
-    private void open() {
-        this.setState(State.OPEN);
-    }
-
-    private void close() {
+    /**
+     * checks if course as activity(schelude exams or extra classes).
+     * @throws IllegalStateException case course as activity
+     */
+    private void checkActivity() throws IllegalStateException{
         //todo check activity
-        this.setState(State.CLOSED);
     }
 
+    /**
+     * Toggles course state between open and enroll.
+     */
     public void toggleOpenCloseEnroll() {
         if (this.state.equals(State.OPEN)) {
             this.setState(State.ENROLL);
         } else if (this.state.equals(State.ENROLL)) {
-            //todo check teacher leader assigned
-            this.setState(State.PROGRESS);
+            this.setState(State.OPEN);
         } else {
-            throw new IllegalStateException("Cannot open/close enrollment of a course that is closed");
+            throw new IllegalStateException("Cannot open/close enrollment of a course that is closed or in progress");
         }
     }
 

@@ -11,7 +11,7 @@ OpenCloseEnrollmentUI -> SelectCourseWidget : selectCourse
 activate SelectCourseWidget
 SelectCourseWidget --> OpenCloseEnrollmentUI
 deactivate SelectCourseWidget
-OpenCloseEnrollmentUI --> Actor : shows and ask to select a
+OpenCloseEnrollmentUI --> Actor : shows and ask to select a course
 deactivate OpenCloseEnrollmentUI
 Actor -> OpenCloseEnrollmentUI : selects a course
 activate OpenCloseEnrollmentUI

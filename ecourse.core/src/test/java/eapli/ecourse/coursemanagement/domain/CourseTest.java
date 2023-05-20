@@ -3,13 +3,11 @@ package eapli.ecourse.coursemanagement.domain;
 import eapli.ecourse.Application;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {
 
     private static final Integer LIMIT = Application.settings().getCourseDescriptionCharacterLimit();
-
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureEnrollmentLimitsMinimumNonNegative() {
@@ -70,4 +68,73 @@ public class CourseTest {
         Course course2 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 140).build();
         assertFalse(course1.sameAs(course2));
     }
+
+    @Test
+    public void ensureStatusToggleOpenToEnroll() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.OPEN);
+        course1.toggleOpenCloseEnroll();
+        assertEquals(course1.getState(), State.ENROLL);
+    }
+
+    @Test
+    public void ensureToggleEnrollmentOpenToEnroll() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.ENROLL);
+        course1.toggleOpenCloseEnroll();
+        assertEquals(course1.getState(), State.OPEN);
+    }
+
+    @Test
+    public void ensureToggleEnrollmentEnrollToOpen() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.ENROLL);
+        course1.toggleOpenCloseEnroll();
+        assertEquals(course1.getState(), State.OPEN);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void ensureToggleEnrollmentCannotToggleClosed() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.CLOSED);
+        course1.toggleOpenCloseEnroll();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void ensureToggleEnrollmentCannotToggleProgress() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.PROGRESS);
+        course1.toggleOpenCloseEnroll();
+    }
+
+    @Test
+    public void ensureToggleOpenToClose() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.OPEN);
+        course1.toggleOpenClose();
+        assertEquals(course1.getState(), State.CLOSED);
+    }
+
+    @Test
+    public void ensureToggleCloseToOpen() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.CLOSED);
+        course1.toggleOpenClose();
+        assertEquals(course1.getState(), State.OPEN);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void ensureToggleCannotToggleEnroll() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.ENROLL);
+        course1.toggleOpenClose();
+    }
+
+    @Test//(expected = IllegalStateException.class)
+    public void ensureToggleCannotToggleToClosedWithActivity() {
+        //TODO, not implemented yet
+    }
+
+
+
 }

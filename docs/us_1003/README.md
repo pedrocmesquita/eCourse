@@ -16,6 +16,8 @@ While in state 'enroll', students can request to enroll in that course.
 
 ## 3. Analysis
 
+...
+
 ## 4. Design
 
 ### 4.1. Realization
@@ -32,37 +34,80 @@ While in state 'enroll', students can request to enroll in that course.
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+**Test1:** *verifies that a course in state open toggles to enrollment*  
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
+    @Test
+    public void ensureToggleEnrollmentOpenToEnroll() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.OPEN);
+        course1.toggleOpenCloseEnroll();
+        assertEquals(course1.getState(), State.ENROLL);
+    }
+
+**Test2:** *verifies that a course in state enroll toggles to enrollment*
+
+    @Test
+    public void ensureToggleEnrollmentEnrollToOpen() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.ENROLL);
+        course1.toggleOpenCloseEnroll();
+        assertEquals(course1.getState(), State.OPEN);
+    }
+
+**Test3:** *verifies that a course in state closed cannot toggle*
+
+    @Test(expected = IllegalStateException.class)
+    public void ensureToggleEnrollmentCannotToggleClosed() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.CLOSED);
+        course1.toggleOpenCloseEnroll();
+    }
+
+**Test4:** *verifies that a course in state progress cannot toggle*
+
+    @Test(expected = IllegalStateException.class)
+    public void ensureToggleEnrollmentCannotToggleProgress() {
+        Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
+        course1.setState(State.PROGRESS);
+        course1.toggleOpenCloseEnroll();
+    }
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the
-design. It should also describe and explain other important artifacts necessary to fully understand the implementation
-like, for instance, configuration files.*
+**Course:** *toggle enrollments*
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this
-requirement.*
+    /**
+     * Toggles course state between open and enroll.
+     */
+    public void toggleOpenCloseEnroll() {
+        if (this.state.equals(State.OPEN)) {
+            this.setState(State.ENROLL);
+        } else if (this.state.equals(State.ENROLL)) {
+            this.setState(State.OPEN);
+        } else {
+            throw new IllegalStateException("Cannot open/close enrollment of a course that is closed or in progress");
+        }
+    }
+
+**Controller** *list toggleable courses, toggle course*
+
+    public Iterable<Course> allCoursesOpenOrEnroll() {
+        return service.allCoursesOpenOrEnroll();
+    }
+
+    public Course toggleOpenCloseEnroll(Course course) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+        if (course == null) throw new IllegalArgumentException();
+        course.toggleOpenCloseEnroll();
+        return courseRepository.save(course);
+    }
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other
-parts/components of the system*
+![](DEMO_interaction.png)
+![](DEMO_db.png)
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of
-alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the
-development this work.*
+No observations
