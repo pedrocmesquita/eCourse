@@ -99,7 +99,7 @@ subgraph cluster_1911013184 {
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)ListAssignCoursesUI</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   controller: ListTeacherCoursesController [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   controller: ListTeacherCoursesController [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" ># elementName(): String</TD></TR>
 <TR><TD ALIGN="LEFT" ># elementPrinter(): Visitor&lt;Course&gt;</TD></TR>
@@ -157,9 +157,9 @@ subgraph cluster_861892108 {
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)ListTeacherCoursesController</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   authz: AuthorizationService [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   teacherUserRepository: TeacherUserRepository [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   teachersInCourseRepository: TeachersInCourseRepository [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   authz: AuthorizationService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teacherUserRepository: TeacherUserRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teachersInCourseRepository: TeachersInCourseRepository [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ findAllCoursesTeacherIsAssign(): Iterable&lt;Course&gt;</TD></TR>
 </TABLE>>
@@ -173,10 +173,10 @@ TeachersInCourse1854509879[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)TeachersInCourse</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   course: Course [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >#   id: TeachersInCourseKey [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   course: Course [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   id: TeachersInCourseKey [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   isInCharge: boolean [1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   teacher: TeacherUser [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teacher: TeacherUser [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ course(): Course</TD></TR>
 <TR><TD ALIGN="LEFT" >+ identity(): TeachersInCourseKey</TD></TR>
@@ -200,7 +200,7 @@ subgraph cluster_925774986 {
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)Acronym</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   acronym: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   acronym: String [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ compareTo(o: Acronym): int</TD></TR>
 </TABLE>>
@@ -214,7 +214,7 @@ BirthDate2032408415[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)BirthDate</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >#   birthDate: Calendar [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   birthDate: Calendar [1]</TD></TR>
 </TABLE>>
 	style=filled
 	margin=0
@@ -226,7 +226,7 @@ TaxPayerNumber2032408415[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)TaxPayerNumber</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   taxPayerNumber: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taxPayerNumber: String [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ compareTo(o: TaxPayerNumber): int</TD></TR>
 </TABLE>>
@@ -240,12 +240,12 @@ TeacherUser1814895075[
 	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
 <TR><TD ALIGN="LEFT" >(C)TeacherUser</TD></TR>
 <HR/>
-<TR><TD ALIGN="LEFT" >-   acronym: Acronym [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   birthDate: BirthDate [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   systemUser: SystemUser [0..1]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   taxPayerNumber: TaxPayerNumber [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   acronym: Acronym [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   birthDate: BirthDate [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   systemUser: SystemUser [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taxPayerNumber: TaxPayerNumber [1]</TD></TR>
 <TR><TD ALIGN="LEFT" >-   teachersInCourses: Set&lt;TeachersInCourse&gt; [0..*]</TD></TR>
-<TR><TD ALIGN="LEFT" >-   version: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   version: Long [1]</TD></TR>
 <HR/>
 <TR><TD ALIGN="LEFT" >+ acronym(): Acronym</TD></TR>
 <TR><TD ALIGN="LEFT" >+ birthDate(): BirthDate</TD></TR>
@@ -264,16 +264,16 @@ TeacherUser1814895075[
 
 'edges    
 ListAssignCoursesUI1343459916 -> ListTeacherCoursesController427251605[label="controller
-[0..1]"];
+[1]"];
 ListTeacherCoursesController427251605 -> JpaTeacherUserRepository1852613913[arrowhead=none];
 ListTeacherCoursesController427251605 -> JpaTeachersInCourseRepository1852613913[arrowhead=none];
 ListTeacherCoursesController427251605 -> TeacherUser1814895075[label="findAllCoursesTeacherIsAssign() -> acronym()"];
 TeacherUser1814895075 -> Acronym1814895075[label="acronym
-[0..1]"];
+[1]"];
 TeacherUser1814895075 -> BirthDate2032408415[label="birthDate
-[0..1]"];
+[1]"];
 TeacherUser1814895075 -> TaxPayerNumber2032408415[label="taxPayerNumber
-[0..1]"];
+[1]"];
 TeacherUser1814895075 -> TeachersInCourse1854509879[label="teachersInCourses
 [0..*]"];
     

@@ -24,6 +24,7 @@
 package eapli.ecourse.app.student.console.presentation;
 
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
+import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -84,12 +85,12 @@ class MainMenu extends StudentUserBaseUI {
 
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
-
         final Menu myUserMenu = new MyUserMenu();
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
-        mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
-
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.STUDENT)) {
+            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        }
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;

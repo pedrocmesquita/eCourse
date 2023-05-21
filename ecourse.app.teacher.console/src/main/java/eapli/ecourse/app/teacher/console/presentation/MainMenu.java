@@ -105,7 +105,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.MANAGER, BaseRoles.ADMIN)) {
             final Menu coursesMenu = buildTeacherMenu();
             mainMenu.addSubMenu(COURSES_OPTION, coursesMenu);
         }

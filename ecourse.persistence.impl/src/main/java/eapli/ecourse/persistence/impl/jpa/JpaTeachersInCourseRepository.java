@@ -34,11 +34,5 @@ public class JpaTeachersInCourseRepository
         query.setParameter("teacherId", acronym);
 
         return query.getResultList();
-        /*
-        String jpql = "SELECT c FROM COURSE c " +
-              "JOIN TEACHERSINCOURSE tic ON tic.COURSE_ID = c.COURSEID " +
-              "WHERE tic.TEACHER_ID = :teacherId";
-         */
-
     }
 }
