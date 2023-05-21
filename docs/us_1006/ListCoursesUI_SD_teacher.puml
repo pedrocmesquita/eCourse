@@ -1,0 +1,30 @@
+@startuml
+participant Actor
+Actor -> ListAssignCoursesUI : elements
+activate ListAssignCoursesUI
+ListAssignCoursesUI -> ListTeacherCoursesController : findAllCoursesTeacherIsAssign
+activate ListTeacherCoursesController
+ListTeacherCoursesController -> ListTeacherCoursesController : getUserAcronym
+activate ListTeacherCoursesController
+ListTeacherCoursesController -> TeacherUserRepository : getTeacherUserFromSystemUser
+activate TeacherUserRepository
+TeacherUserRepository --> ListTeacherCoursesController
+deactivate TeacherUserRepository
+ListTeacherCoursesController --> ListTeacherCoursesController
+deactivate ListTeacherCoursesController
+ListTeacherCoursesController -> TeacherUser : acronym
+activate TeacherUser
+TeacherUser -> TeacherUser : identity
+activate TeacherUser
+TeacherUser --> TeacherUser
+deactivate TeacherUser
+TeacherUser --> ListTeacherCoursesController
+deactivate TeacherUser
+ListTeacherCoursesController -> TeachersInCourseRepository : findAllCoursesTeacherIsAssign
+activate TeachersInCourseRepository
+TeachersInCourseRepository --> ListTeacherCoursesController
+deactivate TeachersInCourseRepository
+ListTeacherCoursesController --> ListAssignCoursesUI
+deactivate ListTeacherCoursesController
+return
+@enduml

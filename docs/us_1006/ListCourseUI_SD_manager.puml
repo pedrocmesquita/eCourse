@@ -1,0 +1,14 @@
+@startuml
+participant Actor
+Actor -> ListCourseUI : elements
+activate ListCourseUI
+ListCourseUI -> ListCourseController : allCourses
+activate ListCourseController
+ListCourseController -> ListCourseService : allCourses
+activate ListCourseService
+ListCourseService --> ListCourseController
+deactivate ListCourseService
+ListCourseController --> ListCourseUI
+deactivate ListCourseController
+return
+@enduml

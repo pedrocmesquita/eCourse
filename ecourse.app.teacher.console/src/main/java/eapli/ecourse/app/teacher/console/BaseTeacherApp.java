@@ -18,11 +18,11 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.ecourse.app.other.console;
+package eapli.ecourse.app.teacher.console;
 
 import eapli.ecourse.app.common.console.BaseApplication;
 import eapli.ecourse.app.common.console.presentation.authz.LoginAction;
-import eapli.ecourse.app.other.console.presentation.MainMenu;
+import eapli.ecourse.app.teacher.console.presentation.MainMenu;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BasePasswordPolicy;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -34,12 +34,12 @@ import eapli.framework.infrastructure.pubsub.EventDispatcher;
  * @author Paulo Gandra Sousa
  */
 @SuppressWarnings("squid:S106")
-public final class OtherApp extends BaseApplication {
+public final class BaseTeacherApp extends BaseApplication {
 
     /**
      * Empty constructor is private to avoid instantiation of this class.
      */
-    private OtherApp() {
+    private BaseTeacherApp() {
     }
 
     public static void main(final String[] args) {
@@ -48,13 +48,13 @@ public final class OtherApp extends BaseApplication {
         AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
                 new PlainTextEncoder());
 
-        new OtherApp().run(args);
+        new BaseTeacherApp().run(args);
     }
 
     @Override
     protected void doMain(String[] args) {
         // login and go to main menu
-        if (new LoginAction(BaseRoles.CASHIER).execute()) {
+        if (new LoginAction(BaseRoles.TEACHER).execute()) {
             final MainMenu menu = new MainMenu();
             menu.mainLoop();
         }
@@ -62,7 +62,7 @@ public final class OtherApp extends BaseApplication {
 
     @Override
     protected String appTitle() {
-        return "Base POS";
+        return "eCourse Teacher";
     }
 
     @Override
