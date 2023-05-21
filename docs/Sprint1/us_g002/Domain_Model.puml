@@ -23,27 +23,35 @@ package "User Aggregate"{
         shortName
     }
 
-    Entity Teacher {
-    }
-
-    Object acronym <<Identity>>{
-    }
-
-    Entity Student {
-    }
-
-    Object mechanographicNumber <<Identity>>{
-    }
-
-    Entity Manager {
-    }
-
     Object personaInformation {
         birthdate
         taxNumber
     }
 
 }
+
+
+package "Teacher Aggregate"{
+    Entity Teacher {
+        }
+
+    Object acronym <<Identity>>{
+    }
+}
+
+package "Student Aggregate"{
+    Entity Student {
+    }
+
+    Object mechanographicNumber <<Identity>>{
+    }
+}
+
+package "Manager Aggregate"{
+    Entity Manager {
+    }
+}
+
 
 '//--//--//--//--//--/ Exam /--//--//--//--//--//--//
 
@@ -73,15 +81,26 @@ package "Exam Aggregate" <<Rectangle>> {
     Object Answer {
     }
 
+    Object MatchingQuestion {
+    }
+    Object MultipleChoice{
+    }
+    Object ShortAnswer{
+    }
+    Object TrueFalse{
+    }
+    Object Numerical{
+    }
+    Object SelectMissing{
+    }
+
 }
 
 
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
 package "Board Aggregate" <<Rectangle>> {
-    Entity Board <<Root>>
-    {
-        permissions_write
-        permissions_read
+    Entity Board <<Root>>{
+
     }
 
     Entity Post
@@ -201,6 +220,14 @@ package "Class Aggregate" <<Rectangle>> {
     ExamSubmission "1"-->"1..*" Answer
     Exam "*" <-- "1" Course : has
     Exam "1" --> "1" Title
+
+    Question "1" --> "1" MatchingQuestion: is
+    Question "1" --> "1" MultipleChoice: is
+    Question "1" --> "1" ShortAnswer: is
+    Question "1" --> "1" TrueFalse: is
+    Question "1" --> "1" Numerical: is
+    Question "1" --> "1" SelectMissing: is
+
 
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
 

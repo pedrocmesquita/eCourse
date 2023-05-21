@@ -45,6 +45,7 @@ public class AppSettings {
     private static final String SCHEMA_GENERATION_KEY = "javax.persistence.schema-generation.database.action";
     private static final String HIGH_CALORIES_DISH_LIMIT = "HighCaloriesDishLimit";
     private static final String COURSE_DESCRIPTION_CHARACTER_LIMIT = "CourseDescriptionCharacterLimit";
+    private static final String EXAM_DESCRIPTION_CHARACTER_LIMIT = "ExamDescriptionCharacterLimit";
     private final Properties applicationProperties = new Properties();
 
     public AppSettings() {
@@ -75,6 +76,7 @@ public class AppSettings {
                 + ".ecourse");
         this.applicationProperties.setProperty(HIGH_CALORIES_DISH_LIMIT, "300");
         this.applicationProperties.setProperty(COURSE_DESCRIPTION_CHARACTER_LIMIT, "500");
+        this.applicationProperties.setProperty(EXAM_DESCRIPTION_CHARACTER_LIMIT, "500");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -96,6 +98,10 @@ public class AppSettings {
 
     public Integer getCourseDescriptionCharacterLimit() {
         return Integer.valueOf(this.applicationProperties.getProperty(COURSE_DESCRIPTION_CHARACTER_LIMIT));
+    }
+    
+    public Integer getExamDescriptionCharacterLimit() {
+        return Integer.valueOf(this.applicationProperties.getProperty(EXAM_DESCRIPTION_CHARACTER_LIMIT));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})

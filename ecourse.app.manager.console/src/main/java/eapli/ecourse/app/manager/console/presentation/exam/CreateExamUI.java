@@ -1,0 +1,48 @@
+package eapli.ecourse.app.manager.console.presentation.exam;
+
+import eapli.ecourse.Application;
+import eapli.ecourse.coursemanagement.application.CreateExamController;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.io.util.Console;
+import eapli.framework.presentation.console.AbstractUI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+
+public class CreateExamUI extends AbstractUI
+{
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreateExamUI.class);
+    private static final Integer DESCRIPTION_CARACTER_LIMIT = Application.settings().getExamDescriptionCharacterLimit();
+    private final CreateExamController controller = new CreateExamController();
+    
+    @Override
+    protected boolean doShow()
+    {
+        String title = Console.readLine("Title");
+        String description = Console.readLine("Description (max " + DESCRIPTION_CARACTER_LIMIT + " characters)");
+        
+        Date openDate = Console.readDate("Insert the opening date of the exam.", "dd/mm/yyyy");
+        Date closeDate = Console.readDate("Insert the closing date of the exam.", "dd/mm/yyyy");;
+        
+        try
+        {
+            controller.createExam(title, description, openDate, closeDate);
+            System.out.println("Exam created with success!");
+        } catch (IntegrityViolationException | ConcurrencyException ex)
+        {
+            LOGGER.error("Error performing the operation", ex);
+            System.out.println("Unfortunately there was an unexpected error in the application. " +
+                    "Please try again and if the problem persists, contact your system administrator.");
+        }
+        return false;
+    }
+    
+    @Override
+    public String headline()
+    {
+        return "Create Exam";
+    }
+}

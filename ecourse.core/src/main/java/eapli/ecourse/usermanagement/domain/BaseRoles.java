@@ -60,16 +60,15 @@ public final class BaseRoles {
 
     public static final Role STUDENT = Role.valueOf("STUDENT");
 
+    public static final Role MANAGER = Role.valueOf("MANAGER");
+
     /**
      * get available role types for adding new users
      *
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[]{ADMIN, TEACHER};
+        return new Role[]{STUDENT, TEACHER, MANAGER, ADMIN, POWER_USER};
     }
 
-    public boolean isCollaborator(final Role role) {
-        return role != CLIENT_USER;
-    }
 }

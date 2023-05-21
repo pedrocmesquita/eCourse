@@ -56,12 +56,12 @@ public final class BaseStudentApp extends BaseApplication {
 
     @Override
     protected String appTitle() {
-        return "Base User App	";
+        return "eCourse Student App";
     }
 
     @Override
     protected String appGoodbye() {
-        return "Bye, bye";
+        return "Signing out";
     }
 
     @Override

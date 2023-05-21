@@ -26,10 +26,13 @@ package eapli.ecourse.app.manager.console.presentation.authz;
 import eapli.ecourse.app.common.console.presentation.myuser.UserDataWidget;
 import eapli.ecourse.usermanagement.application.AddUserController;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
+import eapli.ecourse.usertypemanagement.studentusermanagement.application.AddStudentUserController;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.application.AddTeacherUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
@@ -49,6 +52,7 @@ public class AddUserUI extends AbstractUI {
 
     private final AddUserController theController = new AddUserController();
     private final AddTeacherUserController teacherUserController = new AddTeacherUserController();
+    private final AddStudentUserController studentUserController = new AddStudentUserController();
 
     @Override
     protected boolean doShow() {
@@ -61,11 +65,23 @@ public class AddUserUI extends AbstractUI {
         do {
             show = showRoles(roleTypes);
         } while (!show);
+        try {
+            if (roleTypes.contains(BaseRoles.TEACHER)) {
+                String acronym = Console.readLine("Acronym");
+                teacherUserController.addTeacher(userData.username(), userData.password(), userData.firstName(),
+                        userData.lastName(), userData.email(), acronym, userData.taxPayerNumber(), userData.birthDate());
 
-        if (roleTypes.contains(BaseRoles.TEACHER)) {
-            String acronym = Console.readLine("Acronym");
-            teacherUserController.addTeacher(userData.username(), userData.password(), userData.firstName(),
-                    userData.lastName(), userData.email(), acronym, userData.taxPayerNumber(), userData.birthDate());
+            } else if (roleTypes.contains(BaseRoles.STUDENT)) {
+                String mechaNumber = Console.readLine("mechanographic number");
+                studentUserController.addStudent(userData.username(), userData.password(), userData.firstName(),
+                        userData.lastName(), userData.email(), mechaNumber, userData.taxPayerNumber(), userData.birthDate());
+
+            } else {
+                this.theController.addUser(userData.username(), userData.password(), userData.firstName(),
+                    userData.lastName(), userData.email(), roleTypes);
+            }
+        } catch (final IntegrityViolationException | ConcurrencyException e) {
+            System.out.println("That username is already in use.");
         }
 
 //        try {
@@ -83,7 +99,6 @@ public class AddUserUI extends AbstractUI {
 //        }
         return false;
     }
-
 
 
     private boolean showRoles(final Set<Role> roleTypes) {

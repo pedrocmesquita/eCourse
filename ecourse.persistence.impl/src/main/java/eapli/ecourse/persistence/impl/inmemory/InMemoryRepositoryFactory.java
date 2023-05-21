@@ -20,6 +20,8 @@
  */
 package eapli.ecourse.persistence.impl.inmemory;
 
+import eapli.ecourse.coursemanagement.repositories.ClassRepository;
+import eapli.ecourse.coursemanagement.repositories.ExamRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
@@ -80,6 +82,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JpaCourseRepository courses() {
+        return null;
+    }
+
+    @Override
+    public ExamRepository exams() {
+        return null;
+    }
+
+    @Override
+    public ClassRepository classes() {
         return null;
     }
 

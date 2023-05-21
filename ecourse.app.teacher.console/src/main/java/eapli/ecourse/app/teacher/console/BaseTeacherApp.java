@@ -62,7 +62,7 @@ public final class BaseTeacherApp extends BaseApplication {
 
     @Override
     protected String appTitle() {
-        return "eCourse Teacher";
+        return "eCourse Teacher App";
     }
 
     @Override
