@@ -21,7 +21,7 @@ This US aims to change the state of a course to open/close
 ### 4.1. Realization
 
 ![](OpenCloseCourse_SD.svg)
-*System Diagram*
+*Sequence Diagram*
 
 ### 4.2. Class Diagram
 

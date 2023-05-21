@@ -5,6 +5,7 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Course implements AggregateRoot<Name> {
@@ -31,6 +32,9 @@ public class Course implements AggregateRoot<Name> {
     @Enumerated(EnumType.STRING)
     private State state;
 
+    @OneToMany(mappedBy = "course")
+    private Set<TeachersInCourse> teachersInCourses;
+
     protected Course() {
         //ORM only
     }
@@ -48,38 +52,35 @@ public class Course implements AggregateRoot<Name> {
         this.description = description;
         this.enrollLimit = enrollLimit;
         this.state = State.CLOSED;
+        //teachersInCourses = new HashSet<TeachersInCourse>();
     }
 
-    public Name getName() {
+    public Long courseId() {
+        return courseId;
+    }
+
+    public Name name() {
         return identity();
     }
 
-    public void setName(Name name) {
-        this.name = name;
-    }
-
-    public Description getDescription() {
+    public Description description() {
         return description;
     }
 
-    public void setDescription(Description description) {
-        this.description = description;
-    }
-
-    public EnrollLimit getEnrollLimit() {
+    public EnrollLimit enrollLimit() {
         return enrollLimit;
     }
 
-    public void setEnrollLimit(EnrollLimit enrollLimit) {
-        this.enrollLimit = enrollLimit;
-    }
-
-    public State getState() {
+    public State state() {
         return state;
     }
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public Set<TeachersInCourse> getTeachersInCourses() {
+        return teachersInCourses;
     }
 
     /**

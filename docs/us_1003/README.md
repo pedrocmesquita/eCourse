@@ -23,7 +23,7 @@ While in state 'enroll', students can request to enroll in that course.
 ### 4.1. Realization
 
 ![](OpenCloseEnrollment_SD.svg)
-*System Diagram*
+*Sequence Diagram*
 
 ### 4.2. Class Diagram
 

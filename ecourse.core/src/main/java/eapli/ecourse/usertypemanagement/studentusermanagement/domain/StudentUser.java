@@ -107,4 +107,12 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     public MecanographicNumber identity() {
         return this.mecanographicNumber;
     }
+
+    public TaxPayerNumber taxPayerNumber() {
+        return taxPayerNumber;
+    }
+
+    public BirthDate birthDate() {
+        return birthDate;
+    }
 }

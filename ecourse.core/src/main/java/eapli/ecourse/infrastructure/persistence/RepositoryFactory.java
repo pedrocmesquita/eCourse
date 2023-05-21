@@ -21,6 +21,7 @@
 package eapli.ecourse.infrastructure.persistence;
 
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
+import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeacherUserRepository;
@@ -104,5 +105,18 @@ public interface RepositoryFactory {
      * @return
      */
     TeacherUserRepository teacherUsers();
+
+    /**
+     * @param autoTx the transactional context to enroll
+     * @return
+     */
+    TeachersInCourseRepository teachersInCourse(TransactionalContext autoTx);
+
+    /**
+     * repository will be created in auto transaction mode
+     *
+     * @return
+     */
+    TeachersInCourseRepository teachersInCourse();
 
 }

@@ -1,5 +1,6 @@
 package eapli.ecourse.usertypemanagement.teacherusermanagement.domain;
 
+import eapli.ecourse.coursemanagement.domain.TeachersInCourse;
 import eapli.ecourse.usertypemanagement.domain.BirthDate;
 import eapli.ecourse.usertypemanagement.domain.TaxPayerNumber;
 import eapli.framework.domain.model.AggregateRoot;
@@ -7,6 +8,7 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class TeacherUser implements AggregateRoot<Acronym> {
@@ -23,6 +25,8 @@ public class TeacherUser implements AggregateRoot<Acronym> {
     @Embedded
     private BirthDate birthDate;
 
+    @OneToMany(mappedBy = "teacher")
+    private Set<TeachersInCourse> teachersInCourses;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -36,6 +40,7 @@ public class TeacherUser implements AggregateRoot<Acronym> {
         this.systemUser = systemUser;
         this.taxPayerNumber = taxPayerNumber;
         this.birthDate = birthDate;
+        //teachersInCourses = new HashSet<TeachersInCourse>();
     }
 
     protected TeacherUser() {
@@ -68,5 +73,13 @@ public class TeacherUser implements AggregateRoot<Acronym> {
     @Override
     public Acronym identity() {
         return this.acronym;
+    }
+
+    public TaxPayerNumber taxPayerNumber() {
+        return taxPayerNumber;
+    }
+
+    public BirthDate birthDate() {
+        return birthDate;
     }
 }

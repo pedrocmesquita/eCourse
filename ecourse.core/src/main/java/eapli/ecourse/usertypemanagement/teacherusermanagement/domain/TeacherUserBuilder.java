@@ -2,11 +2,9 @@ package eapli.ecourse.usertypemanagement.teacherusermanagement.domain;
 
 import eapli.ecourse.usertypemanagement.domain.BirthDate;
 import eapli.ecourse.usertypemanagement.domain.TaxPayerNumber;
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUserBuilder;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 
 public class TeacherUserBuilder implements DomainFactory<TeacherUser> {

@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @Embeddable
-public class TaxPayerNumber implements ValueObject {
+public class TaxPayerNumber implements ValueObject, Comparable<TaxPayerNumber> {
 
     @Column(unique=true)
     private String taxPayerNumber;
@@ -27,11 +27,13 @@ public class TaxPayerNumber implements ValueObject {
     }
 
     public void setTaxPayerNumber(String taxPayerNumber) {
-        if (StringPredicates.isNullOrEmpty(taxPayerNumber)) {
+        if (StringPredicates.isNullOrEmpty(taxPayerNumber))
             throw new IllegalArgumentException("Tax Payer Number cannot be null or empty");
-        }
         if (taxPayerNumber.length() != 9)
             throw new IllegalArgumentException("Tax Payer Number must be 9 digits");
+        String regex = "^[0-9]+$";
+        if(!taxPayerNumber.matches(regex))
+            throw new IllegalArgumentException("Tax Payer Number must only contain digits");
         this.taxPayerNumber = taxPayerNumber;
     }
 
@@ -51,5 +53,10 @@ public class TaxPayerNumber implements ValueObject {
     @Override
     public String toString() {
         return this.taxPayerNumber;
+    }
+
+    @Override
+    public int compareTo(TaxPayerNumber o) {
+        return taxPayerNumber.compareTo(o.taxPayerNumber);
     }
 }

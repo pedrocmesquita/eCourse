@@ -11,6 +11,8 @@
         <class>eapli.ecourse.usertypemanagement.studentusermanagement.domain.SignupRequest</class>
         <class>eapli.ecourse.usertypemanagement.teacherusermanagement.domain.TeacherUser</class>
         <class>eapli.ecourse.coursemanagement.domain.Course</class>
+        <class>eapli.ecourse.coursemanagement.domain.TeachersInCourse</class>
+        <class>eapli.ecourse.coursemanagement.domain.TeachersInCourseKey</class>
 
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->

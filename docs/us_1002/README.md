@@ -26,7 +26,7 @@ The goal of this US is to generate a Course and store it within the database.
 ### 4.1. Realization
 
 ![](CreateCourse_SD.svg)
-*Create Course System Diagram*
+*Sequence Diagram*
 
 ### 4.2. Class Diagram
 

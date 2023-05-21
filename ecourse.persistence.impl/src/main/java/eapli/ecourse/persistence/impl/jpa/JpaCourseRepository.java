@@ -43,4 +43,5 @@ public class JpaCourseRepository extends JpaAutoTxRepository<Course, Long, Name>
 
         return query.getResultList();
     }
+
 }

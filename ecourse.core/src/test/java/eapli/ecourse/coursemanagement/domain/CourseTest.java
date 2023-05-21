@@ -74,7 +74,7 @@ public class CourseTest {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         course1.setState(State.OPEN);
         course1.toggleOpenCloseEnroll();
-        assertEquals(course1.getState(), State.ENROLL);
+        assertEquals(course1.state(), State.ENROLL);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class CourseTest {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         course1.setState(State.ENROLL);
         course1.toggleOpenCloseEnroll();
-        assertEquals(course1.getState(), State.OPEN);
+        assertEquals(course1.state(), State.OPEN);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class CourseTest {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         course1.setState(State.ENROLL);
         course1.toggleOpenCloseEnroll();
-        assertEquals(course1.getState(), State.OPEN);
+        assertEquals(course1.state(), State.OPEN);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -112,7 +112,7 @@ public class CourseTest {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         course1.setState(State.OPEN);
         course1.toggleOpenClose();
-        assertEquals(course1.getState(), State.CLOSED);
+        assertEquals(course1.state(), State.CLOSED);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class CourseTest {
         Course course1 = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").withEnrollLimit(80, 120).build();
         course1.setState(State.CLOSED);
         course1.toggleOpenClose();
-        assertEquals(course1.getState(), State.OPEN);
+        assertEquals(course1.state(), State.OPEN);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -134,7 +134,6 @@ public class CourseTest {
     public void ensureToggleCannotToggleToClosedWithActivity() {
         //TODO, not implemented yet
     }
-
 
 
 }

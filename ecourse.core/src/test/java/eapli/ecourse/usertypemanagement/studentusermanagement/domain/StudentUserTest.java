@@ -24,8 +24,6 @@
 package eapli.ecourse.usertypemanagement.studentusermanagement.domain;
 
 import eapli.ecourse.usermanagement.domain.BaseRoles;
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
-import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUserBuilder;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import org.junit.Test;
 
@@ -133,4 +131,5 @@ public class StudentUserTest {
 
         assertFalse(expected);
     }
+
 }
