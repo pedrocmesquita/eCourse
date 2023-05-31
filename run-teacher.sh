@@ -1,8 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-#REM set the class path,
-#REM assumes the build was executed with maven copy-dependencies
-export BASE_CP=base.app.other.console/target/base.app.other.console-1.4.0-SNAPSHOT.jar:base.app.other.console/target/dependency/*;
+# Set the class path, assuming the build was executed with Maven copy-dependencies
+BASE_CP="ecourse.app.teacher.console/target/ecourse.app.teacher.console-1.4.0-SNAPSHOT.jar:ecourse.app.teacher.console/target/dependency/*"
 
-#REM call the java VM, e.g,
-java -cp $BASE_CP eapli.base.app.other.console.OtherApp
+# Call the Java VM
+java -cp "$BASE_CP" eapli.ecourse.app.teacher.console.BaseTeacherApp

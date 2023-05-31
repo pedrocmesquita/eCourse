@@ -1,8 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-#REM set the class path,
-#REM assumes the build was executed with maven copy-dependencies
-export BASE_CP=ecourse.app.backoffice.console\target\ecourse.app.backoffice.console-1.4.0-SNAPSHOT.jar;ecourse.app.backoffice.console\target\dependency\*;
+# Set the class path, assuming the build was executed with Maven copy-dependencies
+BASE_CP="ecourse.app.manager.console/target/ecourse.app.manager.console-1.4.0-SNAPSHOT.jar:ecourse.app.manager.console/target/dependency/*"
 
-#REM call the java VM, e.g,
-java -cp $BASE_CP eapli.ecourse.app.backoffice.console.BaseBackoffice
+# Call the Java VM
+java -cp "$BASE_CP" eapli.ecourse.app.manager.console.BaseManagerApp
