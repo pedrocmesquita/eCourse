@@ -45,6 +45,7 @@ Nesse aspeto de "user experience" devem seguir boas práticas. Mas isso já faz 
 	* course of the class
     * class start time
     * class end time
+    * instructor ID
 	
 * Selected data:
 	* N/A

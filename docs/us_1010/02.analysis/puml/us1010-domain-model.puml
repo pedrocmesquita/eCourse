@@ -1,0 +1,131 @@
+@startuml
+hide methods
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam classFontColor automatic
+skinparam classHeaderBackgroundColor #4
+skinparam packageStyle rectangle
+
+
+'//--//--//--//--//--/ User /--//--//--//--//--//--//
+
+package "User Aggregate"{
+
+    Entity User <<Root>> {
+    }
+
+    Object email <<Identity>> {
+    }
+
+    Object personaInformation {
+        birthdate
+        taxNumber
+    }
+
+    Object password{
+    }
+
+}
+
+package "Teacher Aggregate" {
+
+    Entity designationTeacher as "name"{
+    firstName
+    lastName
+    }
+
+    Entity Teacher {
+    }
+
+    Object acronym <<Identity>>{
+    }
+
+    Teacher "1" -l-> "1" designationTeacher
+}
+
+'//--//--//--//--//--/ Course /--//--//--//--//--//--//
+package "Course Aggregate" <<Rectangle>> {
+
+Entity Course <<Root>>
+{
+    maxEnroll
+    minEnroll
+}
+
+Object CourseID <<Identity>>{
+}
+
+Object Name {
+}
+
+Object CourseState <<enum>> {
+}
+Object StudentEnrollmentState <<enum>> {
+}
+
+Object Description {
+}
+
+
+Object EnrolledStudents {
+}
+
+Object AssignedTeachers{
+    isInCharge
+}
+
+Object CourseState <<Enum>> {
+
+}
+
+}
+
+package "Class Aggregate" <<Rectangle>> {
+    Entity Class
+    {
+        date
+        duration
+    }
+
+    Entity ExtraClass
+    {
+        date
+        duration
+    }
+}
+
+'//--//--//
+
+'//--//--//--//--//--/ User /--//--//--//--//--//--//
+
+    User "1" <-- "1" Teacher
+
+    User "1" --> "1" password
+    Teacher "1" --> "1"acronym
+    User "1"-->"1" email
+
+    Teacher "1" --> "1" personaInformation
+
+'//--//--//--//--//--/ Exam /--//--//--//--//--//--//
+
+'//--//--//--//--//--/ Board /--//--//--//--//--//--//
+
+'//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
+
+'//--//--//--//--//--/ Course /--//--//--//--//--//--//
+
+    Class "*" <--l- "1" Course : has
+    ExtraClass "*" <-- "1" Course : has
+    Teacher "1" --> "*" Class : schedules
+    Teacher "1" --> "*" ExtraClass : schedules
+    Teacher "1" --> "*" AssignedTeachers : is in
+    AssignedTeachers "*" <-- "1" Course : has
+    EnrolledStudents "*" <-- "1" Course : has
+    Course "1"-r->"1" CourseState
+    Course "1" --> "1" CourseID
+    Course "1"-->"1" Name
+    Course "1"--> "1"Description
+    EnrolledStudents"1" -r-> "1"StudentEnrollmentState
+
+    note right of AssignedTeachers : only one teacher is in charge of a course
+@enduml
