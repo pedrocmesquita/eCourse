@@ -25,6 +25,7 @@ package eapli.ecourse.app.teacher.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
+import eapli.ecourse.app.teacher.console.presentation.classes.ScheduleClassUI;
 import eapli.ecourse.app.teacher.console.presentation.course.ListAssignCoursesUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
@@ -53,9 +54,11 @@ public class MainMenu extends AbstractUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int COURSES_OPTION = 2;
+    private static final int CLASSES_OPTION = 3;
 
     //COURSE
     private static final int LIST_ASSIGN_COURSES = 1;
+    private static final int SCHEDULE_CLASS = 1;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -108,6 +111,8 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.MANAGER, BaseRoles.ADMIN)) {
             final Menu coursesMenu = buildTeacherMenu();
             mainMenu.addSubMenu(COURSES_OPTION, coursesMenu);
+            final Menu classesMenu = buildClassesMenu();
+            mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -126,5 +131,13 @@ public class MainMenu extends AbstractUI {
         coursesMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return coursesMenu;
+    }
+    private Menu buildClassesMenu() {
+        final Menu classesMenu = new Menu("Classes  >");
+
+        classesMenu.addItem(SCHEDULE_CLASS, "Schedule a Class", new ScheduleClassUI()::show);
+        classesMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return classesMenu;
     }
 }

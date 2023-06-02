@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Teacher" as ADM
+participant ":System" as System
+
+activate ADM
+
+    ADM -> System : asks to schedule a class
+    activate System
+
+        System --> ADM : requests data (course, startHour, endHour)
+
+
+    ADM -> System : provides data
+
+    System --> ADM : displays success message
+    deactivate System
+
+
+@enduml

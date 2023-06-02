@@ -12,15 +12,9 @@ skinparam packageStyle rectangle
 package "User Aggregate"{
 
     Entity User <<Root>> {
-        password
     }
 
     Object email <<Identity>> {
-    }
-
-    Object designation {
-        fullName
-        shortName
     }
 
     Object personaInformation {
@@ -28,18 +22,34 @@ package "User Aggregate"{
         taxNumber
     }
 
+    Object password{
+    }
+
 }
 
+package "Teacher Aggregate" {
 
-package "Teacher Aggregate"{
+    Entity designationTeacher as "name"{
+    firstName
+    lastName
+    }
+
     Entity Teacher {
-        }
+    }
 
     Object acronym <<Identity>>{
     }
+
+    Teacher "1" -l-> "1" designationTeacher
 }
 
 package "Student Aggregate"{
+
+    Entity designationStudent as "name"{
+    firstName
+    lastName
+    }
+
     Entity Student {
     }
 
@@ -81,19 +91,6 @@ package "Exam Aggregate" <<Rectangle>> {
     Object Answer {
     }
 
-    Object MatchingQuestion {
-    }
-    Object MultipleChoice{
-    }
-    Object ShortAnswer{
-    }
-    Object TrueFalse{
-    }
-    Object Numerical{
-    }
-    Object SelectMissing{
-    }
-
 }
 
 
@@ -122,6 +119,9 @@ package "Board Aggregate" <<Rectangle>> {
     }
 
     Object CellTitle <<Identity>> {
+    }
+
+    Object Changes {
     }
 
 }
@@ -170,7 +170,7 @@ Object Description {
 Object EnrolledStudents {
 }
 
-Object EnrolledTeachers{
+Object AssignedTeachers{
     isInCharge
 }
 
@@ -201,12 +201,12 @@ package "Class Aggregate" <<Rectangle>> {
     User "1" <-- "1" Teacher
     User "1" <-l- "1" Student
     User "1" <-r- "1" Manager
+    User "1" --> "1" password
     Teacher "1" --> "1"acronym
     Student "1" --> "1" mechanographicNumber
     User "1"-->"1" email
 
-    Teacher "1" -l-> "1" designation
-    Student "1" --> "1" designation
+    Student "1" --> "1" designationStudent
     Teacher "1" --> "1" personaInformation
     Student "1" --> "1" personaInformation
 
@@ -218,16 +218,8 @@ package "Class Aggregate" <<Rectangle>> {
     Teacher "1" --> "*" Exam : creates
     Answer "1"<--"1" Feedback : of
     ExamSubmission "1"-->"1..*" Answer
-    Exam "*" <-- "1" Course : has
+    Exam "*" --> "1" Course : of a
     Exam "1" --> "1" Title
-
-    Question "1" --> "1" MatchingQuestion: is
-    Question "1" --> "1" MultipleChoice: is
-    Question "1" --> "1" ShortAnswer: is
-    Question "1" --> "1" TrueFalse: is
-    Question "1" --> "1" Numerical: is
-    Question "1" --> "1" SelectMissing: is
-
 
 '//--//--//--//--//--/ Board /--//--//--//--//--//--//
 
@@ -239,6 +231,7 @@ package "Class Aggregate" <<Rectangle>> {
     Board "1" -l-> "1" BoardTitle
     Post "1" --> "*" Cell : is in
     Cell "1" --> "1" CellTitle
+    Board "1" --> "*" Changes : has
 
     note right of Cell : number of cells must form a rectangle
 
@@ -254,8 +247,8 @@ package "Class Aggregate" <<Rectangle>> {
     ExtraClass "*" <-- "1" Course : has
     Teacher "1" --> "*" Class : schedules
     Teacher "1" --> "*" ExtraClass : schedules
-    Teacher "1" --> "*" EnrolledTeachers : is in
-    EnrolledTeachers "*" <-- "1" Course : has
+    Teacher "1" --> "*" AssignedTeachers : is in
+    AssignedTeachers "*" <-- "1" Course : has
     EnrolledStudents "*" <-- "1" Course : has
     Course "1"-r->"1" CourseState
     Course "1" --> "1" CourseID
@@ -264,5 +257,5 @@ package "Class Aggregate" <<Rectangle>> {
     Student "1"--> "1"EnrolledStudents : requests
     EnrolledStudents"1" -r-> "1"StudentEnrollmentState
 
-    note right of EnrolledTeachers : only one teacher is in charge of a course
+    note right of AssignedTeachers : only one teacher is in charge of a course
 @enduml
