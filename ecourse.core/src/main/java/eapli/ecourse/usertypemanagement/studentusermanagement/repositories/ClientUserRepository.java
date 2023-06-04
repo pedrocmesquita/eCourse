@@ -23,6 +23,7 @@ package eapli.ecourse.usertypemanagement.studentusermanagement.repositories;
 import eapli.ecourse.usertypemanagement.studentusermanagement.domain.MecanographicNumber;
 import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
 import eapli.framework.domain.repositories.DomainRepository;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import java.util.Optional;
@@ -31,8 +32,9 @@ import java.util.Optional;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public interface ClientUserRepository
-        extends DomainRepository<MecanographicNumber, StudentUser> {
-
+        extends DomainRepository<MecanographicNumber, StudentUser>
+{
+    
     /**
      * returns the client user (utente) whose username is given
      *
@@ -40,16 +42,25 @@ public interface ClientUserRepository
      * @return
      */
     Optional<StudentUser> findByUsername(Username name);
-
+    
     /**
      * returns the client user (utente) with the given mecanographic number
      *
      * @param number
      * @return
      */
-    default Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
+    default Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number)
+    {
         return ofIdentity(number);
     }
-
+    
     public Iterable<StudentUser> findAllActive();
+    
+    
+    /**
+     * Finds student, given a systemuser
+     *
+     * @return
+     */
+    //StudentUser getClientUserFromSystemUser(SystemUser systemUser);
 }
