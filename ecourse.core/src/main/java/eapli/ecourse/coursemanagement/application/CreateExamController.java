@@ -20,7 +20,7 @@ public class CreateExamController
     
     public Exam createExam(String title, String description, Date dateOpen, Date dateClose)
     {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.TEACHER);
         
         final ExamBuilder examBuilder = new ExamBuilder();
         examBuilder.withTitle(title).withDescription(description).withDates(dateOpen,dateClose);
