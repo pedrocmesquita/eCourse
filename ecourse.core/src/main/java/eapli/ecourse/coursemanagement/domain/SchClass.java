@@ -52,7 +52,7 @@ public class SchClass implements AggregateRoot<Name> {
 
     @Override
     public boolean sameAs(final Object other) {
-        if (!(other instanceof Exam)) {
+        if (!(other instanceof SchClass)) {
             return false;
         }
 

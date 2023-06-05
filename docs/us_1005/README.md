@@ -41,7 +41,7 @@
         final Course course = new CourseBuilder().withName("Java-1").withDescription("Java intro 22").build();
         final TeacherUser teacherUser = new TeacherUserBuilder().withAcronym("AB").withBirthDate(birthdate)
                 .withTaxPayerNumber("123456789").withSystemUser(getNewDummyUser()).build();
-        final TeachersInCourse teachersInCourse = new TeachersInCourse(course, teacherUser);
+        final TeachersInCourse assignedTeachers = new TeachersInCourse(course, teacherUser);
     }
 
 **Test 2:** *Verifies that it is not possible to create and instance of TeacherInCourse with null Course*
@@ -54,7 +54,7 @@
         course.toggleOpenClose();
         final TeacherUser teacherUser = new TeacherUserBuilder().withAcronym("AB").withBirthDate(birthdate)
                 .withTaxPayerNumber("123456789").withSystemUser(getNewDummyUser()).build();
-        final TeachersInCourse teachersInCourse = new TeachersInCourse(null, teacherUser);
+        final TeachersInCourse assignedTeachers = new TeachersInCourse(null, teacherUser);
     }
 
 **Test 3:** *Verifies that it is not possible to create and instance of TeacherInCourse with null Teacher*
@@ -67,7 +67,7 @@
         course.toggleOpenClose();
         final TeacherUser teacherUser = new TeacherUserBuilder().withAcronym("AB").withBirthDate(birthdate)
                 .withTaxPayerNumber("123456789").withSystemUser(getNewDummyUser()).build();
-        final TeachersInCourse teachersInCourse = new TeachersInCourse(course, null);
+        final TeachersInCourse assignedTeachers = new TeachersInCourse(course, null);
     }
 
 ## 5. Implementation

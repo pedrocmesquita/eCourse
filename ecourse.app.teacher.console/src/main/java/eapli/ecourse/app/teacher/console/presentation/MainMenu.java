@@ -25,6 +25,7 @@ package eapli.ecourse.app.teacher.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
+import eapli.ecourse.app.teacher.console.presentation.Exam.CreateExamUI;
 import eapli.ecourse.app.teacher.console.presentation.classes.ScheduleClassUI;
 import eapli.ecourse.app.teacher.console.presentation.course.ListAssignCoursesUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -55,10 +56,14 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int COURSES_OPTION = 2;
     private static final int CLASSES_OPTION = 3;
+    private static final int EXAMS_OPTION = 4;
 
     //COURSE
-    private static final int LIST_ASSIGN_COURSES = 1;
-    private static final int SCHEDULE_CLASS = 1;
+    private static final int LIST_ASSIGN_COURSES_OPTION = 1;
+    private static final int SCHEDULE_CLASS_OPTION = 1;
+
+    //EXAM
+    private static final int CREATE_EXAM_OPTION = 1;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -109,10 +114,12 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.MANAGER, BaseRoles.ADMIN)) {
-            final Menu coursesMenu = buildTeacherMenu();
+            final Menu coursesMenu = buildTeachersMenu();
             mainMenu.addSubMenu(COURSES_OPTION, coursesMenu);
             final Menu classesMenu = buildClassesMenu();
             mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
+            final Menu examsMenu = buildExamsMenu();
+            mainMenu.addSubMenu(EXAMS_OPTION, examsMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -124,10 +131,10 @@ public class MainMenu extends AbstractUI {
         return mainMenu;
     }
 
-    private Menu buildTeacherMenu() {
+    private Menu buildTeachersMenu() {
         final Menu coursesMenu = new Menu("Courses  >");
 
-        coursesMenu.addItem(LIST_ASSIGN_COURSES, "Assigned Courses", new ListAssignCoursesUI()::show);
+        coursesMenu.addItem(LIST_ASSIGN_COURSES_OPTION, "Assigned Courses", new ListAssignCoursesUI()::show);
         coursesMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return coursesMenu;
@@ -135,9 +142,17 @@ public class MainMenu extends AbstractUI {
     private Menu buildClassesMenu() {
         final Menu classesMenu = new Menu("Classes  >");
 
-        classesMenu.addItem(SCHEDULE_CLASS, "Schedule a Class", new ScheduleClassUI()::show);
+        classesMenu.addItem(SCHEDULE_CLASS_OPTION, "Schedule a Class", new ScheduleClassUI()::show);
         classesMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return classesMenu;
+    }
+    private Menu buildExamsMenu() {
+        final Menu examsMenu = new Menu("Exams  >");
+
+        examsMenu.addItem(CREATE_EXAM_OPTION, "Create a Exam", new CreateExamUI()::show);
+        examsMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return examsMenu;
     }
 }

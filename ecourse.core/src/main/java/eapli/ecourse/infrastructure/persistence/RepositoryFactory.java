@@ -22,9 +22,8 @@ package eapli.ecourse.infrastructure.persistence;
 
 import eapli.ecourse.coursemanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
-import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
+import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
-import eapli.ecourse.coursemanagement.repositories.ExamRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeacherUserRepository;
@@ -97,13 +96,6 @@ public interface RepositoryFactory {
      * @return
      */
     CourseRepository courses();
-    
-    /**
-     * repository will be created in auto transaction mode
-     *
-     * @return
-     */
-    ExamRepository exams();
 
     /**
      * repository will be created in auto transaction mode
@@ -137,14 +129,25 @@ public interface RepositoryFactory {
      * @return
      */
     TeachersInCourseRepository teachersInCourse();
-    
-    
-    
+
+    /**
+     * @param autoTx the transactional context to enroll
+     * @return
+     */
+    ExamRepository exams(TransactionalContext autoTx);
+
     /**
      * repository will be created in auto transaction mode
      *
      * @return
      */
-    ClientInExamRepository studentsInExam();
+    ExamRepository exams();
+    
+//    /**
+//     * repository will be created in auto transaction mode
+//     *
+//     * @return
+//     */
+//    ClientInExamRepository studentsInExam();
 
 }
