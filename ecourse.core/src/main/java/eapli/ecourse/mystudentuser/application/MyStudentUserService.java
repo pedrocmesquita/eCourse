@@ -48,7 +48,7 @@ public class MyStudentUserService {
     }
 
     public StudentUser myUser() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CLIENT_USER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CLIENT_USER, BaseRoles.STUDENT);
         final UserSession s = authz.session().orElseThrow(IllegalStateException::new);
         final SystemUser me = s.authenticatedUser();
         return repo.findByUsername(me.identity()).orElseThrow(IllegalStateException::new);

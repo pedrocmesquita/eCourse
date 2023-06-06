@@ -44,7 +44,7 @@ public interface ClientUserRepository
     Optional<StudentUser> findByUsername(Username name);
     
     /**
-     * returns the client user (utente) with the given mecanographic number
+     * returns the student user with the given mecanographic number
      *
      * @param number
      * @return

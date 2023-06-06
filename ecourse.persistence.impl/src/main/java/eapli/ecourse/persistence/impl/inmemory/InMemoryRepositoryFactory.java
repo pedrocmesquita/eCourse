@@ -22,6 +22,7 @@ package eapli.ecourse.persistence.impl.inmemory;
 
 import eapli.ecourse.coursemanagement.repositories.ClassRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
@@ -127,11 +128,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         return null;
     }
 
-//    @Override
-//    public ClientInExamRepository studentsInExam()
-//    {
-//        return null;
-//    }
+    @Override
+    public ClientInExamRepository studentsInExam()
+    {
+        return null;
+    }
     
     @Override
     public TransactionalContext newTransactionalContext() {
