@@ -6,6 +6,7 @@ import eapli.framework.validations.Preconditions;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.Objects;
 
 @Embeddable
 public class Setting implements ValueObject {
@@ -24,6 +25,19 @@ public class Setting implements ValueObject {
         Preconditions.noneNull(feedbackSetting, gradeSetting);
         setFeedbackSetting(feedbackSetting);
         setGradeSetting(gradeSetting);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Setting setting = (Setting) o;
+        return feedbackSetting == setting.feedbackSetting && gradeSetting == setting.gradeSetting;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(feedbackSetting, gradeSetting);
     }
 
     protected void setFeedbackSetting(SettingType feedbackSetting) {

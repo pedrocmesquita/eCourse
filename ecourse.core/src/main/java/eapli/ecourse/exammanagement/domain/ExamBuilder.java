@@ -1,6 +1,5 @@
 package eapli.ecourse.exammanagement.domain;
 
-import eapli.ecourse.coursemanagement.domain.CourseBuilder;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
@@ -71,7 +70,7 @@ public class ExamBuilder implements DomainFactory<Exam> {
         Exam exam;
         exam = new Exam(title, description, setting, date, sections);
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Creating new course");
+            LOGGER.debug("Creating new exam");
         }
         return exam;
     }

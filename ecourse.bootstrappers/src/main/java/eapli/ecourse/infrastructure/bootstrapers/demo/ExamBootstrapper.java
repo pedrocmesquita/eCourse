@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 
+//todo
 public class ExamBootstrapper implements Action {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExamBootstrapper.class);
@@ -34,7 +35,7 @@ public class ExamBootstrapper implements Action {
             controller.addQuestion(question);
             controller.addSection(descriptionSection);
             exam = controller.createExam();
-        }catch (final ConcurrencyException | IntegrityViolationException e) {
+        } catch (final ConcurrencyException | IntegrityViolationException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated course
         }

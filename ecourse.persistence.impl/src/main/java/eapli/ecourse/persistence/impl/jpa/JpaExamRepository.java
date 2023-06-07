@@ -16,6 +16,7 @@ public class JpaExamRepository
     }
 
     public JpaExamRepository(final String puname) {
-        super(puname, Application.settings().getExtendedPersistenceProperties(), "courseId");
+        super(puname, Application.settings().getExtendedPersistenceProperties(), "title");
     }
+
 }

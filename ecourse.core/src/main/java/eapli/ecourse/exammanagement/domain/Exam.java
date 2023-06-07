@@ -35,8 +35,9 @@ public class Exam implements AggregateRoot<Designation> {
 
     /**
      * List of sections with questions
+     * Cascade = CascadeType.ALL as sections are part of the same aggregate
      */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Section> sections;
 
     protected Exam() {
@@ -91,4 +92,5 @@ public class Exam implements AggregateRoot<Designation> {
     public Designation identity() {
         return this.title;
     }
+
 }
