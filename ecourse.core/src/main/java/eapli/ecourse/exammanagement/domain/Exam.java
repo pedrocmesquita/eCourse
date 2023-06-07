@@ -71,7 +71,7 @@ public class Exam implements AggregateRoot<Designation> {
     public int hashCode() {
         return DomainEntities.hashCode(this);
     }
-
+    
     @Override
     public boolean sameAs(Object other) {
         if (!(other instanceof Exam)) {
@@ -92,5 +92,19 @@ public class Exam implements AggregateRoot<Designation> {
     public Designation identity() {
         return this.title;
     }
-
+    
+    public Designation getTitle()
+    {
+        return identity();
+    }
+    
+    public Description getDescription()
+    {
+        return description;
+    }
+    
+    public Date getDate()
+    {
+        return date;
+    }
 }

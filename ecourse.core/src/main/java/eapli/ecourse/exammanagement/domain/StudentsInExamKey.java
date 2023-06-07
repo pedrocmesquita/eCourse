@@ -1,6 +1,8 @@
-package eapli.ecourse.coursemanagement.domain;
+package eapli.ecourse.exammanagement.domain;
 
+import eapli.ecourse.coursemanagement.domain.Name;
 import eapli.ecourse.usertypemanagement.studentusermanagement.domain.MecanographicNumber;
+import eapli.framework.general.domain.model.Designation;
 
 import javax.persistence.Column;
 import java.io.Serializable;
@@ -13,7 +15,7 @@ public class StudentsInExamKey implements Serializable, Comparable<StudentsInExa
 {
     
     @Column(name = "exam_id")
-    private Name examId;
+    private Designation examId;
     
     @Column(name = "student_id")
     private MecanographicNumber studentId;
@@ -23,7 +25,7 @@ public class StudentsInExamKey implements Serializable, Comparable<StudentsInExa
         //ORM only
     }
     
-    protected StudentsInExamKey(Name examId, MecanographicNumber studentId)
+    protected StudentsInExamKey(Designation examId, MecanographicNumber studentId)
     {
         this.examId = examId;
         this.studentId = studentId;

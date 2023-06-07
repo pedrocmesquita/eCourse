@@ -115,4 +115,9 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     public BirthDate birthDate() {
         return birthDate;
     }
+    
+    public SystemUser getSystemUser()
+    {
+        return systemUser;
+    }
 }

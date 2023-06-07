@@ -24,6 +24,7 @@ import eapli.ecourse.Application;
 import eapli.ecourse.coursemanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
@@ -114,11 +115,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaExamRepository(Application.settings().getPersistenceUnitName());
     }
 
-//    @Override
-//    public ClientInExamRepository studentsInExam()
-//    {
-//        return new JpaStudentsInExamRepository(Application.settings().getPersistenceUnitName());
-//    }
+    @Override
+    public ClientInExamRepository studentsInExam()
+    {
+        return new JpaStudentsInExamRepository(Application.settings().getPersistenceUnitName());
+    }
     
     @Override
     public TransactionalContext newTransactionalContext() {
