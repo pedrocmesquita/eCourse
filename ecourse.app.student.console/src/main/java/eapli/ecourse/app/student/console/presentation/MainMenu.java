@@ -25,6 +25,7 @@ package eapli.ecourse.app.student.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
+import eapli.ecourse.app.student.console.presentation.board.CreateBoardUI;
 import eapli.ecourse.app.student.console.presentation.exam.ListExamsUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
@@ -60,6 +61,9 @@ class MainMenu extends StudentUserBaseUI
     private static final int COURSES_OPTION = 2;
     private static final int CLASSES_OPTION = 3;
     private static final int EXAMS_OPTION = 4;
+    private static final int BOARD_OPTION = 5;
+
+
     
     // BOOKINGS MENU
     private static final int BOOK_A_MEAL_OPTION = 2;
@@ -70,6 +74,7 @@ class MainMenu extends StudentUserBaseUI
     
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
+    private static final int SET_USER_CREATE_BOARD_OPTION = 2;
     
     //COURSE
     
@@ -135,6 +140,8 @@ class MainMenu extends StudentUserBaseUI
         {
             final Menu examsMenu = buildExamsMenu();
             mainMenu.addSubMenu(EXAMS_OPTION, examsMenu);
+            final Menu boardMenu= buildBoardMenu();
+            mainMenu.addSubMenu(BOARD_OPTION, boardMenu);
         }
         
         if (! Application.settings().isMenuLayoutHorizontal())
@@ -145,6 +152,16 @@ class MainMenu extends StudentUserBaseUI
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
         
         return mainMenu;
+    }
+    private Menu buildBoardMenu() {
+        final Menu menu = new Menu("Boards");
+
+        menu.addItem(SET_USER_CREATE_BOARD_OPTION, "Create Board",
+                new CreateBoardUI()::show);
+
+        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return menu;
     }
     
     private Menu buildExamsMenu()

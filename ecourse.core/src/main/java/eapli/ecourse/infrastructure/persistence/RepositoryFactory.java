@@ -20,6 +20,7 @@
  */
 package eapli.ecourse.infrastructure.persistence;
 
+import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.coursemanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
@@ -151,4 +152,5 @@ public interface RepositoryFactory {
      */
     ClientInExamRepository studentsInExam();
 
+    BoardRepository boards();
 }

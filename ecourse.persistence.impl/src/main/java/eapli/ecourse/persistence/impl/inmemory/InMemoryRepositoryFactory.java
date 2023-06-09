@@ -20,6 +20,7 @@
  */
 package eapli.ecourse.persistence.impl.inmemory;
 
+import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.coursemanagement.repositories.ClassRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
@@ -133,7 +134,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     {
         return null;
     }
-    
+
+    @Override
+    public BoardRepository boards() {
+        return null;
+    }
+
     @Override
     public TransactionalContext newTransactionalContext() {
         // in memory does not support transactions...
