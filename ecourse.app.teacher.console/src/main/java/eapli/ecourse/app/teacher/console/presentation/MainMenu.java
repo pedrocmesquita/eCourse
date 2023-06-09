@@ -26,7 +26,6 @@ package eapli.ecourse.app.teacher.console.presentation;
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.app.teacher.console.presentation.Exam.CreateExamUI;
-import eapli.ecourse.app.teacher.console.presentation.board.CreateBoardUI;
 import eapli.ecourse.app.teacher.console.presentation.classes.ScheduleClassUI;
 import eapli.ecourse.app.teacher.console.presentation.course.ListAssignCoursesUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -58,7 +57,6 @@ public class MainMenu extends AbstractUI {
     private static final int COURSES_OPTION = 2;
     private static final int CLASSES_OPTION = 3;
     private static final int EXAMS_OPTION = 4;
-    private static final int BOARD_OPTION = 5;
 
     //COURSE
     private static final int LIST_ASSIGN_COURSES_OPTION = 1;
@@ -66,8 +64,6 @@ public class MainMenu extends AbstractUI {
 
     //EXAM
     private static final int CREATE_EXAM_OPTION = 1;
-    //SETTINGS
-    private static final int SET_USER_CREATE_BOARD_OPTION = 1;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -107,7 +103,6 @@ public class MainMenu extends AbstractUI {
                 .orElse("eCourse [ ==Anonymous== ]");
     }
 
-
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
 
@@ -125,8 +120,6 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
             final Menu examsMenu = buildExamsMenu();
             mainMenu.addSubMenu(EXAMS_OPTION, examsMenu);
-            final Menu boardMenu= buildBoardMenu();
-            mainMenu.addSubMenu(BOARD_OPTION, boardMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -137,16 +130,7 @@ public class MainMenu extends AbstractUI {
 
         return mainMenu;
     }
-    private Menu buildBoardMenu() {
-        final Menu menu = new Menu("Boards");
 
-        menu.addItem(SET_USER_CREATE_BOARD_OPTION, "Create Board",
-                new CreateBoardUI()::show);
-
-        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
-
-        return menu;
-    }
     private Menu buildTeachersMenu() {
         final Menu coursesMenu = new Menu("Courses  >");
 

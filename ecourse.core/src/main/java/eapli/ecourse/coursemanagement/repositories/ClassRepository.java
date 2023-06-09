@@ -1,35 +1,20 @@
 package eapli.ecourse.coursemanagement.repositories;
-import eapli.ecourse.coursemanagement.domain.Course;
-import eapli.ecourse.coursemanagement.domain.Name;
-import eapli.ecourse.coursemanagement.domain.SchClass;
-import eapli.ecourse.coursemanagement.domain.State;
-import eapli.framework.domain.repositories.DomainRepository;
+import eapli.ecourse.classmanagement.domain.SchClass;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ClassRepository extends DomainRepository<Name, SchClass> {
+public class ClassRepository {
 
-    /**
-     * Finds all courses with state passed as parameter
-     *
-     * @param state
-     * @return
-     */
-    Iterable<Course> findAllCoursesWithState(State state);
+    private final List<SchClass> classes = new ArrayList<>();
 
-    /**
-     * Finds all courses that don't have state passed as parameter
-     *
-     * @param state
-     * @return
-     */
-    Iterable<Course> findAllCoursesWithoutState(State state);
+    public SchClass add(SchClass classs) {
+        this.classes.add(classs);
+        return classs;
+    }
 
-    /**
-     * Finds all course in enroll or progress state
-     *
-     * @return
-     */
-    Iterable<Course> findAllCoursesOpenOrEnrollState();
+    public List<SchClass> getSchClassList() {
+        return this.classes;
+    }
+
 }

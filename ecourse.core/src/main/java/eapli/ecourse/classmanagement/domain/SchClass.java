@@ -8,24 +8,18 @@ import java.util.Calendar;
 
 public class SchClass implements AggregateRoot<Name> {
     private String course;
-    private int instructor;
     private Calendar startTime;
     private Calendar endTime;
 
-    public SchClass(String course, int instructor, Calendar startTime, Calendar endTime) {
+    public SchClass(String course, Calendar startTime, Calendar endTime) {
         Preconditions.noneNull(course, startTime, endTime);
         this.course = course.toString();
-        this.instructor = instructor;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
     public String getCourse() {
         return course.toString();
-    }
-
-    public int getInstructor() {
-        return instructor;
     }
 
     public Calendar getStartTime() {
@@ -59,7 +53,7 @@ public class SchClass implements AggregateRoot<Name> {
             return true;
         }
 
-        return course.equals(that.course) && (instructor==that.instructor) &&
+        return course.equals(that.course) &&
                 startTime.equals(that.startTime) && endTime.equals(that.endTime);
     }
 
