@@ -26,8 +26,8 @@ public class CreateBoardUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final String boardTitle = Console.readLine("Board Title:");
-        final String boardNCol = Console.readLine("Board Number of Columns:");
-        final String boardNRow = Console.readLine("Board Number of Rows:");
+        final String boardNCols = Console.readLine("Board Number of Columns:");
+        final String boardNRows = Console.readLine("Board Number of Rows:");
 
         List<BoardEntry> allBoardEntrys = new ArrayList<>();
 
@@ -35,7 +35,8 @@ public class CreateBoardUI extends AbstractUI {
         try{
             //Board Entrys for columns
             System.out.println("----COLUMNS ENTRYS----");
-            for(int i = 1; i <= Integer.parseInt(boardNCol); i++){
+            int nCols = Integer.parseInt(boardNCols);
+            for(int i = 1; i <= Integer.parseInt(boardNCols); i++){
                 System.out.println("Board Row position -> " + MIN_ROWS_COLS);
                 System.out.println("Board Column position -> " + i);
 
@@ -46,8 +47,8 @@ public class CreateBoardUI extends AbstractUI {
                         MIN_ROWS_COLS,
                         String.valueOf(i),
                         entryTitle,
-                        boardNRow,
-                        boardNCol
+                        boardNRows,
+                        boardNCols
                 );
 
                 allBoardEntrys.add(boardEntry);
@@ -55,25 +56,27 @@ public class CreateBoardUI extends AbstractUI {
 
             //Board Entrys for rows
             System.out.println("----ROWS ENTRYS----");
-            for(int i = 2; i <= Integer.parseInt(boardNRow); i++){
-                System.out.println("Board Row position -> " + i);
-                System.out.println("Board Column position -> " + MIN_ROWS_COLS);
-
-                final String entryTitle = Console.readLine("Entry Title:");
-
+            System.out.println("----ROWS ENTRYS----");
+            for(int i = 2; i <= Integer.parseInt(boardNRows); i++) {
+                String entryTitle = null;
+                for (int j = 1; j <= nCols; j++) {
+                    System.out.println("Board Row position -> " + i);
+                    System.out.println("Board Column position -> " + j);
+                    entryTitle = Console.readLine("Entry Title:");
+                }
                 BoardEntry boardEntry = theController.createBoardEntry(
                         String.valueOf(i),
                         String.valueOf(i),
                         MIN_ROWS_COLS,
                         entryTitle,
-                        boardNRow,
-                        boardNCol
+                        boardNRows,
+                        boardNCols
                 );
 
                 allBoardEntrys.add(boardEntry);
             }
 
-            theController.createBoard(boardTitle, boardNRow, boardNCol, allBoardEntrys);
+            theController.createBoard(boardTitle, boardNRows, boardNCols, allBoardEntrys);
 
             System.out.println("Board Successfully created!");
         } catch (IllegalArgumentException e){

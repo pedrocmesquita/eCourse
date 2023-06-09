@@ -35,7 +35,8 @@ public class CreateBoardUI extends AbstractUI {
         try{
             //Board Entrys for columns
             System.out.println("----COLUMNS ENTRYS----");
-            for(int i = 1; i <= Integer.parseInt(boardNCols); i++){
+            int nCols = Integer.parseInt(boardNCols);
+            for(int i = 1; i <= nCols; i++){
                 System.out.println("Board Row position -> " + MIN_ROWS_COLS);
                 System.out.println("Board Column position -> " + i);
 
@@ -53,11 +54,14 @@ public class CreateBoardUI extends AbstractUI {
 
             //Board Entrys for rows
             System.out.println("----ROWS ENTRYS----");
-            for(int i = 2; i <= Integer.parseInt(boardNRows); i++){
-                System.out.println("Board Row position -> " + i);
-                System.out.println("Board Column position -> " + MIN_ROWS_COLS);
+            for(int i = 2; i <= Integer.parseInt(boardNRows); i++) {
+                String entryTitle = null;
+                for (int j = 1; j <= nCols; j++) {
+                    System.out.println("Board Row position -> " + i);
+                    System.out.println("Board Column position -> " + j);
+                    entryTitle = Console.readLine("Entry Title:");
+                }
 
-                final String entryTitle = Console.readLine("Entry Title:");
 
                 BoardEntry boardEntry = theController.createBoardEntry(
                         String.valueOf(i),
