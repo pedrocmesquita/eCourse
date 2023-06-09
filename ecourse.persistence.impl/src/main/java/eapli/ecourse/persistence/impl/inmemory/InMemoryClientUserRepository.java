@@ -23,6 +23,7 @@ package eapli.ecourse.persistence.impl.inmemory;
 import eapli.ecourse.usertypemanagement.studentusermanagement.domain.MecanographicNumber;
 import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
@@ -52,5 +53,11 @@ public class InMemoryClientUserRepository
     @Override
     public Iterable<StudentUser> findAllActive() {
         return match(e -> e.user().isActive());
+    }
+    
+    @Override
+    public StudentUser getStudentUserFromSystemUser(SystemUser systemUser)
+    {
+        return null;
     }
 }

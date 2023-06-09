@@ -23,6 +23,7 @@ package eapli.ecourse.persistence.impl.inmemory;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.coursemanagement.repositories.ClassRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
+import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
@@ -134,7 +135,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     {
         return null;
     }
-
+    
+    @Override
+    public ExamsInCourseRepository examsInCourse()
+    {
+        return null;
+    }
+    
     @Override
     public BoardRepository boards() {
         return null;

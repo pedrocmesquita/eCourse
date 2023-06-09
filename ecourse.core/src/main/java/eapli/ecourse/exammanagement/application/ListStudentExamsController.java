@@ -24,14 +24,15 @@ public class ListStudentExamsController
     public Iterable<Exam> findAllStudentExams()
     {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.STUDENT);
-        return studentInExamRepository.findAllExamsStudentIsAssign(getUserIdentity().get().identity());
+        return studentInExamRepository.findAllExamsStudentIsAssign(getUserIdentity().identity());
     }
 
-    public Optional<StudentUser> getUserIdentity()
+    public StudentUser getUserIdentity()
     {
         Optional<UserSession> session = authz.session();
         SystemUser user = session.get().authenticatedUser();
         
+        /*
         for (StudentUser x : clientUserRepository.findAllActive())
         {
             if (user.equals(x.getSystemUser()))
@@ -41,5 +42,8 @@ public class ListStudentExamsController
         }
         
         return Optional.empty();
+        */
+        
+        return clientUserRepository.getStudentUserFromSystemUser(user);
     }
 }
