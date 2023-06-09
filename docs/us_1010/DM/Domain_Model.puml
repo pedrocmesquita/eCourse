@@ -6,7 +6,6 @@ skinparam classFontColor automatic
 skinparam classHeaderBackgroundColor #4
 skinparam packageStyle rectangle
 
-
 '//--//--//--//--//--/ User /--//--//--//--//--//--//
 
 package "User Aggregate"{
@@ -42,6 +41,7 @@ package "Teacher Aggregate" {
 
     Teacher "1" -l-> "1" designationTeacher
 }
+
 
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
 package "Course Aggregate" <<Rectangle>> {
@@ -86,12 +86,6 @@ package "Class Aggregate" <<Rectangle>> {
         date
         duration
     }
-
-    Entity ExtraClass
-    {
-        date
-        duration
-    }
 }
 
 '//--//--//
@@ -99,25 +93,17 @@ package "Class Aggregate" <<Rectangle>> {
 '//--//--//--//--//--/ User /--//--//--//--//--//--//
 
     User "1" <-- "1" Teacher
-
     User "1" --> "1" password
     Teacher "1" --> "1"acronym
+
     User "1"-->"1" email
 
     Teacher "1" --> "1" personaInformation
 
-'//--//--//--//--//--/ Exam /--//--//--//--//--//--//
-
-'//--//--//--//--//--/ Board /--//--//--//--//--//--//
-
-'//--//--//--//--//--/ Meeting /--//--//--//--//--//--//
-
 '//--//--//--//--//--/ Course /--//--//--//--//--//--//
 
     Class "*" <--l- "1" Course : has
-    ExtraClass "*" <-- "1" Course : has
     Teacher "1" --> "*" Class : schedules
-    Teacher "1" --> "*" ExtraClass : schedules
     Teacher "1" --> "*" AssignedTeachers : is in
     AssignedTeachers "*" <-- "1" Course : has
     EnrolledStudents "*" <-- "1" Course : has

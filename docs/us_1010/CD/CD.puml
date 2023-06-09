@@ -1,0 +1,57 @@
+@startuml
+
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+class ScheduleClassUI <<presentation>> {
+    doShow()
+}
+class ScheduleClassController <<application>> {
+    scheduleClass(Course, date, startTime, endTime)
+}
+
+class AuthorizationService <<service>> {
+    ensureAuthenticatedUserHasAnyOf(TEACHER)
+    session()
+}
+
+class UserSession {
+    authenticatedUser()
+}
+
+class Course <<domain>> {
+}
+
+class ClassFactory <<factory>> {
+}
+
+class SchClass <<domain>> {
+    SchClass(Course, date, startTime, endTime)
+}
+
+class PersistenceContext <<persistence>> {
+    repositories()
+}
+
+class RepositoryFactory <<factory>> {
+    findAllCoursesWithState(OPEN)
+}
+
+class CourseRepository <<repository>> {
+    save(SchClass)
+}
+
+Course --> SchClass
+ScheduleClassController --> AuthorizationService : authz
+ScheduleClassController --> CourseRepository : repository
+AuthorizationService --> UserSession : session
+PersistenceContext --> RepositoryFactory : factory
+ScheduleClassController --> PersistenceContext : persistence
+ScheduleClassUI --> ScheduleClassController : controller
+ClassFactory -> SchClass
+Course -> CourseRepository : save
+ScheduleClassController --> ClassFactory : factory
+RepositoryFactory --> CourseRepository : repository
+
+@enduml
