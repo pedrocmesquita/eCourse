@@ -1,6 +1,7 @@
 package eapli.ecourse.app.manager.console.presentation.board;
 
 import eapli.ecourse.boardmanagement.application.CreateBoardController;
+import eapli.ecourse.boardmanagement.domain.Board;
 import eapli.ecourse.boardmanagement.domain.BoardEntry;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
@@ -75,9 +76,10 @@ public class CreateBoardUI extends AbstractUI {
                 allBoardEntrys.add(boardEntry);
             }
 
-            theController.createBoard(boardTitle, boardNRows, boardNCols, allBoardEntrys);
+            Board board = theController.createBoard(boardTitle, boardNRows, boardNCols, allBoardEntrys);
 
             System.out.println("Board Successfully created!");
+            System.out.printf(board.toString());
         } catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         } catch (IntegrityViolationException e){

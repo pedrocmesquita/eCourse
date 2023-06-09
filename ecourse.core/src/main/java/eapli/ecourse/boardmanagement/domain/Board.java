@@ -208,13 +208,13 @@ public class Board implements AggregateRoot<Long>,
     // TODO appropriate print with board entries, in a table format
     public String toString() {
         return "Board{" +
-                "boardId=" + boardId +
-                ", boardTitle=" + boardTitle.value() +
-                ", boardNRows=" + boardNRows.value() +
-                ", boardNCols=" + boardNCols.value() +
-                ", boardState=" + boardState +
-                ", createdOn=" + createdOn.toString() +
-                ", boardOwner=" + boardOwner.username() +
+                "\n boardId=" + boardId +
+                "\n, boardTitle=" + boardTitle.value() +
+                "\n, boardNRows=" + boardNRows.value() +
+                "\n, boardNCols=" + boardNCols.value() +
+                "\n, boardState=" + boardState +
+                "\n, createdOn=" + createdOn.getTime() +
+                "\n, boardOwner=" + boardOwner.username() +
                 '}';
     }
 }
