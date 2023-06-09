@@ -1,7 +1,7 @@
 package eapli.ecourse.app.teacher.console.presentation.classes;
 
 import eapli.ecourse.Application;
-import eapli.ecourse.coursemanagement.application.ScheduleClassController;
+import eapli.ecourse.classmanagement.application.ScheduleClassController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
@@ -20,15 +20,10 @@ public class ScheduleClassUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         String name = Console.readLine("Course");
-
         Date openDate = Console.readDate("Insert the date of the class.", "dd/mm/yyyy");
-
         Date openHour = Console.readDate("Insert the starting hour of the class.", "hh:mm");
         Date closeHour = Console.readDate("Insert the ending hour of the class.", "hh:mm");
-
         int instructorID = Console.readInteger("Insert your instructor ID.");
-
-
 
         Calendar classDateTime = Calendar.getInstance();
         Calendar classEndTime = Calendar.getInstance();
@@ -36,8 +31,9 @@ public class ScheduleClassUI extends AbstractUI {
         classEndTime.set(openDate.getYear(), openDate.getMonth(), openDate.getDay(), closeHour.getHours(), closeHour.getMinutes(), closeHour.getSeconds());
 
         try {
-            controller.scheduleClass(name, instructorID, classDateTime, classEndTime);
-            System.out.println("\nClass schedule with success!");
+            System.out.println("1!");
+            controller.scheduleClass(name, classDateTime, classEndTime);
+            System.out.println("\nClass scheduled with success!");
         } catch (IntegrityViolationException | ConcurrencyException ex) {
             LOGGER.error("Error performing the operation", ex);
             System.out.println("Unfortunately there was an unexpected error in the application. " +
