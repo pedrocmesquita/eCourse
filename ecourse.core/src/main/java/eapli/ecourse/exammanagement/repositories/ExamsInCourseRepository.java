@@ -9,6 +9,7 @@ import eapli.ecourse.exammanagement.domain.ExamsInCourse;
 import eapli.ecourse.exammanagement.domain.ExamsInCourseKey;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.Acronym;
 import eapli.framework.domain.repositories.DomainRepository;
+import eapli.framework.general.domain.model.Designation;
 
 public interface ExamsInCourseRepository extends DomainRepository<ExamsInCourseKey, ExamsInCourse>
 {

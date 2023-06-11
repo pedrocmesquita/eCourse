@@ -126,8 +126,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public ExamsInCourseRepository examsInCourse()
     {
-        //TODO: IMPLEMENT
-        return null;
+        return new JpaExamsInCourseRepository(Application.settings().getPersistenceUnitName());
     }
     
     @Override
