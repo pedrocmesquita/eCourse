@@ -1,0 +1,81 @@
+@startuml
+
+'participant SelectCourseWidget as SelectCourseWidget
+Actor Manager as Actor
+participant AssignTeacherToCourseUI as AssignTeacherToCourseUI <<presentation>>
+participant SelectCourseWidget as SelectCourseWidget <<presentation>>
+participant AssignTeacherToCourseController as AssignTeacherToCourseController <<controller>>
+participant ListTeachersService as ListTeachersService <<service>>
+participant TeacherUserRepository as TeacherUserRepository <<repository>>
+participant TeachersInCourse as TeachersInCourse <<domain>>
+participant Course as Course <<domain>>
+participant TeacherUser as TeacherUser <<domain>>
+participant TeachersInCourseKey as TeachersInCourseKey <<domain>>
+participant TeachersInCourseRepository as TeachersInCourseRepository <<repository>>
+
+
+Actor -> AssignTeacherToCourseUI : ask to assign a teacher to a course
+activate AssignTeacherToCourseUI
+AssignTeacherToCourseUI -> SelectCourseWidget : selectCourse
+activate SelectCourseWidget
+SelectCourseWidget --> AssignTeacherToCourseUI
+AssignTeacherToCourseUI --> Actor : shows and ask to select a course
+deactivate AssignTeacherToCourseUI
+Actor -> AssignTeacherToCourseUI: selects a course
+activate AssignTeacherToCourseUI
+deactivate SelectCourseWidget
+AssignTeacherToCourseUI -> AssignTeacherToCourseController : allTeachersJoinWithSystemUser
+activate AssignTeacherToCourseController
+AssignTeacherToCourseController -> ListTeachersService : allTeachersJoinWithSystemUser
+activate ListTeachersService
+ListTeachersService -> TeacherUserRepository : joinAllTeachersWithSystemUser
+activate TeacherUserRepository
+TeacherUserRepository --> ListTeachersService
+deactivate TeacherUserRepository
+ListTeachersService --> AssignTeacherToCourseController
+deactivate ListTeachersService
+AssignTeacherToCourseController --> AssignTeacherToCourseUI
+deactivate AssignTeacherToCourseController
+AssignTeacherToCourseUI --> Actor : shows and ask to select a teacher
+deactivate AssignTeacherToCourseUI
+Actor -> AssignTeacherToCourseUI : selects a teacher
+activate AssignTeacherToCourseUI
+deactivate AssignTeacherToCourseController
+AssignTeacherToCourseUI -> AssignTeacherToCourseController : assignTeacherToCourse
+activate AssignTeacherToCourseController
+create TeachersInCourse
+AssignTeacherToCourseController -> TeachersInCourse : new
+activate TeachersInCourse
+TeachersInCourse -> Course : getCourseId
+activate Course
+Course --> TeachersInCourse
+deactivate Course
+TeachersInCourse -> TeacherUser : acronym
+activate TeacherUser
+TeacherUser -> TeacherUser : identity
+activate TeacherUser
+TeacherUser --> TeacherUser
+deactivate TeacherUser
+TeacherUser --> TeachersInCourse
+deactivate TeacherUser
+create TeachersInCourseKey
+TeachersInCourse -> TeachersInCourseKey : new
+activate TeachersInCourseKey
+TeachersInCourseKey --> TeachersInCourse
+deactivate TeachersInCourseKey
+TeachersInCourse --> AssignTeacherToCourseController
+deactivate TeachersInCourse
+AssignTeacherToCourseController -> TeachersInCourseRepository : save
+activate TeachersInCourseRepository
+database Database
+TeachersInCourseRepository -> Database : save
+activate Database
+Database --> TeachersInCourseRepository
+deactivate Database
+TeachersInCourseRepository --> AssignTeacherToCourseController
+deactivate TeachersInCourseRepository
+deactivate TeachersInCourse
+AssignTeacherToCourseController --> AssignTeacherToCourseUI
+deactivate AssignTeacherToCourseController
+AssignTeacherToCourseUI --> Actor : informs operation success
+@enduml

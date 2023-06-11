@@ -1,0 +1,111 @@
+@startuml
+actor Manager as Actor
+participant CreateCourseUI as CreateCourseUI <<presentation>>
+participant CreateCourseController as CreateCourseController <<application>>
+participant Course as Course <<domain>>
+participant Name as Name <<domain>>
+participant Description as Description <<domain>>
+participant EnrollLimit as EnrollLimit <<domain>>
+participant AuthorizationService as AuthorizationService <<auth>>
+participant CourseBuilder as CourseBuilder <<domain>>
+participant Application as Application <<application>>
+participant AppSettings as AppSettings <<application>>
+participant Properties as Properties <<application>>
+participant DomainRepository as DomainRepository <<repository>>
+
+
+Actor -> CreateCourseUI : ask to create a Course
+activate CreateCourseUI
+CreateCourseUI --> Actor : ask for course data\n(name, description, enrollment limits)
+deactivate CreateCourseUI
+Actor -> CreateCourseUI : introduces data
+activate CreateCourseUI
+CreateCourseUI -> CreateCourseController : createCourse
+activate CreateCourseController
+CreateCourseController -> AuthorizationService : ensureAuthenticatedUserHasAnyOf
+activate AuthorizationService
+AuthorizationService --> CreateCourseController
+deactivate AuthorizationService
+CreateCourseController -> CourseBuilder : withName
+activate CourseBuilder
+create Name
+CourseBuilder -> Name : new
+activate Name
+Name -> Name : setName
+activate Name
+Name --> Name
+deactivate Name
+Name --> CourseBuilder
+deactivate Name
+CourseBuilder --> CreateCourseController
+deactivate CourseBuilder
+CreateCourseController -> CourseBuilder : withDescription
+activate CourseBuilder
+create Description
+CourseBuilder -> Description : new
+activate Description
+Description -> Description : setDescription
+activate Description
+Description -> Application : settings
+activate Application
+Application --> Description
+deactivate Application
+Description -> AppSettings : getCourseDescriptionCharacterLimit
+activate AppSettings
+AppSettings -> Properties : getProperty
+activate Properties
+Properties --> AppSettings
+deactivate Properties
+AppSettings --> Description
+deactivate AppSettings
+Description --> Description
+deactivate Description
+Description --> CourseBuilder
+deactivate Description
+CourseBuilder --> CreateCourseController
+deactivate CourseBuilder
+opt
+CreateCourseController -> CourseBuilder : withEnrollLimit
+activate CourseBuilder
+create EnrollLimit
+CourseBuilder -> EnrollLimit : new
+activate EnrollLimit
+EnrollLimit -> EnrollLimit : setEnrollLimit
+activate EnrollLimit
+EnrollLimit -> EnrollLimit : setMinEnroll
+activate EnrollLimit
+EnrollLimit --> EnrollLimit
+deactivate EnrollLimit
+EnrollLimit -> EnrollLimit : setMaxEnroll
+activate EnrollLimit
+EnrollLimit --> EnrollLimit
+deactivate EnrollLimit
+EnrollLimit --> EnrollLimit
+deactivate EnrollLimit
+EnrollLimit --> CourseBuilder
+deactivate EnrollLimit
+CourseBuilder --> CreateCourseController
+deactivate CourseBuilder
+end
+CreateCourseController -> CourseBuilder : build
+activate CourseBuilder
+create Course
+CourseBuilder -> Course : new
+activate Course
+Course --> CourseBuilder
+deactivate Course
+CourseBuilder --> CreateCourseController
+deactivate CourseBuilder
+CreateCourseController -> DomainRepository : save
+activate DomainRepository
+database Database
+DomainRepository -> Database : save
+activate Database
+Database --> DomainRepository
+deactivate Database
+DomainRepository --> CreateCourseController
+deactivate DomainRepository
+CreateCourseController --> CreateCourseUI
+deactivate CreateCourseController
+return informs operation success
+@enduml

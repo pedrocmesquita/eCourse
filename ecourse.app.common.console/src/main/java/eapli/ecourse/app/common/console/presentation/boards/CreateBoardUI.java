@@ -1,4 +1,4 @@
-package eapli.ecourse.app.student.console.presentation.board;
+package eapli.ecourse.app.common.console.presentation.boards;
 
 import eapli.ecourse.boardmanagement.application.CreateBoardController;
 import eapli.ecourse.boardmanagement.domain.Board;
@@ -37,7 +37,7 @@ public class CreateBoardUI extends AbstractUI {
             //Board Entrys for columns
             System.out.println("----COLUMNS ENTRYS----");
             int nCols = Integer.parseInt(boardNCols);
-            for(int i = 1; i <= Integer.parseInt(boardNCols); i++){
+            for(int i = 1; i <= nCols ; i++){
                 System.out.println("Board Row position -> " + MIN_ROWS_COLS);
                 System.out.println("Board Column position -> " + i);
 
@@ -56,7 +56,6 @@ public class CreateBoardUI extends AbstractUI {
             }
 
             //Board Entrys for rows
-            System.out.println("----ROWS ENTRYS----");
             System.out.println("----ROWS ENTRYS----");
             for(int i = 2; i <= Integer.parseInt(boardNRows); i++) {
                 String entryTitle = null;

@@ -25,7 +25,7 @@ package eapli.ecourse.app.student.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
-import eapli.ecourse.app.student.console.presentation.board.CreateBoardUI;
+import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
 import eapli.ecourse.app.student.console.presentation.enrollment.RequestEnrollmentUI;
 import eapli.ecourse.app.student.console.presentation.exam.ListExamsUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;

@@ -27,7 +27,7 @@ import eapli.ecourse.Application;
 import eapli.ecourse.app.manager.console.presentation.authz.AddUserUI;
 import eapli.ecourse.app.manager.console.presentation.authz.DeactivateUserAction;
 import eapli.ecourse.app.manager.console.presentation.authz.ListUsersAction;
-import eapli.ecourse.app.manager.console.presentation.board.CreateBoardUI;
+import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
 import eapli.ecourse.app.manager.console.presentation.classes.ScheduleClassUI;
 import eapli.ecourse.app.manager.console.presentation.course.*;
 import eapli.ecourse.app.manager.console.presentation.studentuser.AcceptRefuseSignupRequestAction;

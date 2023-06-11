@@ -1,0 +1,336 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": false,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 999,
+    "backwardDepth": 0,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": false,
+    "hideInterfaceCalls": false, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "eapli.ecourse.app.backoffice.console.presentation.course.OpenCloseEnrollmentUI",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1911013184 { 
+   	label=ecourse
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1386234867 { 
+   	label=app
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   OpenCloseEnrollmentUI375150821[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OpenCloseEnrollmentUI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   LOGGER: Logger [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   controller: OpenCloseEnrollmentController [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   courseWidget: SelectCourseWidget [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># doShow(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ headline(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SelectCourseWidget375150821[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SelectCourseWidget</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   courses: Iterable&lt;Course&gt; [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   selectedCourse: Course [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ selectCourse()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ selectedCourse(): Course</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_489743759 { 
+   	label=persistence
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   InMemoryCourseRepository650943782[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)InMemoryCourseRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesOpenOrEnrollState(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithState(state: State): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithoutState(state: State): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JpaCourseRepository1852613913[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JpaCourseRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesOpenOrEnrollState(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithState(state: State): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithoutState(state: State): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_861892108 { 
+   	label=coursemanagement
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Course1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Course</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   courseId: Long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: Description [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   enrollLimit: EnrollLimit [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: Name [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   state: State [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- close()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ identity(): Name</TD></TR>
+<TR><TD ALIGN="LEFT" >- open()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ sameAs(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toggleOpenClose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toggleOpenCloseEnroll()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CourseRepository816628141[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)CourseRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesOpenOrEnrollState(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithState(state: State): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithoutState(state: State): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+Description1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Description</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   description: String [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+EnrollLimit1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)EnrollLimit</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   maxEnroll: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   minEnroll: Integer [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ListCourseService427251605[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ListCourseService</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   authz: AuthorizationService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   courseRepository: CourseRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ allClosedCourses(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allCourses(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allCoursesOpenOrEnroll(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allEnrollCourses(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allNotClosedCourses(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allNotEnrollCourses(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allOpenCourses(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allProgressCourses(): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Name1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Name</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   name: String [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compareTo(o: Name): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OpenCloseEnrollmentController427251605[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OpenCloseEnrollmentController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   authz: AuthorizationService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   courseRepository: CourseRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   service: ListCourseService [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ allCoursesOpenOrEnroll(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toggleOpenCloseEnroll(course: Course): Course</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+State1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(E)State</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   CLOSED: State [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   ENROLL: State [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   OPEN: State [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   PROGRESS: State [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ valueOf(name: String): State</TD></TR>
+<TR><TD ALIGN="LEFT" >+ values(): State[]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#DCFBD5"
+];
+} 
+} 
+
+'edges    
+Course1854509879 -> Description1854509879[label="description
+[1]"];
+Course1854509879 -> EnrollLimit1854509879[label="enrollLimit
+[0..1]"];
+Course1854509879 -> Name1854509879[label="name
+[1]"];
+Course1854509879 -> State1854509879[label="state
+[1]"];
+CourseRepository816628141 -> InMemoryCourseRepository650943782[arrowhead=none, arrowtail=empty, dir=both];
+CourseRepository816628141 -> JpaCourseRepository1852613913[arrowhead=none, arrowtail=empty, dir=both];
+ListCourseService427251605 -> CourseRepository816628141[label="courseRepository
+[1]"];
+OpenCloseEnrollmentController427251605 -> Course1854509879[label="toggleOpenCloseEnroll() -> toggleOpenCloseEnroll()"];
+OpenCloseEnrollmentController427251605 -> CourseRepository816628141[label="courseRepository
+[1]"];
+OpenCloseEnrollmentController427251605 -> ListCourseService427251605[label="service
+[1]"];
+OpenCloseEnrollmentUI375150821 -> OpenCloseEnrollmentController427251605[label="controller
+[1]"];
+OpenCloseEnrollmentUI375150821 -> SelectCourseWidget375150821[label="courseWidget
+[1]"];
+SelectCourseWidget375150821 -> Course1854509879[label="courses
+[1]"];
+SelectCourseWidget375150821 -> Course1854509879[label="selectedCourse
+[1]"];
+    
+}
+@enduml
