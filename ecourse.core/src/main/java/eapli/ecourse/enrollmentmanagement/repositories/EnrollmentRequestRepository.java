@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 public class EnrollmentRequestRepository {
     private final List<EnrollmentRequest> requests = new ArrayList<>();
 
-    public EnrollmentRequest add(EnrollmentRequest classs) {
-        this.requests.add(classs);
-        return classs;
+    public EnrollmentRequest add(EnrollmentRequest request) {
+        this.requests.add(request);
+        return request;
     }
 
     public List<EnrollmentRequest> getEnrollmentRequestList() {

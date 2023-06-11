@@ -12,13 +12,13 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 @UseCaseController
 public class RequestEnrollmentController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    public EnrollmentRequest attemptEnroll(final String courseCodeString) {
+    public EnrollmentRequest attemptEnroll(final String coursename) {
         CourseRepository courseRepository = PersistenceContext.repositories().courses();
         Iterable<Course> courses = courseRepository.findAllCoursesOpenOrEnrollState();
 
         Course foundCourse = null;
         for (Course course : courses) {
-            if (course.name().toString().equals(courseCodeString)) {
+            if (course.name().toString().equals(coursename)) {
                 foundCourse = course;
                 break;
             }

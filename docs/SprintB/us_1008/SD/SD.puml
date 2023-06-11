@@ -1,0 +1,98 @@
+@startuml
+autonumber
+
+actor Student as student
+participant RequestEnrollmentUI as ui <<presentation>>
+participant RequestEnrollmentController as ctrl <<application>>
+participant AuthzRegistry as registry
+participant AuthorizationService as authz <<service>>
+participant PersistenceContext as pers <<persistence>>
+participant RepositoryFactory as repoFactory <<factory>>
+database CourseRepository as courseRepo <<repository>>
+database EnrollmentRequestRepository as requestRepo <<repository>>
+participant EnrollmentRequest as enrollmentRequest
+participant Optional as opt
+
+student -> ui: request to enroll in a course
+activate ui
+ui --> student: asks for course name
+deactivate ui
+
+student -> ui: types requested data
+activate ui
+
+ui -> registry: authorizationService()
+activate registry
+registry --> ui: authzService
+deactivate registry
+ui -> ctrl: create()
+activate ctrl
+ctrl -> pers: repositories()
+activate pers
+pers --> ctrl: repositoryFactory
+deactivate pers
+ctrl -> repoFactory: courses()
+activate repoFactory
+repoFactory --> ctrl: courseRepository
+deactivate repoFactory
+
+ctrl -> repoFactory: enrollmentRequests()
+activate repoFactory
+repoFactory --> ctrl: enrollmentRequestRepository
+deactivate repoFactory
+
+ctrl --> ctrl : course : courses.name().toString.equals(coursename)
+
+ctrl -> authz: session()
+activate authz
+authz --> ctrl: sessionOptional
+deactivate authz
+ctrl -> opt: orElseThrow()
+activate opt
+
+alt user is not logged
+    opt --> ui: throw new IllegalArgumentException("There is no user Logged.")
+    ui --> student: user is not logged
+else user is logged
+    opt --> ctrl: session
+end alt
+alt course does not exist
+    opt --> ui: throw new IllegalArgumentException("Course does not exist.")
+    ui --> student: no such course exists
+else course exists
+    opt --> ctrl: course
+end alt
+alt course does not have enroll state
+    opt --> ui: throw new IllegalArgumentException("Course is not taking enrollments at the moment.")
+    ui --> student: no enrollments accepted
+else course exists
+    opt --> ctrl: course
+end alt
+alt request already exists
+    opt --> ui: throw new IllegalArgumentException("This enroll request has already been created.")
+    ui --> student: no duplicates accepted
+else course exists
+    opt --> ctrl: course
+    deactivate opt
+end alt
+
+ctrl -> enrollmentRequest**: create(student, course)
+activate enrollmentRequest
+enrollmentRequest --> ctrl: request
+deactivate enrollmentRequest
+
+ctrl -> requestRepo: add(request)
+activate requestRepo
+requestRepo --> ctrl
+deactivate requestRepo
+
+ctrl --> ui
+deactivate ctrl
+
+ui --> student: displays operation success
+deactivate ui
+
+
+
+
+@enduml
