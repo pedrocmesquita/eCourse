@@ -55,17 +55,18 @@ public class Board implements AggregateRoot<Long>,
     /**
      * List of board permissions.
      */
-
     private List<BoardPermission> boardPermissions;
 
     /**
      * List of board entry.
      */
-
     private List<BoardEntry> boardEntrys;
-
-    protected Board() {
-
+    
+    private List<Log> logs; //history of update logs
+    
+    protected Board()
+    {
+        logs.add(new Log("Initial board creation with empty constructor."));
     }
 
     Board(final BoardTitle boardTitlep,
@@ -81,6 +82,8 @@ public class Board implements AggregateRoot<Long>,
         this.createdOn = CurrentTimeCalendars.now();
         this.boardState = true;
         this.boardPermissions = new ArrayList<>();
+        this.logs = new ArrayList<>();
+        logs.add(new Log("Initial board creation."));
     }
 
     /**
@@ -114,13 +117,24 @@ public class Board implements AggregateRoot<Long>,
     public SystemUser boardOwner() {
         return boardOwner;
     }
-
+    
+    /**
+     * Getter for logs
+     * @return List of logs
+     */
+    public List<Log> getLogs()
+    {
+        return logs;
+    }
+    
     /**
      * Add Permissions to board.
      * @param boardPermissionp board permission.
      */
-    public void addPermission(final BoardPermission boardPermissionp) {
+    public void addPermission(final BoardPermission boardPermissionp)
+    {
         this.boardPermissions.add(boardPermissionp);
+        logs.add(new Log("Permissions added: " + boardPermissions.toString()));
     }
 
     /**
@@ -170,6 +184,26 @@ public class Board implements AggregateRoot<Long>,
         }
 
         return null;
+    }
+    
+    /**
+     * Get cell from row and column, from the cell list
+     * @param row
+     * @param column
+     * @return
+     */
+    public BoardEntry getCellByRowColumn(int row, int column)
+    {
+        return boardEntrys.get((row * boardNCols.value()) * column);
+    }
+    
+    /**
+     * Register update in board logs
+     * @param log information to register
+     */
+    public void addLog(Log log)
+    {
+        logs.add(log);
     }
 
     /**

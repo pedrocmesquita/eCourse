@@ -38,7 +38,7 @@ public class BoardPermission
 
     }
 
-    BoardPermission(final SystemUser userp,
+    public BoardPermission(final SystemUser userp,
                     final AccessLevel accessLevelp) {
         this.SystemUser = userp;
         this.accessLevel = accessLevelp;

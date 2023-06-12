@@ -1,6 +1,7 @@
 package eapli.ecourse.boardmanagement.repositories;
 
 import eapli.ecourse.boardmanagement.domain.Board;
+import eapli.ecourse.boardmanagement.domain.BoardTitle;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
@@ -48,6 +49,18 @@ public class BoardRepository {
     public List<Board> getSchClassList() {
         return this.board;
     }
-
-
+    
+    //temp, should find by sql
+    public Board getBoardByTitle(String title)
+    {
+        for (Board b : board)
+        {
+            if (b.boardTitle().value().equals(title))
+            {
+                return b;
+            }
+        }
+        
+        return null;
+    }
 }

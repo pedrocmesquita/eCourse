@@ -41,7 +41,8 @@ public class BoardEntry implements Serializable {
          * Board EntryTitle position.
          */
         private EntryTitle entryTitle;
-
+        
+        private PostIt post;    //postit of the cell
 
     protected BoardEntry() {
 
@@ -88,8 +89,26 @@ public class BoardEntry implements Serializable {
         public EntryNumber entryNumber() {
             return entryNumber;
         }
-
-        /**
+    
+    /**
+     * Getter for the post-it
+     * @return post-it on this cell if there is one, otherwise null
+     */
+    public PostIt getPost()
+    {
+        return post;
+    }
+    
+    /**
+     * Setter for the post-it
+     * @param post post-it to place on this cell
+     */
+    public void setPost(PostIt post)
+    {
+        this.post = post;
+    }
+    
+    /**
          * Check if some BoardEntry is the same object then other.
          * @param other
          * @return true/false

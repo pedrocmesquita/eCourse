@@ -9,7 +9,7 @@ public class AccessLevel implements ValueObject {
      */
     private final String accessLevel;
 
-    private AccessLevel(final String accessLevelp) {
+    public AccessLevel(final String accessLevelp) {
         Preconditions.nonEmpty(accessLevelp);
         this.accessLevel = accessLevelp;
     }
