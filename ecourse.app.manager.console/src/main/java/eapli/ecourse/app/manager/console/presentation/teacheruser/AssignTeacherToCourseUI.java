@@ -1,7 +1,7 @@
 package eapli.ecourse.app.manager.console.presentation.teacheruser;
 
 import eapli.ecourse.app.manager.console.presentation.course.CreateCourseUI;
-import eapli.ecourse.app.manager.console.presentation.course.SelectCourseWidget;
+import eapli.ecourse.app.common.console.presentation.course.SelectCourseWidget;
 import eapli.ecourse.coursemanagement.application.AssignTeacherToCourseController;
 import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.TeacherUser;

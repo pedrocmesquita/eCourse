@@ -3,6 +3,7 @@ package eapli.ecourse.coursemanagement.application;
 import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
+import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.Acronym;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.TeacherUser;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
@@ -21,14 +22,19 @@ public class ListTeacherCoursesController {
     private final TeachersInCourseRepository teachersInCourseRepository = PersistenceContext.repositories().teachersInCourse();
     private final TeacherUserRepository teacherUserRepository = PersistenceContext.repositories().teacherUsers();
 
-    public Iterable<Course> findAllCoursesTeacherIsAssign() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.TEACHER);
-        return teachersInCourseRepository.findAllCoursesTeacherIsAssign(getUserAcronym().acronym());
+    //todo refactor to avoid code duplication
+    public Iterable<Course> allCoursesTeacherIsAssigned() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.TEACHER);
+        return teachersInCourseRepository.findAllCoursesTeacherIsAssign(getUserAcronym());
     }
 
-    public TeacherUser getUserAcronym(){
+    private Acronym getUserAcronym(){
         Optional<UserSession> session = authz.session();
+        if(session.isEmpty())
+            throw new IllegalArgumentException("No user authentication");
         SystemUser user = session.get().authenticatedUser();
-        return teacherUserRepository.getTeacherUserFromSystemUser(user);
+        if(!user.roleTypes().contains(BaseRoles.TEACHER))
+            throw new IllegalArgumentException("User must be a teacher");
+        return teacherUserRepository.getTeacherUserFromSystemUser(user).acronym();
     }
 }

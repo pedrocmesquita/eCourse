@@ -2,7 +2,11 @@ package eapli.ecourse.app.teacher.console.presentation.Exam;
 
 
 import eapli.ecourse.exammanagement.application.CreateExamController;
+import eapli.ecourse.app.common.console.presentation.course.SelectCourseWidget;
 import eapli.ecourse.exammanagement.domain.*;
+import eapli.ecourse.coursemanagement.domain.*;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
@@ -15,19 +19,24 @@ import java.util.Calendar;
 public class CreateExamUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateExamUI.class);
-    private static CreateExamController controller = new CreateExamController();
+    private static final CreateExamController controller = new CreateExamController();
+    private final SelectCourseWidget courseWidget = new SelectCourseWidget(controller.allCoursesTeacherIsAssigned());
     private static int SECTION_COUNTER = 1;
     private static int QUESTION_COUNTER;
 
     @Override
     protected boolean doShow() {
+        System.out.println("Select a Course to create an exam");
+        final Course selectedCourse = courseWidget.selectCourse();
+        if (selectedCourse == null)
+            return false;
         final String title = Console.readLine("Title");
         final String description = Console.readLine("Description");
         final Calendar openDate = Console.readCalendar("Open date (dd-M-yyyy hh:mm:ss)", "dd-M-yyyy hh:mm:ss");
         final Calendar closeDate = Console.readCalendar("Close date (dd-M-yyyy hh:mm:ss)", "dd-M-yyyy hh:mm:ss");
 
-        Iterable<SettingType> iterableSetting = Arrays.asList(SettingType.values());
-        final SelectWidget<SettingType> selectorSetting= new SelectWidget<SettingType>("", iterableSetting);
+        final Iterable<SettingType> iterableSetting = Arrays.asList(SettingType.values());
+        final SelectWidget<SettingType> selectorSetting = new SelectWidget<SettingType>("", iterableSetting);
         System.out.println("\nSelect feedback setting");
         selectorSetting.show();
         final SettingType feedbackSetting = selectorSetting.selectedElement();
@@ -51,9 +60,15 @@ public class CreateExamUI extends AbstractUI {
             } while (addQuestion);
             addSection = Console.readBoolean("\nAdd another section? (Y/N)");
         } while (addSection);
+        try {
+            Exam exam = controller.createExam(selectedCourse);
+            System.out.println("Exam created with success");
+        } catch (final IntegrityViolationException e) {
+            System.out.println("You tried to enter a exam with a title which already exists in the database.");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
-        Exam exam = controller.createExam();
-        System.out.println(exam.identity());
         return true;
     }
 

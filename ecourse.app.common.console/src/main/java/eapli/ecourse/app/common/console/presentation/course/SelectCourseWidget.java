@@ -1,4 +1,4 @@
-package eapli.ecourse.app.manager.console.presentation.course;
+package eapli.ecourse.app.common.console.presentation.course;
 
 import eapli.ecourse.app.common.console.presentation.course.CoursesPrinter;
 import eapli.ecourse.coursemanagement.domain.Course;

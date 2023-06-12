@@ -29,4 +29,12 @@ public interface CourseRepository extends DomainRepository<Name, Course> {
      * @return
      */
     Iterable<Course> findAllCoursesOpenOrEnrollState();
+
+    /**
+     * Finds all courses that a teacher is assigned to
+     *
+     * @param acronym
+     * @return
+     */
+    Iterable<Course> findCoursesTeacherIsAssigned(String acronym);
 }

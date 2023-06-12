@@ -1,8 +1,11 @@
 package eapli.ecourse.infrastructure.bootstrapers.demo;
 
+import eapli.ecourse.coursemanagement.domain.State;
+import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.exammanagement.application.CreateExamController;
 import eapli.ecourse.exammanagement.domain.Exam;
 import eapli.ecourse.exammanagement.domain.SettingType;
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -16,6 +19,7 @@ public class ExamBootstrapper implements Action {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExamBootstrapper.class);
     private static final CreateExamController controller = new CreateExamController();
+    private static final CourseRepository courseReposiory = PersistenceContext.repositories().courses();
 
 
     @Override
@@ -34,7 +38,7 @@ public class ExamBootstrapper implements Action {
             controller.newSection();
             controller.addQuestion(question);
             controller.addSection(descriptionSection);
-            exam = controller.createExam();
+            exam = controller.createExam(courseReposiory.findAllCoursesWithState(State.OPEN).iterator().next());
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated course

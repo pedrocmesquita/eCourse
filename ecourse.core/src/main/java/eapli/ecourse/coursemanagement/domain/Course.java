@@ -1,5 +1,6 @@
 package eapli.ecourse.coursemanagement.domain;
 
+import eapli.ecourse.exammanagement.domain.Exam;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.validations.Preconditions;
@@ -34,6 +35,9 @@ public class Course implements AggregateRoot<Name> {
 
     @OneToMany(mappedBy = "course")
     private Set<TeachersInCourse> teachersInCourses;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Exam> exams;
 
     protected Course() {
         //ORM only
@@ -116,6 +120,10 @@ public class Course implements AggregateRoot<Name> {
         } else {
             throw new IllegalStateException("Cannot open/close enrollment of a course that is closed or in progress");
         }
+    }
+
+    public boolean addExam(Exam exam) {
+        return this.exams.add(exam);
     }
 
     @Override

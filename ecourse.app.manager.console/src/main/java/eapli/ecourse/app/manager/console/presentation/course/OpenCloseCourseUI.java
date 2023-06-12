@@ -1,6 +1,7 @@
 package eapli.ecourse.app.manager.console.presentation.course;
 
 import eapli.ecourse.coursemanagement.application.OpenCloseCourseController;
+import eapli.ecourse.app.common.console.presentation.course.SelectCourseWidget;
 import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.coursemanagement.domain.State;
 import eapli.framework.domain.repositories.ConcurrencyException;
