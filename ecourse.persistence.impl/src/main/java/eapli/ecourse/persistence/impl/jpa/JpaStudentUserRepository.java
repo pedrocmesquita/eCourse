@@ -24,10 +24,13 @@ import eapli.ecourse.Application;
 import eapli.ecourse.usertypemanagement.studentusermanagement.domain.MecanographicNumber;
 import eapli.ecourse.usertypemanagement.studentusermanagement.domain.StudentUser;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
+import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.TeacherUser;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import javax.persistence.TypedQuery;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -61,7 +64,15 @@ class JpaStudentUserRepository
         params.put("number", number);
         return matchOne("e.mecanographicNumber=:number", params);
     }
-
+    
+    @Override
+    public StudentUser getStudentUserFromSystemUser(SystemUser systemUser) {
+        String jpql = "SELECT s FROM StudentUser s JOIN s.systemUser su WHERE su.username = :username";
+        TypedQuery<StudentUser> query = entityManager().createQuery(jpql, StudentUser.class);
+        query.setParameter("username", systemUser.username());
+        return query.getSingleResult();
+    }
+    
     @Override
     public Iterable<StudentUser> findAllActive() {
         return match("e.systemUser.active = true");

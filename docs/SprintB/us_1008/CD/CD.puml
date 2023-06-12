@@ -1,0 +1,97 @@
+@startuml
+
+package ecourse{
+package presentation{
+class RequestEnrollmentUI{
+}
+}
+
+package core{
+package application{
+class RequestEnrollmentController <<application>>{
+    attemptEnroll(String coursename)
+}
+}
+
+package domain{
+class Course{
+    state()
+}
+class EnrollmentRequest{
+    create(SystemSystemUser student, Course course)
+    accept()
+    reject()
+}
+
+enum RequestState <<enum>> {
+    PENDING
+    ACCEPTED
+    DECLINED
+}
+}
+
+
+package persistence{
+class PersistenceContext <<persistence>>{
+    repositories()
+}
+
+class RepositoryFactory <<factory>> {
+    courses()
+    enrollmentRequests()
+}
+}
+
+package repositories{
+class CourseRepository <<repository>>{
+}
+
+class EnrollmentRequestRepository <<repository>> {
+    add(EnrollmentRequest request)
+}
+}
+}
+
+package authz{
+class AuthorizationService <<service>> {
+    session()
+}
+
+class AuthzRegistry{
+}
+class SystemUser{
+    role()
+}
+
+class UserSession {
+    authenticatedSystemUser()
+}
+}
+}
+EnrollmentRequest --* Course
+EnrollmentRequest --* RequestState
+
+EnrollmentRequestRepository --> EnrollmentRequest : stores
+
+RequestEnrollmentUI ..> RequestEnrollmentController : controller >
+
+RequestEnrollmentController ..> PersistenceContext
+RequestEnrollmentController --> EnrollmentRequestRepository
+RequestEnrollmentController --> CourseRepository
+
+PersistenceContext ..> RepositoryFactory : factory >
+
+
+RepositoryFactory ..> EnrollmentRequestRepository
+RepositoryFactory ..> CourseRepository
+
+
+
+AuthzRegistry ..> AuthorizationService
+AuthorizationService --> UserSession
+UserSession --> SystemUser
+
+RequestEnrollmentController ..> AuthzRegistry
+RequestEnrollmentController --> AuthorizationService
+
+@enduml

@@ -60,7 +60,8 @@ public interface ClientUserRepository
     /**
      * Finds student, given a systemuser
      *
-     * @return
+     * @return StudentUser of system user
      */
     //StudentUser getClientUserFromSystemUser(SystemUser systemUser);
+    StudentUser getStudentUserFromSystemUser(SystemUser systemUser);
 }

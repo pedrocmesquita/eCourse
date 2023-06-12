@@ -27,6 +27,8 @@ import eapli.ecourse.Application;
 import eapli.ecourse.app.manager.console.presentation.authz.AddUserUI;
 import eapli.ecourse.app.manager.console.presentation.authz.DeactivateUserAction;
 import eapli.ecourse.app.manager.console.presentation.authz.ListUsersAction;
+import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
+import eapli.ecourse.app.manager.console.presentation.classes.ScheduleClassUI;
 import eapli.ecourse.app.manager.console.presentation.course.*;
 import eapli.ecourse.app.manager.console.presentation.studentuser.AcceptRefuseSignupRequestAction;
 import eapli.ecourse.app.manager.console.presentation.teacheruser.AssignTeacherToCourseUI;
@@ -68,15 +70,23 @@ public class MainMenu extends AbstractUI {
     private static final int OPEN_CLOSE_COURSE = 3;
     private static final int OPEN_CLOSE_ENROLL = 4;
     private static final int ASSIGN_TEACHER = 5;
+    private static final int ANSWER_ENROLLMENT = 6;
+
+    // CLASS
+
+    private static final int SCHEDULE_CLASS = 1;
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
+    private static final int SET_USER_CREATE_BOARD_OPTION = 1;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int COURSES_OPTION = 3;
-    private static final int SETTINGS_OPTION = 4;
+    private static final int CLASSES_OPTION = 4;
+    private static final int SETTINGS_OPTION = 6;
+    private static final int BOARD_OPTION = 5;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -125,6 +135,10 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
             final Menu coursesMenu = buildCoursesMenu();
             mainMenu.addSubMenu(COURSES_OPTION, coursesMenu);
+            final Menu classesMenu = buildClassesMenu();
+            mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
+            final Menu boardMenu = buildBoardMenu();
+            mainMenu.addSubMenu(BOARD_OPTION, boardMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
@@ -137,7 +151,16 @@ public class MainMenu extends AbstractUI {
 
         return mainMenu;
     }
+    private Menu buildBoardMenu() {
+        final Menu menu = new Menu("Boards >");
 
+        menu.addItem(SET_USER_CREATE_BOARD_OPTION, "Create Board",
+                new CreateBoardUI()::show);
+
+        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return menu;
+    }
     private Menu buildAdminSettingsMenu() {
         final Menu menu = new Menu("Settings >");
 
@@ -169,8 +192,17 @@ public class MainMenu extends AbstractUI {
         menu.addItem(OPEN_CLOSE_COURSE, "Open/Close Courses", new OpenCloseCourseUI()::show);
         menu.addItem(OPEN_CLOSE_ENROLL, "Open/Close Enrollments", new OpenCloseEnrollmentUI()::show);
         menu.addItem(ASSIGN_TEACHER, "Assign Teacher", new AssignTeacherToCourseUI()::show);
+        menu.addItem(ANSWER_ENROLLMENT,"Accept or Reject Enrollments", new AcceptRejectEnrollmentUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
+        return menu;
+    }
+
+    private Menu buildClassesMenu() {
+        final Menu menu = new Menu("Classes >");
+
+        menu.addItem(SCHEDULE_CLASS, "Schedule a Class", new ScheduleClassUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 

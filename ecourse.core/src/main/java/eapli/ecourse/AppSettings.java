@@ -47,6 +47,10 @@ public class AppSettings {
     private static final String COURSE_DESCRIPTION_CHARACTER_LIMIT = "CourseDescriptionCharacterLimit";
     private static final String EXAM_DESCRIPTION_CHARACTER_LIMIT = "ExamDescriptionCharacterLimit";
     private final Properties applicationProperties = new Properties();
+    private static final String BOARD_MAX_ROWS =
+            "boards.max.rows";
+    private static final String BOARD_MAX_COLUMNS =
+            "boards.max.columns";
 
     public AppSettings() {
         loadProperties();
@@ -114,5 +118,26 @@ public class AppSettings {
 
     public String getProperty(final String prop) {
         return this.applicationProperties.getProperty(prop);
+    }
+
+    public String repositoryFactory() {
+        return applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
+    }
+
+    /**
+     * Max columns.
+     */
+   public int maxColumns() {
+       return 10;
+       // Integer.parseInt(applicationProperties.getProperty(BOARD_MAX_COLUMNS));
+    }
+
+    /**
+     * Max rows.
+     */
+
+    public int maxRows() {
+        //Integer.parseInt(applicationProperties.getProperty(BOARD_MAX_ROWS));
+        return 20;
     }
 }

@@ -11,20 +11,22 @@ The members of the group:
 | **[1201305](1201305/readme.md)** | Tiago Afonso   |
 | **[1201078](1201078/readme.md)** | Miguel Marques |
 | **[1201424](1201424/readme.md)** | João Torres    |
-| **[1212123](1212123/readme.md)** | Harry Laranja  |
+
+[1212123](1212123/readme.md) Harry Laranja has given up the course and is no longer part of the group.
 
 ## 2. Task Assignment
 
 The assignment of tasks (requirements/user stories/use cases) during the project.
 
-| Student Nr.	                 | Sprint A                                                               | Sprint B                                                                                                                                                              | Sprint C                                                  |
-|------------------------------|------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
-| [1211171](1211171/readme.md) | [US G002](Sprint1/us_g002/readme.md) <br/>[US G003](us_g003/readme.md) | TBD                                                                                                                                                                   | TBD                                                       |
-| [1211250](1211250/readme.md) | [US G002](us_g002/readme.md)<br/>                                      | TBD                                                                                                                                                                   | TBD                                                       |
-| [1201305](1201305/README.md) | [US G002](us_g002/readme.md) <br/>[US G004](us_g004/readme.md)         | [US 1002](us_1002/README.md) <br/> [US 1003](us_1003/README.md) <br/>[US 1004](us_1004/README.md) <br/>[US 1005](us_1005/README.md) <br/>[US 1006](us_1005/README.md) | [US 2001](us_2001/README.md) [US 2005](us_2005/README.md) |
-| [1201078](1201078/readme.md) | [US G002](us_g002/readme.md)                                           | TBD                                                                                                                                                                   | TBD                                                       |
-| [1201424](1201424/readme.md) | none                                                                   | TBD                                                                                                                                                                   | TBD                                                       |
-| [1212123](1212123/readme.md) | none                                                                   | TBD                                                                                                                                                                   | TBD                                                       |
+
+| Student Nr.	                 | Sprint A                                                               | Sprint B                                                                                                                                                                                                      | Sprint C                                                                  |
+|------------------------------|------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| [1211171](1211171/readme.md) | [US G002](Sprint1/us_g002/readme.md) <br/>[US G003](us_g003/readme.md) | [US 1008](SprintB/us_1008/README.md) <br/> [US 1009](SprintB/us_1009/README.md) <br/> [US 1010](SprintB/us_1010/README.md) <br/> [US 5001](SprintB/us_5001/README.md)                                         | [US2004] [US5002]                                                         |
+| [1211250](1211250/readme.md) | [US G002](us_g002/readme.md)<br/>                                      | [US 3002](docs/SprintB/us_3002/readme.md)                                                                                                                                                                     | [US2004] [US5002]                                                         |
+| [1201305](1201305/README.md) | [US G002](us_g002/readme.md) <br/>[US G004](us_g004/readme.md)         | [US 1002](SprintB/us_1002/README.md) <br/> [US 1003](SprintB/us_1003/README.md) <br/>[US 1004](SprintB/us_1004/README.md) <br/>[US 1005](SprintB/us_1005/README.md) <br/>[US 1006](SprintB/us_1006/README.md) | [US 2001](SprintC/us_2001/README.md) [US 2005](SprintC/us_2005/README.md) |
+| [1201078](1201078/readme.md) | [US G002](us_g002/readme.md)                                           | TBD                                                                                                                                                                                                           | [US2006] [US5002]                                                         |
+| [1201424](1201424/readme.md) | none                                                                   | TBD                                                                                                                                                                                                           | TBD                                                                       |
+
 
 [comment]: <> ()
 

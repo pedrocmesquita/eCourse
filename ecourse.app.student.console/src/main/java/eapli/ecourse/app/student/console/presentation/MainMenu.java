@@ -25,6 +25,8 @@ package eapli.ecourse.app.student.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
+import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
+import eapli.ecourse.app.student.console.presentation.enrollment.RequestEnrollmentUI;
 import eapli.ecourse.app.student.console.presentation.exam.ListExamsUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
@@ -58,8 +60,10 @@ class MainMenu extends StudentUserBaseUI
     //private static final int ACCOUNT_OPTION = 3;
     //private static final int SETTINGS_OPTION = 4;
     private static final int COURSES_OPTION = 2;
-    private static final int CLASSES_OPTION = 3;
-    private static final int EXAMS_OPTION = 4;
+    private static final int EXAMS_OPTION = 3;
+    private static final int BOARD_OPTION = 4;
+
+
     
     // BOOKINGS MENU
     private static final int BOOK_A_MEAL_OPTION = 2;
@@ -70,12 +74,15 @@ class MainMenu extends StudentUserBaseUI
     
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
+    private static final int SET_USER_CREATE_BOARD_OPTION = 2;
     
     //COURSE
-    
+
+    private static final int ENROLL_OPTION = 1;
+
     //EXAM
     private static final int LIST_EXAMS_OPTION = 1;
-    
+
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     
     private final Menu menu;
@@ -133,8 +140,12 @@ class MainMenu extends StudentUserBaseUI
         
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.STUDENT, BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.MANAGER))
         {
+            final Menu coursesMenu = buildCoursesMenu();
+            mainMenu.addSubMenu(COURSES_OPTION, coursesMenu);
             final Menu examsMenu = buildExamsMenu();
             mainMenu.addSubMenu(EXAMS_OPTION, examsMenu);
+            final Menu boardMenu= buildBoardMenu();
+            mainMenu.addSubMenu(BOARD_OPTION, boardMenu);
         }
         
         if (! Application.settings().isMenuLayoutHorizontal())
@@ -145,6 +156,26 @@ class MainMenu extends StudentUserBaseUI
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
         
         return mainMenu;
+    }
+    private Menu buildCoursesMenu()
+    {
+        final Menu coursesMenu = new Menu("Courses  >");
+
+        //coursesMenu.addItem(LIST_COURSES_OPTION, "View List of Courses", new ListCoursesUI()::show);
+        coursesMenu.addItem(ENROLL_OPTION, "Request Enrollment in a Course", new RequestEnrollmentUI()::show);
+        coursesMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return coursesMenu;
+    }
+    private Menu buildBoardMenu() {
+        final Menu menu = new Menu("Boards  >");
+
+        menu.addItem(SET_USER_CREATE_BOARD_OPTION, "Create Board",
+                new CreateBoardUI()::show);
+
+        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return menu;
     }
     
     private Menu buildExamsMenu()

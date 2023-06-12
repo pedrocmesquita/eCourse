@@ -1,0 +1,44 @@
+@startuml
+
+actor Teacher as TEACHER
+participant ScheduleClassUI as ScheduleClassUI <<presentation>>
+participant ScheduleClassController as ScheduleClassController <<application>>
+participant SchClass as SchClass <<domain>>
+participant DomainRepository as DomainRepository <<repository>>
+
+TEACHER -> ScheduleClassUI : ask to schedule a class
+activate ScheduleClassUI
+ScheduleClassUI --> TEACHER : ask for class data\n(course, date, startTime, endTime)
+deactivate ScheduleClassUI
+TEACHER -> ScheduleClassUI : introduces data
+activate ScheduleClassUI
+ScheduleClassUI -> ScheduleClassController : scheduleClass
+activate ScheduleClassController
+
+create SchClass
+ScheduleClassController -> SchClass : new SchClass(course, \ndate, startTime, endTime)
+activate SchClass
+SchClass -> SchClass : validate data
+SchClass -> ScheduleClassController : SchClass
+deactivate SchClass
+
+
+ScheduleClassController -> DomainRepository : save
+activate DomainRepository
+database Database
+DomainRepository -> Database : save
+activate Database
+Database --> DomainRepository
+deactivate Database
+DomainRepository -> ScheduleClassController
+deactivate DomainRepository
+
+
+
+
+ScheduleClassController -> ScheduleClassUI
+deactivate ScheduleClassController
+ScheduleClassUI -> TEACHER : informs operation success
+deactivate ScheduleClassUI
+
+@enduml

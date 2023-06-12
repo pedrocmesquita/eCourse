@@ -21,9 +21,11 @@
 package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
+import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.coursemanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
+import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
@@ -121,6 +123,17 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaStudentsInExamRepository(Application.settings().getPersistenceUnitName());
     }
     
+    @Override
+    public ExamsInCourseRepository examsInCourse()
+    {
+        return new JpaExamsInCourseRepository(Application.settings().getPersistenceUnitName());
+    }
+    
+    @Override
+    public BoardRepository boards() {
+        return null;
+    }
+
     @Override
     public TransactionalContext newTransactionalContext() {
         return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),

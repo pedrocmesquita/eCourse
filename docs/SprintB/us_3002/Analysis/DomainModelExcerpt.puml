@@ -1,0 +1,86 @@
+
+@startuml
+
+title Domain Model Excerpt
+
+
+
+hide methods
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+skinparam packageStyle rectangle
+
+package "User Aggregate" {
+    entity User <<entity>><<root>>
+}
+
+package "Board Aggregate" {
+    entity Board <<entity>><<root>>
+    card BoardTitle <<Value Object>>{
+    }
+    card BoardNRows <<Value Object>>{
+    }
+    card BoardNCols <<Value Object>>{
+    }
+    card BoardState <<Value Object>>{
+    }
+    card EntryTitle <<Value Object>>{
+    }
+    card EntryNumber <<Value Object>>{
+    }
+
+
+    entity BoardEntry <<Entity>>{
+    }
+    card BoardRow <<Value Object>>{
+    }
+    card BoardCol <<Value Object>>{
+    }
+
+
+
+    entity BoardPermission <<Entity>>
+    card AccessLevel <<Value Object>>{
+    }
+
+
+
+    class BoardCreateConfig <<Util>>
+
+    note left of BoardCreateConfig
+        Obtained from config file,
+        default value is
+        20 rows and 10 columns
+    end note
+
+    card BoardMaxRows <<Value Object>>{
+    }
+    card BoardMaxCols <<Value Object>>{
+    }
+
+    BoardCreateConfig --> BoardMaxRows
+    BoardCreateConfig --> BoardMaxCols
+}
+
+    BoardTitle <-- Board
+    BoardNRows <-- Board
+    BoardNCols <-- Board
+    BoardState <-- Board
+
+    BoardEntry <-- Board
+    BoardRow <-- BoardEntry
+    BoardCol <-- BoardEntry
+    EntryNumber <-- BoardEntry
+    EntryTitle <-- BoardEntry
+
+
+
+    BoardPermission <-- Board
+    BoardPermission --> User
+    BoardPermission --> AccessLevel
+
+Board --> "1" User :owner
+
+@enduml
