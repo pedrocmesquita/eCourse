@@ -1,0 +1,657 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": false,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": false, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": false,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "eapli.ecourse.app.teacher.console.presentation.exam.CreateExamUI",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1911013184 { 
+   	label=ecourse
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1386234867 { 
+   	label=app
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   CreateExamUI1692522488[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreateExamUI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   courseWidget: SelectCourseWidget [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- addQuestion()</TD></TR>
+<TR><TD ALIGN="LEFT" >- addSection()</TD></TR>
+<TR><TD ALIGN="LEFT" ># doShow(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ headline(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SelectCourseWidget476170131[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SelectCourseWidget</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   courses: Iterable&lt;Course&gt; [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ selectCourse(): Course</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_394597520 { 
+   	label=exammanagement
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   CreateExamController1396014033[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreateExamController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   authz: AuthorizationService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   builder: ExamBuilder [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   courseRepository: CourseRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   examRepository: ExamRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teacherUserRepository: TeacherUserRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teachersInCourseRepository: TeachersInCourseRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addOther(title: String, description: String, feedbackSetting: SettingType, gradeSetting: SettingType, openDate: Calendar, closeDate: Calendar)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addQuestion(question: String): Question</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addSection(description: String): Section</TD></TR>
+<TR><TD ALIGN="LEFT" >+ allCoursesTeacherIsAssigned(acronym: Acronym): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createExam(course: Course): Exam</TD></TR>
+<TR><TD ALIGN="LEFT" >+ newSection()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Date2094840187[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Date</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   closeDate: Calendar [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   openDate: Calendar [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- checkDates()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Exam2094840187[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Exam</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   date: Date [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: Description [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sections: List&lt;Section&gt; [1..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   setting: Setting [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   title: Designation [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ identity(): Designation</TD></TR>
+<TR><TD ALIGN="LEFT" >+ sameAs(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ExamBuilder2094840187[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ExamBuilder</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   date: Date [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: Description [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   questions: List&lt;Question&gt; [1..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sections: List&lt;Section&gt; [1..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   setting: Setting [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   title: Designation [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addQuestion(question: String): Question</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addSection(description: String): Section</TD></TR>
+<TR><TD ALIGN="LEFT" >+ build(): Exam</TD></TR>
+<TR><TD ALIGN="LEFT" >+ newSection()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ExamRepository849763945[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)ExamRepository</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+Question2094840187[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Question</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   pk: Long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   question: String [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Section2094840187[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Section</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   description: Description [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pk: Long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   questions: List&lt;Question&gt; [1..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ description(): Description</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Setting2094840187[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Setting</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   feedbackSetting: SettingType [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gradeSetting: SettingType [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SettingType2094840187[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(E)SettingType</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   AFTER_CLOSING: SettingType [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   NONE: SettingType [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   ON_SUBMISSION: SettingType [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ valueOf(name: String): SettingType</TD></TR>
+<TR><TD ALIGN="LEFT" >+ values(): SettingType[]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#DCFBD5"
+];
+} 
+
+subgraph cluster_489743759 { 
+   	label=persistence
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   JpaCourseRepository1852613913[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JpaCourseRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesOpenOrEnrollState(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithState(state: State): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithoutState(state: State): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findCoursesTeacherIsAssigned(acronym: String): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JpaExamRepository1852613913[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JpaExamRepository</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JpaTeacherUserRepository1852613913[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JpaTeacherUserRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getTeacherUserFromSystemUser(systemUser: SystemUser): TeacherUser</TD></TR>
+<TR><TD ALIGN="LEFT" >+ joinAllTeachersWithSystemUser(): Iterable&lt;TeacherUser&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+JpaTeachersInCourseRepository1852613913[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)JpaTeachersInCourseRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesTeacherIsAssign(acronym: Acronym): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_861892108 { 
+   	label=coursemanagement
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Course1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Course</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   courseId: Long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: Description [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   enrollLimit: EnrollLimit [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   exams: Set&lt;Exam&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: Name [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   state: State [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teachersInCourses: Set&lt;TeachersInCourse&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addExam(exam: Exam): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- checkActivity()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ courseId(): Long</TD></TR>
+<TR><TD ALIGN="LEFT" >+ description(): Description</TD></TR>
+<TR><TD ALIGN="LEFT" >+ enrollLimit(): EnrollLimit</TD></TR>
+<TR><TD ALIGN="LEFT" >+ identity(): Name</TD></TR>
+<TR><TD ALIGN="LEFT" >+ name(): Name</TD></TR>
+<TR><TD ALIGN="LEFT" >+ sameAs(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ state(): State</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toggleOpenClose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toggleOpenCloseEnroll()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CourseRepository816628141[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)CourseRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesOpenOrEnrollState(): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithState(state: State): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesWithoutState(state: State): Iterable&lt;Course&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findCoursesTeacherIsAssigned(acronym: String): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+Description1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Description</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   description: String [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+EnrollLimit1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)EnrollLimit</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   maxEnroll: Integer [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   minEnroll: Integer [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Name1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Name</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   name: String [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compareTo(o: Name): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+State1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(E)State</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   CLOSED: State [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   ENROLL: State [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   OPEN: State [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   PROGRESS: State [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ valueOf(name: String): State</TD></TR>
+<TR><TD ALIGN="LEFT" >+ values(): State[]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#DCFBD5"
+];
+
+TeachersInCourse1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TeachersInCourse</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   course: Course [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   id: TeachersInCourseKey [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isInCharge: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teacher: TeacherUser [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ course(): Course</TD></TR>
+<TR><TD ALIGN="LEFT" >+ identity(): TeachersInCourseKey</TD></TR>
+<TR><TD ALIGN="LEFT" >+ sameAs(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ teacher(): TeacherUser</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TeachersInCourseKey1854509879[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TeachersInCourseKey</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   courseId: Long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teacherId: Acronym [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compareTo(o: TeachersInCourseKey): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_925774986 { 
+   	label=usertypemanagement
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Acronym1814895075[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Acronym</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   acronym: String [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compareTo(o: Acronym): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BirthDate2032408415[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BirthDate</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   birthDate: Calendar [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TaxPayerNumber2032408415[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TaxPayerNumber</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   taxPayerNumber: String [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compareTo(o: TaxPayerNumber): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TeacherUser1814895075[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TeacherUser</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   acronym: Acronym [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   birthDate: BirthDate [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   systemUser: SystemUser [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taxPayerNumber: TaxPayerNumber [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teachersInCourses: Set&lt;TeachersInCourse&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   version: Long [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ acronym(): Acronym</TD></TR>
+<TR><TD ALIGN="LEFT" >+ birthDate(): BirthDate</TD></TR>
+<TR><TD ALIGN="LEFT" >+ identity(): Acronym</TD></TR>
+<TR><TD ALIGN="LEFT" >+ sameAs(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ taxPayerNumber(): TaxPayerNumber</TD></TR>
+<TR><TD ALIGN="LEFT" >+ user(): SystemUser</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TeacherUserRepository731245569[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)TeacherUserRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getTeacherUserFromSystemUser(systemUser: SystemUser): TeacherUser</TD></TR>
+<TR><TD ALIGN="LEFT" >+ joinAllTeachersWithSystemUser(): Iterable&lt;TeacherUser&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+TeachersInCourseRepository731245569[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)TeachersInCourseRepository</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllCoursesTeacherIsAssign(acronym: Acronym): Iterable&lt;Course&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+} 
+} 
+
+'edges    
+Course1854509879 -> Description1854509879[label="description
+[1]"];
+Course1854509879 -> EnrollLimit1854509879[label="enrollLimit
+[0..1]"];
+Course1854509879 -> Exam2094840187[label="exams
+[0..*]"];
+Course1854509879 -> Name1854509879[label="name
+[1]"];
+Course1854509879 -> State1854509879[label="state
+[1]"];
+Course1854509879 -> TeachersInCourse1854509879[label="teachersInCourses
+[0..*]"];
+CourseRepository816628141 -> JpaCourseRepository1852613913[arrowhead=none, arrowtail=empty, dir=both];
+CreateExamController1396014033 -> Course1854509879[label="createExam() -> addExam()"];
+CreateExamController1396014033 -> CourseRepository816628141[label="courseRepository
+[1]"];
+CreateExamController1396014033 -> ExamBuilder2094840187[label="builder
+[1]"];
+CreateExamController1396014033 -> ExamRepository849763945[label="examRepository
+[1]"];
+CreateExamController1396014033 -> TeacherUserRepository731245569[label="teacherUserRepository
+[1]"];
+CreateExamController1396014033 -> TeachersInCourseRepository731245569[label="teachersInCourseRepository
+[1]"];
+CreateExamUI1692522488 -> SelectCourseWidget476170131[label="courseWidget
+[1]"];
+CreateExamUI1692522488 -> SettingType2094840187[label="doShow() -> values()"];
+CreateExamUI1692522488 -> CreateExamController1396014033[label="controller
+[1]"];
+Exam2094840187 -> Date2094840187[label="date
+[1]"];
+Exam2094840187 -> Section2094840187[label="sections
+[1..*]"];
+Exam2094840187 -> Setting2094840187[label="setting
+[1]"];
+ExamBuilder2094840187 -> Date2094840187[label="date
+[1]"];
+ExamBuilder2094840187 -> Question2094840187[label="questions
+[1..*]"];
+ExamBuilder2094840187 -> Section2094840187[label="sections
+[1..*]"];
+ExamBuilder2094840187 -> Setting2094840187[label="setting
+[1]"];
+ExamRepository849763945 -> JpaExamRepository1852613913[arrowhead=none, arrowtail=empty, dir=both];
+Section2094840187 -> Question2094840187[label="questions
+[1..*]"];
+SelectCourseWidget476170131 -> Course1854509879[label="courses
+[0..1]"];
+Setting2094840187 -> SettingType2094840187[label="feedbackSetting
+[1]"];
+Setting2094840187 -> SettingType2094840187[label="gradeSetting
+[1]"];
+TeacherUser1814895075 -> Acronym1814895075[label="acronym
+[1]"];
+TeacherUser1814895075 -> BirthDate2032408415[label="birthDate
+[1]"];
+TeacherUser1814895075 -> TaxPayerNumber2032408415[label="taxPayerNumber
+[1]"];
+TeacherUser1814895075 -> TeachersInCourse1854509879[label="teachersInCourses
+[0..*]"];
+TeacherUserRepository731245569 -> JpaTeacherUserRepository1852613913[arrowhead=none, arrowtail=empty, dir=both];
+TeachersInCourse1854509879 -> Course1854509879[label="course
+[1]"];
+TeachersInCourse1854509879 -> TeacherUser1814895075[label="teacher
+[1]"];
+TeachersInCourse1854509879 -> TeachersInCourseKey1854509879[label="id
+[1]"];
+TeachersInCourseKey1854509879 -> Acronym1814895075[label="teacherId
+[1]"];
+TeachersInCourseRepository731245569 -> JpaTeachersInCourseRepository1852613913[arrowhead=none, arrowtail=empty, dir=both];
+
+}
+@enduml

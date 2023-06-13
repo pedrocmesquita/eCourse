@@ -12,7 +12,7 @@ public class ListAssignCoursesUI extends AbstractListUI<Course> {
 
     @Override
     protected Iterable<Course> elements() {
-        return controller.allCoursesTeacherIsAssigned();
+        return controller.allCoursesTeacherIsAssigned(controller.getUserAcronym());
     }
 
     @Override

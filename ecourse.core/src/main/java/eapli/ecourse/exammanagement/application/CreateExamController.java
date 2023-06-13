@@ -38,12 +38,12 @@ public class CreateExamController {
     }
 
     //todo refactor to avoid code duplication
-    public Iterable<Course> allCoursesTeacherIsAssigned() {
+    public Iterable<Course> allCoursesTeacherIsAssigned(Acronym acronym) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.TEACHER);
-        return teachersInCourseRepository.findAllCoursesTeacherIsAssign(getUserAcronym());
+        return teachersInCourseRepository.findAllCoursesTeacherIsAssign(acronym);
     }
 
-    private Acronym getUserAcronym(){
+    public Acronym getUserAcronym(){
         Optional<UserSession> session = authz.session();
         if(session.isEmpty())
             throw new IllegalArgumentException("No user authentication");

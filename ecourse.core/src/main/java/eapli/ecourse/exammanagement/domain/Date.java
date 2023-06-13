@@ -1,5 +1,7 @@
 package eapli.ecourse.exammanagement.domain;
 
+import eapli.framework.validations.Preconditions;
+
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,18 +22,23 @@ public class Date {
     }
 
     protected Date(Calendar openDate, Calendar closeDate) {
-        checkDates();
+        Preconditions.noneNull(openDate, closeDate);
+        checkDates(openDate, closeDate);
         setOpenDate(openDate);
         setCloseDate(closeDate);
     }
 
     //todo
+
     /**
      * Checks if openDate is before closeDate
-     *
      */
-    private void checkDates(){
-        //ORM only
+    private void checkDates(Calendar openDate, Calendar closeDate) {
+        Calendar today = Calendar.getInstance();
+        if (closeDate.before(today) || openDate.before(today))
+            throw new IllegalArgumentException("Dates must be in the future");
+        if (openDate.after(closeDate))
+            throw new IllegalArgumentException("Close date must be after open date");
     }
 
     @Override

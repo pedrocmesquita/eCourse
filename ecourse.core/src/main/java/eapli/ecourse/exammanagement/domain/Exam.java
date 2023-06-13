@@ -48,13 +48,15 @@ public class Exam implements AggregateRoot<Designation> {
      * Constructor
      *
      * @param title         mandatory
-     * @param description   mandatory
+     * @param description   optional
      * @param setting       mandatory
      * @param date          mandatory
      * @param sections      mandatory
      */
     public Exam(Designation title, Description description, Setting setting, Date date, List<Section> sections) {
-        Preconditions.noneNull(title, description, setting, date, sections);
+        Preconditions.noneNull(title, setting, date, sections);
+        if(sections.size() < 1)
+            throw new IllegalArgumentException("There must be latest one section");
         this.title = title;
         this.description = description;
         this.setting = setting;

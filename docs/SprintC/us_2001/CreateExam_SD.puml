@@ -1,0 +1,176 @@
+@startuml
+actor Teacher as Actor
+participant CreateExamUI as CreateExamUI <<presentation>>
+participant CreateExamController as CreateExamController <<application>>
+participant SelectCourseWidget as SelectCourseWidget <<presentation>>
+participant SettingType as SettingType <<enum>>
+participant ExamBuilder as ExamBuilder <<domain>>
+participant Setting as Setting <<domain>>
+participant Date as Date <<domain>>
+participant Section as Section <<domain>>
+participant Question as Question <<domain>>
+participant Exam as Exam <<domain>>
+participant Course as Course <<domain>>
+participant CourseRepository as CourseRepository <<repository>>
+participant ExamRepository as ExamRepository <<repository>>
+
+Actor -> CreateExamUI : asks to create an exam
+activate CreateExamUI
+CreateExamUI -> SelectCourseWidget : selectCourse
+activate SelectCourseWidget
+SelectCourseWidget --> CreateExamUI
+deactivate SelectCourseWidget
+CreateExamUI -> SettingType : values
+activate SettingType
+SettingType --> CreateExamUI
+deactivate SettingType
+CreateExamUI -> CreateExamController : addOther
+activate CreateExamController
+CreateExamController -> ExamBuilder : withTitle
+activate ExamBuilder
+ExamBuilder -> ExamBuilder : withTitle
+activate ExamBuilder
+ExamBuilder --> ExamBuilder
+deactivate ExamBuilder
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+opt
+CreateExamController -> ExamBuilder : withDescription
+activate ExamBuilder
+ExamBuilder -> ExamBuilder : withDescription
+activate ExamBuilder
+ExamBuilder --> ExamBuilder
+deactivate ExamBuilder
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+end
+CreateExamController -> ExamBuilder : withSetting
+activate ExamBuilder
+create Setting
+ExamBuilder -> Setting : new
+activate Setting
+Setting -> Setting : setFeedbackSetting
+activate Setting
+Setting --> Setting
+deactivate Setting
+Setting -> Setting : setGradeSetting
+activate Setting
+Setting --> Setting
+deactivate Setting
+Setting --> ExamBuilder
+deactivate Setting
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController -> ExamBuilder : withDate
+activate ExamBuilder
+create Date
+ExamBuilder -> Date : new
+activate Date
+Date -> Date : checkDates
+activate Date
+Date --> Date
+deactivate Date
+Date -> Date : setOpenDate
+activate Date
+Date --> Date
+deactivate Date
+Date -> Date : setCloseDate
+activate Date
+Date --> Date
+deactivate Date
+Date --> ExamBuilder
+deactivate Date
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI -> CreateExamUI : addSection
+activate CreateExamUI
+CreateExamUI -> CreateExamController : newSection
+activate CreateExamController
+CreateExamController -> ExamBuilder : newSection
+activate ExamBuilder
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI -> CreateExamController : addSection
+activate CreateExamController
+CreateExamController -> ExamBuilder : addSection
+activate ExamBuilder
+create Section
+ExamBuilder -> Section : new
+activate Section
+Section -> Section : setDescription
+activate Section
+Section --> Section
+deactivate Section
+Section -> Section : setQuestions
+activate Section
+Section --> Section
+deactivate Section
+Section --> ExamBuilder
+deactivate Section
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI --> CreateExamUI
+deactivate CreateExamUI
+CreateExamUI -> CreateExamUI : addQuestion
+activate CreateExamUI
+CreateExamUI -> CreateExamController : addQuestion
+activate CreateExamController
+CreateExamController -> ExamBuilder : addQuestion
+activate ExamBuilder
+create Question
+ExamBuilder -> Question : new
+activate Question
+Question -> Question : setQuestion
+activate Question
+Question --> Question
+deactivate Question
+Question --> ExamBuilder
+deactivate Question
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI --> CreateExamUI
+deactivate CreateExamUI
+CreateExamUI -> CreateExamController : createExam
+activate CreateExamController
+CreateExamController -> ExamBuilder : build
+activate ExamBuilder
+create Exam
+ExamBuilder -> Exam : new
+activate Exam
+Exam --> ExamBuilder
+deactivate Exam
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController -> Course : addExam
+activate Course
+Course --> CreateExamController
+deactivate Course
+CreateExamController -> CourseRepository : save
+activate CourseRepository
+database Database
+CourseRepository -> Database : save
+activate Database
+Database --> CourseRepository
+deactivate Database
+CourseRepository --> CreateExamController
+deactivate CourseRepository
+CreateExamController -> ExamRepository : save
+activate ExamRepository
+ExamRepository -> Database : save
+activate Database
+Database --> ExamRepository
+deactivate Database
+ExamRepository --> CreateExamController
+deactivate ExamRepository
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+return informs operation success
+@enduml

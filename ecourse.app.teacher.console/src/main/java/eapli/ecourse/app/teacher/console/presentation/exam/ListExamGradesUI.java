@@ -1,4 +1,4 @@
-package eapli.ecourse.app.teacher.console.presentation.Exam;
+package eapli.ecourse.app.teacher.console.presentation.exam;
 
 import eapli.ecourse.app.common.console.presentation.exam.ExamPrinter;
 import eapli.ecourse.exammanagement.application.ListTeacherExamGradesController;

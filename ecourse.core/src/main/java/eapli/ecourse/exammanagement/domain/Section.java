@@ -3,6 +3,7 @@ package eapli.ecourse.exammanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.strings.util.StringPredicates;
+import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -49,12 +50,15 @@ public class Section implements ValueObject, Serializable {
     }
 
     protected void setDescription(Description description) {
-        if(StringPredicates.isNullOrEmpty(description.toString()))
+        if(StringPredicates.isNullOrEmpty(Objects.toString(description, null)))
             throw new IllegalArgumentException("Description cannot be null or empty");
         this.description = description;
     }
 
     protected void setQuestions(List<Question> questions) {
+        Preconditions.noneNull(questions);
+        if(questions.size() < 1)
+            throw new IllegalArgumentException("There must be latest one question");
         this.questions = questions;
     }
 

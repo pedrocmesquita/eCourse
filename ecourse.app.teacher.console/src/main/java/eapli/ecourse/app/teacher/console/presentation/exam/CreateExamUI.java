@@ -1,26 +1,22 @@
-package eapli.ecourse.app.teacher.console.presentation.Exam;
+package eapli.ecourse.app.teacher.console.presentation.exam;
 
 
 import eapli.ecourse.exammanagement.application.CreateExamController;
 import eapli.ecourse.app.common.console.presentation.course.SelectCourseWidget;
 import eapli.ecourse.exammanagement.domain.*;
 import eapli.ecourse.coursemanagement.domain.*;
-import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Calendar;
 
 public class CreateExamUI extends AbstractUI {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CreateExamUI.class);
     private static final CreateExamController controller = new CreateExamController();
-    private final SelectCourseWidget courseWidget = new SelectCourseWidget(controller.allCoursesTeacherIsAssigned());
+    private final SelectCourseWidget courseWidget = new SelectCourseWidget(controller.allCoursesTeacherIsAssigned(controller.getUserAcronym()));
     private static int SECTION_COUNTER = 1;
     private static int QUESTION_COUNTER;
 
@@ -36,7 +32,7 @@ public class CreateExamUI extends AbstractUI {
         final Calendar closeDate = Console.readCalendar("Close date (dd-M-yyyy hh:mm:ss)", "dd-M-yyyy hh:mm:ss");
 
         final Iterable<SettingType> iterableSetting = Arrays.asList(SettingType.values());
-        final SelectWidget<SettingType> selectorSetting = new SelectWidget<SettingType>("", iterableSetting);
+        final SelectWidget<SettingType> selectorSetting = new SelectWidget<>("", iterableSetting);
         System.out.println("\nSelect feedback setting");
         selectorSetting.show();
         final SettingType feedbackSetting = selectorSetting.selectedElement();
@@ -52,16 +48,18 @@ public class CreateExamUI extends AbstractUI {
         //add section loop
         do {
             QUESTION_COUNTER = 1;
-            addSection();
+            newSection();
+            String descriptionSection = Console.readLine("Description");
             //add question loop
             do {
                 addQuestion();
                 addQuestion = Console.readBoolean("\nAdd another question? (Y/N)");
             } while (addQuestion);
+            controller.addSection(descriptionSection);
             addSection = Console.readBoolean("\nAdd another section? (Y/N)");
         } while (addSection);
         try {
-            Exam exam = controller.createExam(selectedCourse);
+            controller.createExam(selectedCourse);
             System.out.println("Exam created with success");
         } catch (final IntegrityViolationException e) {
             System.out.println("You tried to enter a exam with a title which already exists in the database.");
@@ -72,12 +70,10 @@ public class CreateExamUI extends AbstractUI {
         return true;
     }
 
-    private void addSection() {
+    private void newSection() {
         System.out.println("\nCreate Section " + SECTION_COUNTER);
         SECTION_COUNTER++;
         controller.newSection();
-        String description = Console.readLine("Description");
-        controller.addSection(description);
     }
 
     private void addQuestion() {

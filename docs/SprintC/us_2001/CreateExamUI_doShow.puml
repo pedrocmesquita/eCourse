@@ -1,0 +1,345 @@
+@startuml
+participant Actor
+Actor -> CreateExamUI : doShow
+activate CreateExamUI
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> SelectCourseWidget : selectCourse
+activate SelectCourseWidget
+SelectCourseWidget -> Iterable : iterator
+activate Iterable
+Iterable --> SelectCourseWidget
+deactivate Iterable
+SelectCourseWidget -> Iterator : hasNext
+activate Iterator
+Iterator --> SelectCourseWidget
+deactivate Iterator
+SelectCourseWidget -> PrintStream : println
+activate PrintStream
+PrintStream --> SelectCourseWidget
+deactivate PrintStream
+create SelectWidget
+SelectCourseWidget -> SelectWidget : new
+activate SelectWidget
+SelectWidget --> SelectCourseWidget
+deactivate SelectWidget
+SelectCourseWidget -> SelectWidget : show
+activate SelectWidget
+SelectWidget --> SelectCourseWidget
+deactivate SelectWidget
+SelectCourseWidget -> SelectWidget : selectedElement
+activate SelectWidget
+SelectWidget --> SelectCourseWidget
+deactivate SelectWidget
+SelectCourseWidget --> CreateExamUI
+deactivate SelectCourseWidget
+CreateExamUI -> Console : readLine
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> Console : readLine
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> Console : readCalendar
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> Console : readCalendar
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> SettingType : values
+activate SettingType
+SettingType --> CreateExamUI
+deactivate SettingType
+CreateExamUI -> Arrays : asList
+activate Arrays
+Arrays --> CreateExamUI
+deactivate Arrays
+create SelectWidget
+CreateExamUI -> SelectWidget : new
+activate SelectWidget
+SelectWidget --> CreateExamUI
+deactivate SelectWidget
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> SelectWidget : show
+activate SelectWidget
+SelectWidget --> CreateExamUI
+deactivate SelectWidget
+CreateExamUI -> SelectWidget : selectedElement
+activate SelectWidget
+SelectWidget --> CreateExamUI
+deactivate SelectWidget
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> SelectWidget : show
+activate SelectWidget
+SelectWidget --> CreateExamUI
+deactivate SelectWidget
+CreateExamUI -> SelectWidget : selectedElement
+activate SelectWidget
+SelectWidget --> CreateExamUI
+deactivate SelectWidget
+CreateExamUI -> CreateExamController : addOther
+activate CreateExamController
+CreateExamController -> ExamBuilder : withTitle
+activate ExamBuilder
+ExamBuilder -> Designation : valueOf
+activate Designation
+Designation --> ExamBuilder
+deactivate Designation
+ExamBuilder -> ExamBuilder : withTitle
+activate ExamBuilder
+ExamBuilder --> ExamBuilder
+deactivate ExamBuilder
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController -> ExamBuilder : withDescription
+activate ExamBuilder
+ExamBuilder -> Description : valueOf
+activate Description
+Description --> ExamBuilder
+deactivate Description
+ExamBuilder -> ExamBuilder : withDescription
+activate ExamBuilder
+ExamBuilder --> ExamBuilder
+deactivate ExamBuilder
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController -> ExamBuilder : withSetting
+activate ExamBuilder
+create Setting
+ExamBuilder -> Setting : new
+activate Setting
+Setting -> Preconditions : noneNull
+activate Preconditions
+Preconditions --> Setting
+deactivate Preconditions
+Setting -> Setting : setFeedbackSetting
+activate Setting
+Setting --> Setting
+deactivate Setting
+Setting -> Setting : setGradeSetting
+activate Setting
+Setting --> Setting
+deactivate Setting
+Setting --> ExamBuilder
+deactivate Setting
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController -> ExamBuilder : withDate
+activate ExamBuilder
+create Date
+ExamBuilder -> Date : new
+activate Date
+Date -> Date : checkDates
+activate Date
+Date --> Date
+deactivate Date
+Date -> Date : setOpenDate
+activate Date
+Date --> Date
+deactivate Date
+Date -> Date : setCloseDate
+activate Date
+Date --> Date
+deactivate Date
+Date --> ExamBuilder
+deactivate Date
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI -> CreateExamUI : addSection
+activate CreateExamUI
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> CreateExamController : newSection
+activate CreateExamController
+CreateExamController -> ExamBuilder : newSection
+activate ExamBuilder
+create ArrayList
+ExamBuilder -> ArrayList : new
+activate ArrayList
+ArrayList --> ExamBuilder
+deactivate ArrayList
+create ArrayList
+ExamBuilder -> ArrayList : new
+activate ArrayList
+ArrayList --> ExamBuilder
+deactivate ArrayList
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI -> Console : readLine
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> CreateExamController : addSection
+activate CreateExamController
+CreateExamController -> ExamBuilder : addSection
+activate ExamBuilder
+ExamBuilder -> Description : valueOf
+activate Description
+Description --> ExamBuilder
+deactivate Description
+create Section
+ExamBuilder -> Section : new
+activate Section
+Section -> Section : setDescription
+activate Section
+Section -> Description : toString
+activate Description
+Description --> Section
+deactivate Description
+Section -> StringPredicates : isNullOrEmpty
+activate StringPredicates
+StringPredicates --> Section
+deactivate StringPredicates
+create IllegalArgumentException
+Section -> IllegalArgumentException : new
+activate IllegalArgumentException
+IllegalArgumentException --> Section
+deactivate IllegalArgumentException
+Section --> Section
+deactivate Section
+Section -> Section : setQuestions
+activate Section
+Section --> Section
+deactivate Section
+Section --> ExamBuilder
+deactivate Section
+ExamBuilder -> List : add
+activate List
+List --> ExamBuilder
+deactivate List
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI --> CreateExamUI
+deactivate CreateExamUI
+CreateExamUI -> CreateExamUI : addQuestion
+activate CreateExamUI
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> Console : readLine
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> CreateExamController : addQuestion
+activate CreateExamController
+CreateExamController -> ExamBuilder : addQuestion
+activate ExamBuilder
+create Question
+ExamBuilder -> Question : new
+activate Question
+Question -> Question : setQuestion
+activate Question
+Question -> StringPredicates : isNullOrEmpty
+activate StringPredicates
+StringPredicates --> Question
+deactivate StringPredicates
+create IllegalArgumentException
+Question -> IllegalArgumentException : new
+activate IllegalArgumentException
+IllegalArgumentException --> Question
+deactivate IllegalArgumentException
+Question --> Question
+deactivate Question
+Question --> ExamBuilder
+deactivate Question
+ExamBuilder -> List : add
+activate List
+List --> ExamBuilder
+deactivate List
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI --> CreateExamUI
+deactivate CreateExamUI
+CreateExamUI -> Console : readBoolean
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> Console : readBoolean
+activate Console
+Console --> CreateExamUI
+deactivate Console
+CreateExamUI -> CreateExamController : createExam
+activate CreateExamController
+CreateExamController -> AuthorizationService : ensureAuthenticatedUserHasAnyOf
+activate AuthorizationService
+AuthorizationService --> CreateExamController
+deactivate AuthorizationService
+CreateExamController -> ExamBuilder : build
+activate ExamBuilder
+create Exam
+ExamBuilder -> Exam : new
+activate Exam
+Exam -> Preconditions : noneNull
+activate Preconditions
+Preconditions --> Exam
+deactivate Preconditions
+Exam --> ExamBuilder
+deactivate Exam
+ExamBuilder -> Logger : isDebugEnabled
+activate Logger
+Logger --> ExamBuilder
+deactivate Logger
+ExamBuilder -> Logger : debug
+activate Logger
+Logger --> ExamBuilder
+deactivate Logger
+ExamBuilder --> CreateExamController
+deactivate ExamBuilder
+CreateExamController -> Course : addExam
+activate Course
+Course -> Set : add
+activate Set
+Set --> Course
+deactivate Set
+Course --> CreateExamController
+deactivate Course
+CreateExamController -> DomainRepository : save
+activate DomainRepository
+DomainRepository --> CreateExamController
+deactivate DomainRepository
+CreateExamController -> DomainRepository : save
+activate DomainRepository
+DomainRepository --> CreateExamController
+deactivate DomainRepository
+CreateExamController --> CreateExamUI
+deactivate CreateExamController
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> PrintStream : println
+activate PrintStream
+PrintStream --> CreateExamUI
+deactivate PrintStream
+CreateExamUI -> Throwable : getMessage
+activate Throwable
+Throwable --> CreateExamUI
+deactivate Throwable
+return
+@enduml

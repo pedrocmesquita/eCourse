@@ -4,7 +4,6 @@ import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.Acronym;
-import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.TeacherUser;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.framework.application.UseCaseController;
@@ -23,17 +22,17 @@ public class ListTeacherCoursesController {
     private final TeacherUserRepository teacherUserRepository = PersistenceContext.repositories().teacherUsers();
 
     //todo refactor to avoid code duplication
-    public Iterable<Course> allCoursesTeacherIsAssigned() {
+    public Iterable<Course> allCoursesTeacherIsAssigned(Acronym acronym) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.TEACHER);
-        return teachersInCourseRepository.findAllCoursesTeacherIsAssign(getUserAcronym());
+        return teachersInCourseRepository.findAllCoursesTeacherIsAssign(acronym);
     }
 
-    private Acronym getUserAcronym(){
+    public Acronym getUserAcronym() {
         Optional<UserSession> session = authz.session();
-        if(session.isEmpty())
+        if (session.isEmpty())
             throw new IllegalArgumentException("No user authentication");
         SystemUser user = session.get().authenticatedUser();
-        if(!user.roleTypes().contains(BaseRoles.TEACHER))
+        if (!user.roleTypes().contains(BaseRoles.TEACHER))
             throw new IllegalArgumentException("User must be a teacher");
         return teacherUserRepository.getTeacherUserFromSystemUser(user).acronym();
     }

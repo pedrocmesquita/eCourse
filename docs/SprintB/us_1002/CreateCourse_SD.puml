@@ -1,3 +1,4 @@
+
 @startuml
 actor Manager as Actor
 participant CreateCourseUI as CreateCourseUI <<presentation>>

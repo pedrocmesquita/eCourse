@@ -26,56 +26,144 @@ validate the specification of the exam)
 
 ## 3. Analysis
 
-...
+//todo
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should
-include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (
-presenting the classes that support the functionality), the identification and rational behind the applied design
-patterns and the specification of the main tests used to validade the functionality.*
-
 ### 4.1. Realization
+
+![](CreateExam_SD.svg)
+*Sequence Diagram*
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+![](CreateExam_CD.svg)
+*Class Diagram*
 
 ### 4.3. Applied Patterns
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+**Test 1:** *Verifies that it is not possible to create an instance of Setting with null values*
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureSettingNotNull() {
+        final Setting setting = new Setting(null, null);
+    }
+
+**Test 2:** *Verifies that it is not possible to create an instance of Date with null values*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureDateNotNull() {
+        final Date date = new Date(null, null);
+    }
+
+**Test 3:** *Verifies that it is not possible to create an instance of Date with openDate after closeDate*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureOpenDateAfterCloseDate() {
+        final Date date = new Date(dayAfterTomorrow, tomorrow);
+    }
+
+**Test 4:** *Verifies that it is not possible to create an instance of Date with dates in the past*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureDatesAreInFuture() {
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DATE, -1);
+        Calendar dayBeforeYesterday = Calendar.getInstance();
+        dayBeforeYesterday.add(Calendar.DATE, -2);
+        final Date date = new Date(dayBeforeYesterday, yesterday);
+    }
+
+**Test 5:** *Verifies that it is not possible to create an instance of Exam with null sections*
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureSectionNotNull() {
+        final Exam exam = new Exam(TITLE, DESCRIPTION, SETTING, DATE, null);
+    }
+
+**Test 6:** *Verifies that it is not possible to create an instance of Exam with 0 sections*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureMinimumOneSection() {
+        final Exam exam = new Exam(TITLE, DESCRIPTION, SETTING, DATE, new ArrayList<>());
+    }
+
+**Test 7:** *Verifies that it is not possible to create an instance of Section with null description*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureSectionDescriptionNotNull() {
+        final Section section = new Section(null, QUESTIONS);
+    }
+
+**Test 8:** *Verifies that it is not possible to create an instance of Section with null description*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureSectionQuestionNotNull() {
+        final Section section = new Section(DESCRIPTION, null);
+    }
+
+**Test 9:** *Verifies that it is not possible to create an instance of Section with 0 questions*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureSectionMinimumOneQuestion() {
+        final Section section = new Section(DESCRIPTION, new ArrayList<>());
+    }
+
+**Test 10:** *Verifies that it is not possible to create an instance of Question with null question*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureQuestionNotNull() {
+        final Question question = new Question(null);
+    }
+
+**Test 11:** *Verifies that it is not possible to create an instance of Question with empty question*
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureQuestionNotEmpty() {
+        final Question question = new Question("");
+    }
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the
-design. It should also describe and explain other important artifacts necessary to fully understand the implementation
-like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this
-requirement.*
+//todo
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other
-parts/components of the system*
+![](DEMO.png)
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+*Exam Creation*
+
+![](EXAM_DB.png)
+
+*Exam*
+
+![](COURSES_DB.png)
+
+*Course*
+
+![](COURSE_EXAM_DB.png)
+
+*Exams of a Course*
+
+![](EXAM_SECTION_DB.png)
+
+*Sections of a Exam*
+
+![](SECTION_DB.png)
+
+*Sections*
+
+![](SECTION_QUESTION_DB.png)
+
+*Questions of a section*
+
+![](QUESTION_DB.png)
+
+*Questions*
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of
-alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the
-development this work.*
+No observations

@@ -17,8 +17,6 @@ public class Acronym implements ValueObject, Comparable<Acronym> {
     }
 
     protected Acronym(String acronym) {
-        //TODO validate acronym
-        //regex
         setAcronym(acronym);
     }
 
