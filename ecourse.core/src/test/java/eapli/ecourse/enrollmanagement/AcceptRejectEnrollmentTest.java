@@ -58,7 +58,7 @@ public class AcceptRejectEnrollmentTest {
         }
         System.out.println(foundCourse.name().toString());
         EnrollmentRequest test = EnrollmentRequest.create(AuthzRegistry.authorizationService().session().get().authenticatedUser(), foundCourse);
-        test.accept();
+        test.reject();
         assertEquals("REJECTED", test.getState().name());
     }
 

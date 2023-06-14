@@ -83,8 +83,8 @@ Iterable<Course> courses = courseRepository.findAllCoursesOpenOrEnrollState();
         }
         System.out.println(foundCourse.name().toString());
         EnrollmentRequest test = EnrollmentRequest.create(AuthzRegistry.authorizationService().session().get().authenticatedUser(), foundCourse);
-        test.accept();
-        assertEquals("ACCEPTED", test.getState().name());
+        test.reject();
+        assertEquals("REJECTED", test.getState().name());
     }
 ````
 ## 5. Implementation

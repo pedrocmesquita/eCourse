@@ -1,0 +1,16 @@
+Title: English Test
+Header:
+Feedback: After-Closing
+Grade: After-Closing
+Section: Vocabulary
+Description: This section tests your knowledge of basic English vocabulary.
+MultipleChoice: Best Color
+Option: Red
+Option: Blue ;Weight: 1
+Option: Green
+Section: oi
+Description: teste meu
+MultipleChoice: Alphabet
+Option: R
+Option: B
+Option: G ;Weight: 2
