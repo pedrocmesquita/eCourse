@@ -4,18 +4,35 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.validations.Preconditions;
 
+import javax.persistence.*;
 import java.util.Calendar;
 
-public class SchClass implements AggregateRoot<Name> {
+@Entity
+public class SchClass implements AggregateRoot<Calendar> {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long courseId;
+    @Column(nullable = false)
     private String course;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Calendar startTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Calendar endTime;
+
 
     public SchClass(String course, Calendar startTime, Calendar endTime) {
         Preconditions.noneNull(course, startTime, endTime);
         this.course = course.toString();
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public SchClass() {
+
     }
 
     public String getCourse() {
@@ -58,7 +75,7 @@ public class SchClass implements AggregateRoot<Name> {
     }
 
     @Override
-    public Name identity() {
-        return null;
+    public Calendar identity() {
+        return this.startTime;
     }
 }

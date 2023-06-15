@@ -21,7 +21,7 @@
 package eapli.ecourse.infrastructure.persistence;
 
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
-import eapli.ecourse.coursemanagement.repositories.ClassRepository;
+import eapli.ecourse.classmanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
@@ -99,6 +99,7 @@ public interface RepositoryFactory {
      * @return
      */
     CourseRepository courses();
+    ClassRepository classes(TransactionalContext autoTx);
 
     /**
      * repository will be created in auto transaction mode

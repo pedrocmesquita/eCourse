@@ -182,7 +182,4 @@ public class ScheduleClassController {
 ## 6. Integration/Demonstration
 
 ![](img.png)
-
-## 7. Observations
-
-Saving in the database and getting courses are not implemented yet.
+![](img_2.png)
