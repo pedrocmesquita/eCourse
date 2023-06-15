@@ -1,10 +1,8 @@
 package eapli.ecourse.boardmanagement.application;
 
-import eapli.ecourse.boardmanagement.domain.AccessLevel;
-import eapli.ecourse.boardmanagement.domain.AccessLevelType;
-import eapli.ecourse.boardmanagement.domain.Board;
-import eapli.ecourse.boardmanagement.domain.BoardPermission;
+import eapli.ecourse.boardmanagement.domain.*;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
@@ -16,7 +14,7 @@ import java.util.Optional;
 public class ShareBoardController
 {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final BoardRepository repo = new BoardRepository();
+    private final BoardRepository repo = PersistenceContext.repositories().boards();
     
     Optional<UserSession> session = authz.session();
     SystemUser user = session.get().authenticatedUser();
@@ -27,7 +25,7 @@ public class ShareBoardController
      * @param username
      * @param write boolean to determine if user should be able to create new posts
      */
-    public void shareBoard(String boardTitle, String username, boolean write)
+    public void shareBoard(BoardTitle boardTitle, String username, boolean write)
     {
         Board board = repo.getBoardByTitle(boardTitle);
         

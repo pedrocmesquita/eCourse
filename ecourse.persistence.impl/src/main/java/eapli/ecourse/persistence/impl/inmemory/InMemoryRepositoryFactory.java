@@ -23,6 +23,7 @@ package eapli.ecourse.persistence.impl.inmemory;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
+import eapli.ecourse.persistence.impl.jpa.JpaBoardRepository;
 import eapli.ecourse.persistence.impl.jpa.JpaClassRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
@@ -145,9 +146,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     {
         return null;
     }
+    @Override
+    public JpaBoardRepository boards(final TransactionalContext autoTx) {
+        return null;
+    }
     
     @Override
-    public BoardRepository boards() {
+    public JpaBoardRepository boards() {
         return null;
     }
 

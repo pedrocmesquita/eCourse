@@ -3,15 +3,34 @@ package eapli.ecourse.boardmanagement.domain;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
 
+import javax.persistence.*;
 import java.util.Calendar;
 
+@Entity
 public class PostIt
 {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long postitId;
+    @ManyToOne
+    @MapsId("boardId")
+    @JoinColumn(name = "board_id")
     private Board board;        //board this postit belongs to
+
+    @ManyToOne
+    @MapsId("entryId")
+    @JoinColumn(name = "entry_id")
     private BoardEntry cell;    //cell this postit should be on
+    @ManyToOne
     private SystemUser owner;   //owner of the post
+    @Embedded
     private Content content;    //content of the post
+    @Temporal(TemporalType.DATE)
     private Calendar date;      //date of post-it creation
+    @ManyToOne
+    @MapsId("postitId")
+    @JoinColumn(name = "postit_id")
     private PostIt backup;      //save previous iteration of post everytime it changes contents or position
     
     /**
@@ -31,7 +50,11 @@ public class PostIt
         this.backup = null;
         board.addLog(new Log("Post-it added: " + this.toString()));
     }
-    
+
+    public PostIt() {
+
+    }
+
     /**
      * Save current post to the backup
      */

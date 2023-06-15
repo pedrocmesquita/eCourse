@@ -79,9 +79,8 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int COURSES_OPTION = 3;
-    private static final int CLASSES_OPTION = 4;
-    private static final int SETTINGS_OPTION = 6;
-    private static final int BOARD_OPTION = 5;
+    private static final int SETTINGS_OPTION = 5;
+    private static final int BOARD_OPTION = 4;
 
     private static final String SEPARATOR_LABEL = "--------------";
 

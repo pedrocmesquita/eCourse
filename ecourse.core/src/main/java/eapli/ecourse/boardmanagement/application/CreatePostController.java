@@ -2,6 +2,7 @@ package eapli.ecourse.boardmanagement.application;
 
 import eapli.ecourse.boardmanagement.domain.*;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -15,7 +16,7 @@ import java.util.Optional;
 public class CreatePostController
 {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final BoardRepository repo = new BoardRepository();
+    private final BoardRepository repo = PersistenceContext.repositories().boards();
     
     /**
      * Attempts to create a post with content
@@ -24,7 +25,7 @@ public class CreatePostController
      * @param column
      * @return
      */
-    public void attemptCreatePost(String boardTitle, int row, int column, String text, String image)
+    public void attemptCreatePost(BoardTitle boardTitle, int row, int column, String text, String image)
     {
         Optional<UserSession> session = authz.session();
         SystemUser user = session.get().authenticatedUser();

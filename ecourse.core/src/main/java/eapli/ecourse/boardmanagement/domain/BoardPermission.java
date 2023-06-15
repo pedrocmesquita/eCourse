@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class BoardPermission
         implements Serializable {
 
@@ -20,12 +21,14 @@ public class BoardPermission
     /**
      * Board Id.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardPermissionId;
 
     /**
      * SystemUser that have permission in specific board.
      */
-
+    @ManyToOne(fetch = FetchType.LAZY)
     private SystemUser SystemUser;
 
     /**

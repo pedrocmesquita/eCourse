@@ -1,11 +1,12 @@
 package eapli.ecourse.boardmanagement.domain;
 
 
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class BoardEntry implements Serializable {
 
         private static final long serialVersionUID = 1L;
@@ -20,28 +21,35 @@ public class BoardEntry implements Serializable {
          * Board Id.
          */
 
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long entryId;
 
         /**
          * Board Entry Number.
          */
+        @Embedded
         private EntryNumber entryNumber;
 
         /**
          * Board Row position.
          */
+        @Embedded
         private BoardRow boardRow;
 
         /**
          * Board Column position.
          */
+        @Embedded
         private BoardCol boardCol;
 
         /**
          * Board EntryTitle position.
          */
+        @Embedded
         private EntryTitle entryTitle;
-        
+
+        @OneToOne
         private PostIt post;    //postit of the cell
 
     protected BoardEntry() {

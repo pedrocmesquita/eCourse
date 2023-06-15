@@ -2,6 +2,7 @@ package eapli.ecourse.boardmanagement.application;
 
 import eapli.ecourse.boardmanagement.domain.*;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
@@ -13,7 +14,7 @@ import java.util.Optional;
 public class ChangePostController
 {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final BoardRepository repo = new BoardRepository();
+    private final BoardRepository repo = PersistenceContext.repositories().boards();
     
     Optional<UserSession> session = authz.session();
     SystemUser user = session.get().authenticatedUser();
@@ -26,7 +27,7 @@ public class ChangePostController
      * @param newContent
      * @return
      */
-    public void changePostContent(String boardTitle, int row, int column, Content newContent)
+    public void changePostContent(BoardTitle boardTitle, int row, int column, Content newContent)
     {
         Board board = repo.getBoardByTitle(boardTitle);
         
@@ -44,7 +45,7 @@ public class ChangePostController
         board.getCellByRowColumn(row, column).getPost().setContent(newContent);
     }
     
-    public void changePostPosition(String boardTitle, int row, int column, int rownew, int columnnew)
+    public void changePostPosition(BoardTitle boardTitle, int row, int column, int rownew, int columnnew)
     {
         Board board = repo.getBoardByTitle(boardTitle);
         

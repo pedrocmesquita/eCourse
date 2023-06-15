@@ -161,5 +161,6 @@ public interface RepositoryFactory {
      */
     ExamsInCourseRepository examsInCourse();
 
+    BoardRepository boards(TransactionalContext autoTx);
     BoardRepository boards();
 }

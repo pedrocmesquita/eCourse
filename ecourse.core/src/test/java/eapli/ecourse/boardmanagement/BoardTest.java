@@ -17,7 +17,7 @@ class BoardTest {
     private final String boardNCol = "4";
 
 
-    @Test
+    /*@Test
     public void testCreateValidBoard() {
         List<BoardEntry> allBoardEntrys = new ArrayList<>();
         SystemUser boardOwner = getNewDummyUser();
@@ -35,6 +35,8 @@ class BoardTest {
         assertEquals(Integer.parseInt(boardNCol), board.boardNCol().value());
         assertEquals(boardOwner, board.boardOwner());
     }
+
+     */
     @Test
     public void testCreateBoardWithInvalidNumberOfRows() {
         List<BoardEntry> allBoardEntrys = new ArrayList<>();

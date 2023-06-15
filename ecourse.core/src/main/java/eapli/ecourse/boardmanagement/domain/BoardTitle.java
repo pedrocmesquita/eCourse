@@ -6,7 +6,7 @@ import eapli.framework.validations.Preconditions;
 
 import java.util.Objects;
 
-public class BoardTitle implements ValueObject {
+public class BoardTitle implements ValueObject, Comparable<BoardTitle> {
     /**
      * Board Title of Entity.
      */
@@ -84,5 +84,10 @@ public class BoardTitle implements ValueObject {
         }
         BoardTitle other = (BoardTitle) obj;
         return Objects.equals(value, other.value);
+    }
+
+    @Override
+    public int compareTo(BoardTitle o) {
+        return 0;
     }
 }

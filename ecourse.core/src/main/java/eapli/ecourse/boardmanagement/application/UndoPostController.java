@@ -1,10 +1,8 @@
 package eapli.ecourse.boardmanagement.application;
 
-import eapli.ecourse.boardmanagement.domain.AccessLevel;
-import eapli.ecourse.boardmanagement.domain.Board;
-import eapli.ecourse.boardmanagement.domain.Content;
-import eapli.ecourse.boardmanagement.domain.PostIt;
+import eapli.ecourse.boardmanagement.domain.*;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
@@ -17,7 +15,7 @@ import java.util.Optional;
 public class UndoPostController
 {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final BoardRepository repo = new BoardRepository();
+    private final BoardRepository repo = PersistenceContext.repositories().boards();
     
     Optional<UserSession> session = authz.session();
     SystemUser user = session.get().authenticatedUser();
@@ -28,7 +26,7 @@ public class UndoPostController
      * @param row
      * @param column
      */
-    public void rollbackPost(String boardTitle, int row, int column)
+    public void rollbackPost(BoardTitle boardTitle, int row, int column)
     {
         Board board = repo.getBoardByTitle(boardTitle);
         

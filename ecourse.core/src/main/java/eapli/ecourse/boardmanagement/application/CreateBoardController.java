@@ -23,7 +23,7 @@ public class CreateBoardController {
 
 
     //temporario
-    private final BoardRepository repository = new BoardRepository();
+    private final BoardRepository repository = PersistenceContext.repositories().boards();
 
     /**
      * Create a board service with repository injection.
@@ -54,7 +54,7 @@ public class CreateBoardController {
 
         Board board = boardSvc.createBoard(boardTitlep, boardNRowp, boardNColp,
                 allBoardEntrys, authz.session().get().authenticatedUser());
-        repository.add(board);
+        repository.save(board);
         return board;
     }
 

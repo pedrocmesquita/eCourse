@@ -132,10 +132,15 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     {
         return new JpaExamsInCourseRepository(Application.settings().getPersistenceUnitName());
     }
-    
+
+    @Override
+    public BoardRepository boards(final TransactionalContext autoTx) {
+        return new JpaBoardRepository(autoTx);
+    }
+
     @Override
     public BoardRepository boards() {
-        return null;
+        return new JpaBoardRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

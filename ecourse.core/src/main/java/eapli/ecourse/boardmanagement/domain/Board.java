@@ -12,29 +12,33 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-
-public class Board implements AggregateRoot<Long>,
-        Serializable {
+@Entity
+public class Board implements AggregateRoot<BoardTitle>{
     /**
      * Board ID, ORM primary key
      */
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long boardId;
     /**
      * Version of board.
      */
+    @Version
     private Long version;
     /**
      * Board title.
      */
+    @Embedded
     private BoardTitle boardTitle;
     /**
      * Board number of columns.
      */
+    @Embedded
     private BoardNCols boardNCols;
     /**
      * Board number of rows.
      */
+    @Embedded
     private BoardNRows boardNRows;
     /**
      * Active or Archive board.
@@ -44,24 +48,36 @@ public class Board implements AggregateRoot<Long>,
      * Date when SystemUser created board.
      */
 
+    @Temporal(TemporalType.DATE)
     private Calendar createdOn;
 
     /**
      * Board Owner.
      */
 
+    @ManyToOne
     private SystemUser boardOwner;
 
     /**
      * List of board permissions.
      */
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
     private List<BoardPermission> boardPermissions;
 
     /**
      * List of board entry.
      */
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<BoardEntry> boardEntrys;
-    
+
+    @OneToMany
     private List<Log> logs; //history of update logs
     
     protected Board()
@@ -236,8 +252,8 @@ public class Board implements AggregateRoot<Long>,
      * @return boardId
      */
     @Override
-    public Long identity() {
-        return boardId;
+    public BoardTitle identity() {
+        return this.boardTitle;
     }
     // TODO appropriate print with board entries, in a table format
     public String toString() {
