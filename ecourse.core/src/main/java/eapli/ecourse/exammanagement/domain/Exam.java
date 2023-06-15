@@ -109,4 +109,13 @@ public class Exam implements AggregateRoot<Designation> {
     {
         return date;
     }
+
+    @Override
+    public String toString() {
+        return
+                "\nTitle: " + title +
+                "\nDescription: " + description +
+                date.toString()
+                ;
+    }
 }

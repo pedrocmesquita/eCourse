@@ -5,16 +5,17 @@ import eapli.framework.validations.Preconditions;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
 @Embeddable
 public class Date {
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar openDate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar closeDate;
 
     protected Date() {
@@ -57,8 +58,16 @@ public class Date {
     protected void setOpenDate(Calendar openDate) {
         this.openDate = openDate;
     }
-
     protected void setCloseDate(Calendar closeDate) {
         this.closeDate = closeDate;
+    }
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        String openDateString = dateFormat.format(openDate.getTime());
+        String closeDateString = dateFormat.format(closeDate.getTime());
+
+        return "\nOpen Date: " + openDateString +
+                "\nClose Date: " + closeDateString;
     }
 }

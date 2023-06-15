@@ -28,8 +28,8 @@ public class CreateExamUI extends AbstractUI {
             return false;
         final String title = Console.readLine("Title");
         final String description = Console.readLine("Description");
-        final Calendar openDate = Console.readCalendar("Open date (dd-M-yyyy hh:mm:ss)", "dd-M-yyyy hh:mm:ss");
-        final Calendar closeDate = Console.readCalendar("Close date (dd-M-yyyy hh:mm:ss)", "dd-M-yyyy hh:mm:ss");
+        final Calendar openDate = Console.readCalendar("Open date (dd-MM-yyyy hh:mm:ss)", "dd-MM-yyyy hh:mm:ss");
+        final Calendar closeDate = Console.readCalendar("Close date (dd-MM-yyyy hh:mm:ss)", "dd-MM-yyyy hh:mm:ss");
 
         final Iterable<SettingType> iterableSetting = Arrays.asList(SettingType.values());
         final SelectWidget<SettingType> selectorSetting = new SelectWidget<>("", iterableSetting);

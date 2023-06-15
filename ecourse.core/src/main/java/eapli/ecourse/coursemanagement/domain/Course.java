@@ -86,6 +86,9 @@ public class Course implements AggregateRoot<Name> {
     public Set<TeachersInCourse> getTeachersInCourses() {
         return teachersInCourses;
     }
+    public Set<Exam> getExams() {
+        return exams;
+    }
 
     /**
      * Toggles course state between open and Close. Can only toggle to open if course has no activity
