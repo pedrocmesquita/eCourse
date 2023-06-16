@@ -4,18 +4,11 @@ import eapli.ecourse.app.common.console.presentation.course.SelectCourseWidget;
 import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.exammanagement.application.ListCourseExamsController;
 import eapli.ecourse.exammanagement.domain.Exam;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.util.Scanner;
-
 public class ListCourseExamsUI extends AbstractUI {
-
-    Scanner scanner = new Scanner(System.in);
-
     private final ListCourseExamsController controller = new ListCourseExamsController();
     private final SelectCourseWidget courseWidget = new SelectCourseWidget(controller.allCoursesTeacherIsAssigned(controller.getUserAcronym()));
-
 
     @Override
     protected boolean doShow() {
@@ -44,6 +37,6 @@ public class ListCourseExamsUI extends AbstractUI {
 
     @Override
     public String headline () {
-        return "List of All Exams in a Course";
+        return "List All Exams in a Course";
     }
 }

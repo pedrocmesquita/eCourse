@@ -1,0 +1,77 @@
+@startuml
+
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+package app{
+class ListCourseExamsUI <<presentation>> {
+    doShow()
+}
+class SelectCourseWidget <<presentation>> {
+selectCourse()
+}
+}
+package exammanagement{
+class ListCourseExamsController <<application>> {
+    allCoursesTeacherIsAssigned(acronym)
+    getUserAcronym()
+    listCourseExams(course)
+}
+class Exam <<domain>> {
+    Exam(Course, Title, date, description, questions, sections, settings,)
+}
+}
+
+class AuthorizationService <<service>> {
+    ensureAuthenticatedUserHasAnyOf(TEACHER)
+    session()
+}
+
+class UserSession {
+    authenticatedUser()
+}
+
+package coursemanagement{
+class Course <<domain>> {
+exams()
+}
+class CourseRepository <<repository>> {
+}
+}
+
+
+class PersistenceContext <<persistence>> {
+    repositories()
+}
+
+class RepositoryFactory <<factory>> {
+}
+
+package usertypemanagement{
+class TeacherUserRepository <<repository>> {
+getTeacherUserFromSystemUser(user)
+}
+
+class TeacherInCourseRepository <<repository>> {
+findAllCoursesTeacherIsAssign(acronym)
+}
+}
+
+
+
+Course --> Exam
+ListCourseExamsController --> AuthorizationService : authz
+ListCourseExamsController --> CourseRepository : repository
+AuthorizationService --> UserSession : session
+PersistenceContext --> RepositoryFactory : factory
+ListCourseExamsController --> PersistenceContext : persistence
+ListCourseExamsUI --> ListCourseExamsController : controller
+Course -> CourseRepository : save
+RepositoryFactory --> CourseRepository : repository
+RepositoryFactory --> TeacherUserRepository : repository
+RepositoryFactory --> TeacherInCourseRepository : repository
+ListCourseExamsUI --> SelectCourseWidget
+SelectCourseWidget --> Course
+
+@enduml
