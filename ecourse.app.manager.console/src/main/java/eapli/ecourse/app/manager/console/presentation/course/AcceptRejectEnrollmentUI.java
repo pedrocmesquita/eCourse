@@ -15,7 +15,17 @@ import eapli.framework.validations.Preconditions;
 import java.util.List;
 
 public class AcceptRejectEnrollmentUI extends AbstractUI {
-    private final AcceptRejectEnrollmentController ctrl = new AcceptRejectEnrollmentController(PersistenceContext.repositories().courses());
+    @Override
+    protected boolean doShow() {
+        return false;
+    }
+
+    @Override
+    public String headline() {
+        return null;
+    }
+    /*
+   private final AcceptRejectEnrollmentController ctrl = new AcceptRejectEnrollmentController(PersistenceContext.repositories().courses());
     @Override
     protected boolean doShow() {
 
@@ -46,22 +56,6 @@ public class AcceptRejectEnrollmentUI extends AbstractUI {
     }
     public EnrollmentRequest selectRequest(List<EnrollmentRequest> requests, String message){
         int i = 0;
-
-        /*
-        CourseRepository courseRepository = PersistenceContext.repositories().courses();
-        Iterable<Course> courses = courseRepository.findAllCoursesOpenOrEnrollState();
-
-        Course foundCourse = null;
-        for (Course course : courses) {
-            if (course.name().toString().equals("Java-3-23")) {
-                foundCourse = course;
-                break;
-            }
-        }
-        EnrollmentRequest test = EnrollmentRequest.create(AuthzRegistry.authorizationService().session().get().authenticatedUser(), foundCourse);
-
-        requests.add(test);
-        */
 
         if (requests.isEmpty()) {
             throw new IllegalArgumentException("There are no pending requests.\n");
@@ -96,4 +90,7 @@ public class AcceptRejectEnrollmentUI extends AbstractUI {
 
         return option == 1;
     }
+
+
+     */
 }

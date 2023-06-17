@@ -13,11 +13,11 @@ import java.util.List;
 
 @UseCaseController
 public class AcceptRejectEnrollmentController {
-    private final CourseRepository coursesRepository;
+    /* private final CourseRepository coursesRepository;
     private final EnrollmentRequestRepository enrollmentRequestRepository;
     public AcceptRejectEnrollmentController(final CourseRepository coursesRepositoryaux) {
         this.coursesRepository = coursesRepositoryaux;
-        this.enrollmentRequestRepository = new EnrollmentRequestRepository();
+       // this.enrollmentRequestRepository = new EnrollmentRequestRepository();
     }
     public EnrollmentRequest accept(final EnrollmentRequest request) {
         request.accept();
@@ -37,4 +37,6 @@ public class AcceptRejectEnrollmentController {
     public List<EnrollmentRequest> getPendingRequests() {
         return this.enrollmentRequestRepository.findPendingRequests();
     }
+
+     */
 }

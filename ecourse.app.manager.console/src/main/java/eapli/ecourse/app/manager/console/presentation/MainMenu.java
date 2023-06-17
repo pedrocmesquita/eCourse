@@ -184,7 +184,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(OPEN_CLOSE_COURSE, "Open/Close Courses", new OpenCloseCourseUI()::show);
         menu.addItem(OPEN_CLOSE_ENROLL, "Open/Close Enrollments", new OpenCloseEnrollmentUI()::show);
         menu.addItem(ASSIGN_TEACHER, "Assign Teacher", new AssignTeacherToCourseUI()::show);
-        menu.addItem(ANSWER_ENROLLMENT,"Accept or Reject Enrollments", new AcceptRejectEnrollmentUI()::show);
+        //menu.addItem(ANSWER_ENROLLMENT,"Accept or Reject Enrollments", new AcceptRejectEnrollmentUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

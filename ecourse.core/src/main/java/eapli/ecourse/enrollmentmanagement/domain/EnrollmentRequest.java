@@ -10,14 +10,22 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
 public class EnrollmentRequest implements AggregateRoot<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "student_email")
     private SystemUser student;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "course_code")
     private Course course;
+
     private LocalDate DateOfRequest;
+
     private LocalDate ReplyDate; // só criada depois de aceitar ou rejeitar o request
     @Enumerated(EnumType.STRING)
     private RequestState state;

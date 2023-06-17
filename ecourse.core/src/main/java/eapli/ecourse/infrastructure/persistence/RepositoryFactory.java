@@ -23,6 +23,7 @@ package eapli.ecourse.infrastructure.persistence;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.classmanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
+import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
@@ -99,6 +100,8 @@ public interface RepositoryFactory {
      * @return
      */
     CourseRepository courses();
+    EnrollmentRequestRepository requests(TransactionalContext autoTx);
+    EnrollmentRequestRepository requests();
     ClassRepository classes(TransactionalContext autoTx);
 
     /**
