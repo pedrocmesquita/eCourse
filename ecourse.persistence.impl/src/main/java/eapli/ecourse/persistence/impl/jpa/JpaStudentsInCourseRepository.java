@@ -25,11 +25,11 @@ public class JpaStudentsInCourseRepository
     @Override
     public Iterable<Course> findAllCoursesStudentIsAssign(MecanographicNumber mecanographicNumber) {
         String jpql = "SELECT c FROM Course c " +
-                "JOIN TeachersInCourse tic ON c.courseId = tic.course.id " +
-                "WHERE tic.teacher.id = :teacherId";
+                "JOIN StudentsInCourse tic ON c.courseId = tic.course.id " +
+                "WHERE tic.student.id = :studentId";
 
         TypedQuery<Course> query = entityManager().createQuery(jpql, Course.class);
-        query.setParameter("teacherId", mecanographicNumber);
+        query.setParameter("studentId", mecanographicNumber);
 
         return query.getResultList();
     }

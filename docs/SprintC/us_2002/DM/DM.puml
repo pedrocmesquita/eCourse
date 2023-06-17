@@ -1,0 +1,141 @@
+@startuml
+hide methods
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam classFontColor automatic
+skinparam classHeaderBackgroundColor #4
+skinparam packageStyle rectangle
+
+
+'//--//--//--//--//--/ User /--//--//--//--//--//--//
+
+package "User Aggregate"{
+
+    Entity User <<Root>> {
+    }
+
+    Object email <<Identity>> {
+    }
+
+    Object personaInformation {
+        birthdate
+        taxNumber
+    }
+
+    Object password{
+    }
+
+}
+
+package "Student Aggregate"{
+
+    Entity designationStudent as "name"{
+    firstName
+    lastName
+    }
+
+    Entity Student {
+    }
+
+    Object mechanographicNumber <<Identity>>{
+    }
+}
+
+'//--//--//--//--//--/ Exam /--//--//--//--//--//--//
+
+package "Exam Aggregate" <<Rectangle>> {
+
+    Entity Exam <<Root>> {
+        description
+        openDate
+        closeDate
+    }
+
+    Object Title <<Identity>>{
+    }
+
+    Object Question {
+        question
+        solution
+    }
+
+    Object Feedback {
+    }
+
+    Entity ExamSubmission {
+    grade
+    }
+
+    Object Answer {
+    }
+
+}
+
+'//--//--//--//--//--/ Course /--//--//--//--//--//--//
+package "Course Aggregate" <<Rectangle>> {
+
+Entity Course <<Root>>
+{
+    maxEnroll
+    minEnroll
+}
+
+Object CourseID <<Identity>>{
+}
+
+Object Name {
+}
+
+Object CourseState <<enum>> {
+}
+Object StudentEnrollmentState <<enum>> {
+}
+
+Object Description {
+}
+
+
+Object EnrolledStudents {
+}
+
+Object AssignedTeachers{
+    isInCharge
+}
+
+Object CourseState <<Enum>> {
+
+}
+
+}
+
+'//--//--//--//--//--/ User /--//--//--//--//--//--//
+
+    User "1" <-l- "1" Student
+    User "1" --> "1" password
+    Student "1" --> "1" mechanographicNumber
+    User "1"-->"1" email
+
+    Student "1" --> "1" designationStudent
+    Student "1" --> "1" personaInformation
+
+'//--//--//--//--//--/ Exam /--//--//--//--//--//--//
+
+    Exam "1" --> "1..*" Question : has
+    Exam "1" <-- "*" ExamSubmission : of a
+    Student "1" <----- "1" ExamSubmission : of a
+    Answer "1"<--"1" Feedback : of
+    ExamSubmission "1"-->"1..*" Answer
+    Exam "*" --> "1" Course : of a
+    Exam "1" --> "1" Title
+
+'//--//--//--//--//--/ Course /--//--//--//--//--//--//
+
+    AssignedTeachers "*" <-- "1" Course : has
+    EnrolledStudents "*" <-- "1" Course : has
+    Course "1"-r->"1" CourseState
+    Course "1" --> "1" CourseID
+    Course "1"-->"1" Name
+    Course "1"--> "1"Description
+    Student "1"--> "1"EnrolledStudents : requests
+    EnrolledStudents"1" -r-> "1"StudentEnrollmentState
+@enduml

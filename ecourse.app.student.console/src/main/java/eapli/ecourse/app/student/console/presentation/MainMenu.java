@@ -27,7 +27,7 @@ import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
 import eapli.ecourse.app.student.console.presentation.enrollment.RequestEnrollmentUI;
-import eapli.ecourse.app.student.console.presentation.exam.ListExamsUI;
+import eapli.ecourse.app.student.console.presentation.exam.ListStudentExamsUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -182,7 +182,7 @@ class MainMenu extends StudentUserBaseUI
     {
         final Menu examsMenu = new Menu("Exams  >");
         
-        examsMenu.addItem(LIST_EXAMS_OPTION, "View List of Exams", new ListExamsUI()::show);
+        examsMenu.addItem(LIST_EXAMS_OPTION, "View List of my future Exams", new ListStudentExamsUI()::show);
         examsMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
         
         return examsMenu;

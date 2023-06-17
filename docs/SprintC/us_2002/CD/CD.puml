@@ -1,0 +1,60 @@
+@startuml
+package ecourse{
+package presentation{
+class ListStudentExamsUI <<presentation>> {
+    doShow()
+}
+}
+package exammanagement{
+package application{
+class ListStudentExamsController <<application>> {
+    listExams()
+}
+package domain{
+class Course <<domain>> {
+    getExams()
+}
+}
+}
+}
+package authz{
+class AuthorizationService <<service>> {
+    ensureAuthenticatedUserHasAnyOf(Role...)
+    session()
+}
+
+class UserSession {
+    authenticatedUser()
+}
+}
+package persistence{
+class PersistenceContext <<persistence>> {
+    repositories()
+}
+
+class RepositoryFactory <<factory>> {
+}
+
+class StudentsInCourseRepository <<repository>> {
+    findAllCoursesStudentsIsAssign()
+}
+class ClientUserRepository <<repository>> {
+    findByUsername()
+}
+}
+}
+
+ListStudentExamsUI --> ListStudentExamsController
+ListStudentExamsController --> AuthorizationService
+ListStudentExamsController --> PersistenceContext
+AuthorizationService --> UserSession
+PersistenceContext --> RepositoryFactory
+RepositoryFactory --> StudentsInCourseRepository
+ListStudentExamsController ..> StudentsInCourseRepository
+RepositoryFactory --> ClientUserRepository
+ListStudentExamsController ..> ClientUserRepository
+ClientUserRepository --> StudentsInCourseRepository
+StudentsInCourseRepository --> Course
+
+
+@enduml
