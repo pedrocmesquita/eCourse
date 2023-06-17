@@ -13,20 +13,7 @@ import java.util.Optional;
 
 public class ChangePostController
 {
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final BoardRepository repo = PersistenceContext.repositories().boards();
-    
-    Optional<UserSession> session = authz.session();
-    SystemUser user = session.get().authenticatedUser();
-    
-    /**
-     * Attempts to create a post by finding a board
-     * @param boardTitle
-     * @param row
-     * @param column
-     * @param newContent
-     * @return
-     */
+    /*
     public void changePostContent(BoardTitle boardTitle, int row, int column, Content newContent)
     {
         Board board = repo.getBoardByTitle(boardTitle);
@@ -77,4 +64,5 @@ public class ChangePostController
     
         Preconditions.ensure(post.relocate(cellnew), "Failure relocating the post.");
     }
+    */
 }

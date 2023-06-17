@@ -14,6 +14,7 @@ import java.util.Optional;
 
 public class ViewBoardLogsController
 {
+    /*
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final BoardRepository repo = PersistenceContext.repositories().boards();
     
@@ -33,4 +34,6 @@ public class ViewBoardLogsController
         
         return board.getLogs();
     }
+
+     */
 }

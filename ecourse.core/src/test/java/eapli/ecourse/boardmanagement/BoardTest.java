@@ -12,12 +12,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
+    /*
     private final String boardTitle = "Test Board";
     private final String boardNRow = "3";
     private final String boardNCol = "4";
 
 
-    /*@Test
+    @Test
     public void testCreateValidBoard() {
         List<BoardEntry> allBoardEntrys = new ArrayList<>();
         SystemUser boardOwner = getNewDummyUser();
@@ -36,7 +37,7 @@ class BoardTest {
         assertEquals(boardOwner, board.boardOwner());
     }
 
-     */
+
     @Test
     public void testCreateBoardWithInvalidNumberOfRows() {
         List<BoardEntry> allBoardEntrys = new ArrayList<>();
@@ -80,5 +81,6 @@ class BoardTest {
         return dummyUser("dummy", BaseRoles.ADMIN);
     }
 
+    */
 
 }

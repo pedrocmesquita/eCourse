@@ -1,36 +1,32 @@
 package eapli.ecourse.app.common.console.presentation.boards;
 
 import eapli.ecourse.boardmanagement.application.CreateBoardController;
-import eapli.ecourse.boardmanagement.domain.Board;
-import eapli.ecourse.boardmanagement.domain.BoardEntry;
+import eapli.ecourse.boardmanagement.newdomain.BoardCell;
+import eapli.ecourse.boardmanagement.newdomain.Board;
+import eapli.ecourse.boardmanagement.newdomain.BoardCol;
+import eapli.ecourse.boardmanagement.newdomain.BoardRow;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CreateBoardUI extends AbstractUI {
     private final CreateBoardController theController = new CreateBoardController();
 
-    /**
-     * The constant MIN_ROWS_COLUMNS.
-     */
+
     private static final String MIN_ROWS_COLS = "1";
 
-    /**
-     * User want to create a new Board.
-     * Ask User fields.
-     * BoardTitle, BoardNRow, BoardNCol,
-     * @return false
-     */
     @Override
     protected boolean doShow() {
         final String boardTitle = Console.readLine("Board Title:");
-        final String boardNCols = Console.readLine("Board Number of Columns:");
-        final String boardNRows = Console.readLine("Board Number of Rows:");
+        final int boardNCols = Console.readInteger("Board Number of Columns:");
+        final int boardNRows = Console.readInteger("Board Number of Rows:");
 
-        List<BoardEntry> allBoardEntrys = new ArrayList<>();
+        Set<BoardCell> allBoardEntrys = new HashSet<>();
 
 
         try{
@@ -78,8 +74,7 @@ public class CreateBoardUI extends AbstractUI {
 
             Board board = theController.createBoard(boardTitle, boardNRows, boardNCols, allBoardEntrys);
 
-            System.out.println("Board Successfully created!");
-            System.out.printf(board.toString());
+            System.out.println("Board successfully created!");
         } catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         } catch (IntegrityViolationException e){
@@ -89,9 +84,6 @@ public class CreateBoardUI extends AbstractUI {
         return true;
     }
 
-    /**
-     * @return String to headline
-     */
     @Override
     public String headline() {
         return "Create Board";

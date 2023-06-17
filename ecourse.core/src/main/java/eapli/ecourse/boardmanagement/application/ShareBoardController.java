@@ -13,18 +13,13 @@ import java.util.Optional;
 
 public class ShareBoardController
 {
+    /*
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final BoardRepository repo = PersistenceContext.repositories().boards();
     
     Optional<UserSession> session = authz.session();
     SystemUser user = session.get().authenticatedUser();
-    
-    /**
-     * Attempt to share a board with another user
-     * @param boardTitle
-     * @param username
-     * @param write boolean to determine if user should be able to create new posts
-     */
+
     public void shareBoard(BoardTitle boardTitle, String username, boolean write)
     {
         Board board = repo.getBoardByTitle(boardTitle);
@@ -42,4 +37,5 @@ public class ShareBoardController
         
         board.addPermission(new BoardPermission(user, al));
     }
+    */
 }

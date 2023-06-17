@@ -23,15 +23,12 @@ package eapli.ecourse.persistence.impl.inmemory;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
-import eapli.ecourse.persistence.impl.jpa.JpaBoardRepository;
-import eapli.ecourse.persistence.impl.jpa.JpaClassRepository;
-import eapli.ecourse.persistence.impl.jpa.JpaEnrollmentRequestRepository;
+import eapli.ecourse.persistence.impl.jpa.*;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.StudentsInCourseRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
-import eapli.ecourse.persistence.impl.jpa.JpaCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeacherUserRepository;
@@ -173,6 +170,36 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     
     @Override
     public JpaBoardRepository boards() {
+        return null;
+    }
+
+    @Override
+    public JpaLogRepository logs(final TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JpaLogRepository logs() {
+        return null;
+    }
+
+    @Override
+    public JpaBoardCellRepository cells(final TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JpaBoardCellRepository cells() {
+        return null;
+    }
+
+    @Override
+    public JpaPostItRepository postIts(final TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JpaPostItRepository postIts() {
         return null;
     }
 
