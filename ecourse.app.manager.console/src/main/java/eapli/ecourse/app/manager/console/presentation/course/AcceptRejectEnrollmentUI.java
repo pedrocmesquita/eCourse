@@ -12,15 +12,16 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.validations.Preconditions;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class AcceptRejectEnrollmentUI extends AbstractUI {
-    private final AcceptRejectEnrollmentController ctrl = new AcceptRejectEnrollmentController(PersistenceContext.repositories().courses());
+   private final AcceptRejectEnrollmentController ctrl = new AcceptRejectEnrollmentController();
     @Override
     protected boolean doShow() {
 
         try{
-            List<EnrollmentRequest> pendingRequests = this.ctrl.getPendingRequests();
+            Iterable<EnrollmentRequest> pendingRequests = this.ctrl.getPendingRequests();
             EnrollmentRequest selected = selectRequest(pendingRequests, "Pending Requests:\n");
             boolean accept = asnwer();
 
@@ -44,48 +45,40 @@ public class AcceptRejectEnrollmentUI extends AbstractUI {
     public String headline() {
         return "Answer Request";
     }
-    public EnrollmentRequest selectRequest(List<EnrollmentRequest> requests, String message){
+    public EnrollmentRequest selectRequest(Iterable<EnrollmentRequest> requests, String message) {
         int i = 0;
 
-        /*
-        CourseRepository courseRepository = PersistenceContext.repositories().courses();
-        Iterable<Course> courses = courseRepository.findAllCoursesOpenOrEnrollState();
-
-        Course foundCourse = null;
-        for (Course course : courses) {
-            if (course.name().toString().equals("Java-3-23")) {
-                foundCourse = course;
-                break;
-            }
-        }
-        EnrollmentRequest test = EnrollmentRequest.create(AuthzRegistry.authorizationService().session().get().authenticatedUser(), foundCourse);
-
-        requests.add(test);
-        */
-
-        if (requests.isEmpty()) {
+        Iterator<EnrollmentRequest> iterator = requests.iterator();
+        if (!iterator.hasNext()) {
             throw new IllegalArgumentException("There are no pending requests.\n");
         }
+
         System.out.println(message);
 
-        for(EnrollmentRequest request : requests){
-            System.out.println(i+1 + " - " + request.toString()+"\n");
+        for (EnrollmentRequest request : requests) {
+            System.out.println(i + 1 + " - " + request.toString() + "\n");
             i++;
         }
 
         int option;
-        try{
+        try {
             option = Integer.parseInt(Console.readLine("Select an option: "));
             System.out.println();
-        }catch(NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             throw new IllegalArgumentException("Invalid option, try again.");
         }
 
+        int size = i;
+        Preconditions.ensure(option > 0 && option <= size, "Invalid option, try again.");
 
-        Preconditions.ensure(option > 0 && option <= requests.size(), "Invalid option, try again.");
+        iterator = requests.iterator();
+        for (i = 0; i < option - 1; i++) {
+            iterator.next();
+        }
 
-        return requests.get(option-1);
+        return iterator.next();
     }
+
     public boolean asnwer(){
         System.out.println("1 - Accept the Request");
         System.out.println("2 - Reject the Request");

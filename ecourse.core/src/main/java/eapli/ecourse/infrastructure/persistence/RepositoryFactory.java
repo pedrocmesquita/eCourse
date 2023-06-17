@@ -23,9 +23,11 @@ package eapli.ecourse.infrastructure.persistence;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.classmanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
+import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.StudentsInCourseRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
@@ -99,6 +101,8 @@ public interface RepositoryFactory {
      * @return
      */
     CourseRepository courses();
+    EnrollmentRequestRepository requests(TransactionalContext autoTx);
+    EnrollmentRequestRepository requests();
     ClassRepository classes(TransactionalContext autoTx);
 
     /**
@@ -133,6 +137,8 @@ public interface RepositoryFactory {
      * @return
      */
     TeachersInCourseRepository teachersInCourse();
+    StudentsInCourseRepository studentsInCourse(TransactionalContext autoTx);
+    StudentsInCourseRepository studentsInCourse();
 
     /**
      * @param autoTx the transactional context to enroll

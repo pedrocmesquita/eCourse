@@ -25,7 +25,9 @@ import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.persistence.impl.jpa.JpaBoardRepository;
 import eapli.ecourse.persistence.impl.jpa.JpaClassRepository;
+import eapli.ecourse.persistence.impl.jpa.JpaEnrollmentRequestRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.StudentsInCourseRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
@@ -89,6 +91,14 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         return null;
     }
 
+    @Override
+    public JpaEnrollmentRequestRepository requests(final TransactionalContext autoTx) {
+        return null;
+    }
+    @Override
+    public JpaEnrollmentRequestRepository requests() {
+        return null;
+    }
 //    @Override
 //    public ExamRepository exams() {
 //        return null;
@@ -120,6 +130,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public TeachersInCourseRepository teachersInCourse() {
+        return null;
+    }
+
+    @Override
+    public StudentsInCourseRepository studentsInCourse(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public StudentsInCourseRepository studentsInCourse() {
         return null;
     }
 

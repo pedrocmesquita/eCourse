@@ -154,6 +154,17 @@ public class Course implements AggregateRoot<Name> {
                 && enrollLimit.equals(that.enrollLimit) && state.equals(that.state);
     }
 
+    // testing purposes - Pedro
+    @Override
+    public String toString() {
+        return
+                "Course ID: " + courseId +
+                "\nName: " + name +
+                "\nDescription: " + description +
+                "\nEnrollLimit: " + enrollLimit.toString() +
+                "\nState: " + state.toString();
+    }
+
     @Override
     public Name identity() {
         return this.name;

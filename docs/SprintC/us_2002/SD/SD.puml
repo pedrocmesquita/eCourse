@@ -1,0 +1,70 @@
+@startuml
+
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor Student as Actor
+participant ListStudentExamsUI as UI <<presentation>>
+participant ListStudentExamsController as Controller
+participant AuthenticationService as Autzh <<service>>
+participant UserSession as UserSession <<session>>
+participant PersistenceContext as Context <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database ClientUserRepository as CURepository <<repository>>
+database StudentsInCourseRepository as SICRepository <<repository>>
+participant Course as Course <<domain>>
+Actor --> UI : asks to list future exams
+
+activate UI
+UI -> Controller : create()
+
+UI -> Controller : listExams()
+
+activate Controller
+Controller -> Autzh : create()
+Controller -> Autzh : ensureAuthenticatedUserHasAnyOf(CourseRoles.STUDENT)
+Autzh -> UserSession : create()
+
+activate Autzh
+Controller -> Autzh : session()
+Autzh -> Controller : session
+deactivate Autzh
+
+Controller -> UserSession : authenticatedUser()
+activate UserSession
+UserSession -> Controller : user
+deactivate UserSession
+
+Controller -> Context : repositories()
+
+activate Context
+Context -> Factory : create()
+Context -> Controller : factory
+deactivate Context
+
+Controller -> CURepository: findByUsername()
+activate CURepository
+CURepository -> Controller: studentUser
+deactivate CURepository
+
+Controller -> SICRepository: findAllCoursesStudentIsAssign(studentUser)
+activate SICRepository
+SICRepository -> Course
+activate Course
+Course -> Course : getExams()
+Course -> SICRepository: exams
+deactivate Course
+SICRepository -> Controller: exams
+deactivate SICRepository
+
+
+Controller --> UI : exams
+
+deactivate Controller
+UI -> Actor : shows list of future exams
+
+deactivate UI
+
+@enduml

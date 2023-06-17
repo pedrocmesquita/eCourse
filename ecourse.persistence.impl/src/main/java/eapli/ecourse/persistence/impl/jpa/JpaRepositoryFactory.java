@@ -24,9 +24,11 @@ import eapli.ecourse.Application;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.classmanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
+import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.StudentsInCourseRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.infrastructure.persistence.RepositoryFactory;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
@@ -83,6 +85,17 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public EnrollmentRequestRepository requests(final TransactionalContext autoTx) {
+        return new JpaEnrollmentRequestRepository(autoTx);
+    }
+
+    @Override
+    public EnrollmentRequestRepository requests() {
+        return new JpaEnrollmentRequestRepository(Application.settings().getPersistenceUnitName());
+    }
+
+
+    @Override
     public ClassRepository classes(final TransactionalContext autoTx) {
         return new JpaClassRepository(autoTx);
     }
@@ -109,6 +122,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public TeachersInCourseRepository teachersInCourse() {
         return new JpaTeachersInCourseRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public StudentsInCourseRepository studentsInCourse(final TransactionalContext autoTx) {
+        return new JpaStudentsInCourseRepository(autoTx);
+    }
+
+    @Override
+    public StudentsInCourseRepository studentsInCourse() {
+        return new JpaStudentsInCourseRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override
