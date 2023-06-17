@@ -37,14 +37,14 @@ class TcpServerThread implements Runnable
                         tcpCli.send(Shared.CURR_VERSION, MessageCodes.ACK, "");
                         break;
     
-                    case MessageCodes.DISCONN:    //handled in while
-                        break;
-    
-                    case MessageCodes.ACK:
-                        break;
-    
-                    case MessageCodes.ERR:
-                        break;
+                    //case MessageCodes.DISCONN:    //handled by exiting while
+                    //    break;
+                    //
+                    //case MessageCodes.ACK:
+                    //    break;
+                    //
+                    //case MessageCodes.ERR:
+                    //    break;
     
                     case MessageCodes.AUTH:
                         try
@@ -57,9 +57,9 @@ class TcpServerThread implements Runnable
                         }
                         break;
     
-                    default:
-                        System.out.println("Invalid message code recieved.");
-                        break;
+                    //default:
+                    //    System.out.println("Invalid message code recieved.");
+                    //    break;
                 }
             } while (msg.getCode() != MessageCodes.DISCONN);
             

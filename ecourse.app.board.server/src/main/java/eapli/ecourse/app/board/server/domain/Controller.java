@@ -11,4 +11,9 @@ public class Controller
         
         return auth.authenticateUser(data.substring(0, split), data.substring(split));
     }
+    
+    public boolean authFromMsg(HttpMessage msg)
+    {
+        return auth.authenticateUser(msg.getContentAsString());
+    }
 }

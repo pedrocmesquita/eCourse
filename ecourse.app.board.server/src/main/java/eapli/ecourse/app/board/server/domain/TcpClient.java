@@ -8,7 +8,7 @@ public class TcpClient
     private InetAddress serverIP;
     private Socket sock;
     
-    private static final int FULL_BYTE = 256;
+    private static final int fullByte = 256;
     
     private DataOutputStream sOut;
     private DataInputStream sIn;
@@ -32,8 +32,8 @@ public class TcpClient
         byte data[] = text.getBytes();
         int size = data.length;
         
-        int d_length_1 = size % FULL_BYTE;
-        int d_length_2 = size / FULL_BYTE;
+        int d_length_1 = size % fullByte;
+        int d_length_2 = size / fullByte;
         
         try
         {
@@ -57,7 +57,7 @@ public class TcpClient
             byte d_length_1 = (byte) sIn.readUnsignedByte();
             byte d_length_2 = (byte) sIn.readUnsignedByte();
             
-            byte data[] = new byte[d_length_1 + (d_length_2 * FULL_BYTE)];
+            byte data[] = new byte[d_length_1 + (d_length_2 * fullByte)];
             
             if (data.length > 0)
             {
