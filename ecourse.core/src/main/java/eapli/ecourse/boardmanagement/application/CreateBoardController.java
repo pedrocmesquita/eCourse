@@ -51,17 +51,10 @@ public class CreateBoardController {
                 allBoardEntrys, authUser);
     }
 
+
     public BoardCell createBoardCell(BoardRow row, BoardCol column) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
-
-        return new BoardEntryFactory().create(
-                entryNumberp,
-                boardRowp,
-                boardColp,
-                entryTitlep,
-                boardNRowp,
-                boardNColps
-        );
+        return new BoardCell(row,column);
     }
 
     public BoardCell createBoardEntry(final BoardRow boardRowp,

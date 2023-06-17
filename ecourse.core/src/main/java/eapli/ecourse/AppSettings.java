@@ -81,6 +81,8 @@ public class AppSettings {
         this.applicationProperties.setProperty(HIGH_CALORIES_DISH_LIMIT, "300");
         this.applicationProperties.setProperty(COURSE_DESCRIPTION_CHARACTER_LIMIT, "500");
         this.applicationProperties.setProperty(EXAM_DESCRIPTION_CHARACTER_LIMIT, "500");
+        this.applicationProperties.setProperty(BOARD_MAX_COLUMNS,"10");
+        this.applicationProperties.setProperty(BOARD_MAX_ROWS,"20");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -128,8 +130,8 @@ public class AppSettings {
      * Max columns.
      */
    public int maxColumns() {
+       //return Integer.valueOf(applicationProperties.getProperty(BOARD_MAX_COLUMNS));
        return 10;
-       // Integer.parseInt(applicationProperties.getProperty(BOARD_MAX_COLUMNS));
     }
 
     /**
@@ -137,7 +139,7 @@ public class AppSettings {
      */
 
     public int maxRows() {
-        //Integer.parseInt(applicationProperties.getProperty(BOARD_MAX_ROWS));
+        //return Integer.valueOf(applicationProperties.getProperty(BOARD_MAX_ROWS));
         return 20;
     }
 }
