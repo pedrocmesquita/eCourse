@@ -8,7 +8,7 @@ import java.net.Socket;
 class TcpServerThread implements Runnable
 {
     private Socket sock;
-    private Controller ctrl;
+    private Auth auth = new Auth();
     
     public TcpServerThread(Socket sockClient)
     {
@@ -49,7 +49,7 @@ class TcpServerThread implements Runnable
                     case MessageCodes.AUTH:
                         try
                         {
-                            tcpCli.send(Shared.CURR_VERSION, ctrl.authFromMsg(msg), "");
+                            tcpCli.send(Shared.CURR_VERSION, auth.authenticateUser(msg), "");
                         } catch (IllegalArgumentException e)
                         {
                             tcpCli.send(Shared.CURR_VERSION, MessageCodes.ERR,

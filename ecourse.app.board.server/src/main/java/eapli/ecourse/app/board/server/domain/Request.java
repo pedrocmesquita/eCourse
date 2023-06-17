@@ -103,8 +103,8 @@ public class Request extends Thread
                 //user logging in
                 if (request.getURI().equals(Shared.URI_AUTH))
                 {
-                    Controller ctrl = new Controller();
-                    if (!ctrl.authFromMsg(request))
+                    Auth auth = new Auth();
+                    if (!auth.authenticateUser(request.getContentAsString()))
                     {
                         response.setContentFromString(Shared.RESPONSE_CONTENT_UNAUTHORIZED, Shared.CONTENT_TEXT);
                         response.setResponseStatus(Shared.RESPONSE_STATUS_UNAUTHORIZED);

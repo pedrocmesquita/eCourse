@@ -8,21 +8,25 @@ public class Auth
     private final AuthenticationService authService = AuthzRegistry.authenticationService();
     
     //expecting format "username\npassword"
-    public byte authenticateUser(String username, String password)
+    public byte authenticateUser(Message msg)
     {
-        if(authService.authenticate(username, password).isPresent())
-        {
-            return MessageCodes.ACK;
-        }
+        String data = new String(msg.getData());
+        int split = data.indexOf('\n');
         
-        //invalid username/password
-        return MessageCodes.ERR;
+        //ACK if exists, ERR otherwise
+        return (authService.authenticate(data.substring(0, split), data.substring(split)).isPresent()) ?
+                MessageCodes.ACK : MessageCodes.ERR;
+
     }
     
     public boolean authenticateUser(String data)
     {
         int split = data.indexOf('\n');
         return authService.authenticate(data.substring(0, split), data.substring(split)).isPresent();
+    }
+    
+    public Auth()
+    {
     }
 }
 
