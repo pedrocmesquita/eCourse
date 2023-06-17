@@ -15,7 +15,7 @@ public class PostIt implements AggregateRoot<Long> {
     private long postItId;
     @ManyToOne
     private Board board;
-    @ManyToOne
+    @OneToOne
     private BoardCell cell;
     @ManyToOne
     private SystemUser owner;
