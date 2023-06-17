@@ -86,7 +86,7 @@ public class EnrollmentRequest implements AggregateRoot<Long> {
         Preconditions.ensure(!this.state.equals(RequestState.ACCEPTED), "This request has already been accepted.");
         this.state = RequestState.ACCEPTED;
         this.ReplyDate = LocalDate.now();
-        // this.course.addStudent(this.student);
+        //this.course.addStudent(this.student);
     }
 
     public void reject() {
@@ -120,7 +120,7 @@ public class EnrollmentRequest implements AggregateRoot<Long> {
         return result;
     }
 
-    public RequestState getState() {
+    public RequestState state() {
         return state;
     }
 }

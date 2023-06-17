@@ -11,5 +11,5 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface EnrollmentRequestRepository extends DomainRepository<Long, EnrollmentRequest> {
-
+    Iterable<EnrollmentRequest> findPendingRequests();
 }

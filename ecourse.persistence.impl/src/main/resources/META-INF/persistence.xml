@@ -13,6 +13,8 @@
         <class>eapli.ecourse.coursemanagement.domain.Course</class>
         <class>eapli.ecourse.coursemanagement.domain.TeachersInCourse</class>
         <class>eapli.ecourse.coursemanagement.domain.TeachersInCourseKey</class>
+        <class>eapli.ecourse.coursemanagement.domain.StudentsInCourse</class>
+        <class>eapli.ecourse.coursemanagement.domain.StudentsInCourseKey</class>
         <class>eapli.ecourse.exammanagement.domain.Exam</class>
         <class>eapli.ecourse.exammanagement.domain.Section</class>
         <class>eapli.ecourse.exammanagement.domain.Question</class>

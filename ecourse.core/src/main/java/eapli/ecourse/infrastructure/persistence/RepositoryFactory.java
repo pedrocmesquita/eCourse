@@ -27,6 +27,7 @@ import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestReposito
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
+import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.StudentsInCourseRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientUserRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.SignupRequestRepository;
@@ -136,6 +137,8 @@ public interface RepositoryFactory {
      * @return
      */
     TeachersInCourseRepository teachersInCourse();
+    StudentsInCourseRepository studentsInCourse(TransactionalContext autoTx);
+    StudentsInCourseRepository studentsInCourse();
 
     /**
      * @param autoTx the transactional context to enroll
