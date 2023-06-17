@@ -8,6 +8,13 @@ class TcpServer
 {
     private static ServerSocket sock;
     
+    public static void main(String args[]) throws Exception
+    {
+        Socket cliSock;
+        open(Shared.PORT_TCP);
+        open(Shared.PORT_HTTP);
+    }
+    
     public static void open(byte port) throws Exception
     {
         Socket sockClient;

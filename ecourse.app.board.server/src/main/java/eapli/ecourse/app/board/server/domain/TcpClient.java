@@ -5,14 +5,15 @@ import java.net.*;
 
 public class TcpClient
 {
-    private InetAddress serverIP;
-    private Socket sock;
+    private static InetAddress serverIP;
+    private static Socket sock;
     
     private static final int fullByte = 256;
     
-    private DataOutputStream sOut;
-    private DataInputStream sIn;
+    private static DataOutputStream sOut;
+    private static DataInputStream sIn;
     
+    /*
     public TcpClient(Socket sock)
     {
         this.sock = sock;
@@ -25,6 +26,38 @@ public class TcpClient
         {
             throw new RuntimeException(e);
         }
+    }
+    */
+    
+    public static void main(String args[]) throws Exception
+    {
+        if (args.length != 1)
+        {
+            System.out.println("Server IPv4/IPv6 address or DNS name is required as argument");
+            System.exit(1);
+        }
+        
+        try
+        {
+            serverIP = InetAddress.getByName(args[0]);
+        } catch (UnknownHostException ex)
+        {
+            System.out.println("Invalid server specified: " + args[0]);
+            System.exit(1);
+        }
+        
+        try
+        {
+            sock = new Socket(serverIP, 9999);
+        } catch (IOException ex)
+        {
+            System.out.println("Failed to establish TCP connection");
+            System.exit(1);
+        }
+        
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        DataOutputStream sOut = new DataOutputStream(sock.getOutputStream());
+        DataInputStream sIn = new DataInputStream(sock.getInputStream());
     }
     
     public void send(byte version, byte code, String text)
@@ -65,7 +98,8 @@ public class TcpClient
             }
             
             return new Message(version, code, d_length_1, d_length_2, data);
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             throw new RuntimeException(e);
         }
     }
