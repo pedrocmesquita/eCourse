@@ -28,5 +28,8 @@ public class BoardService {
 
         return boardRepository.save(newBoard);
     }
+    public Board getBoardByTitle(BoardTitle title){
+        Board board = boardRepository.getBoardByTitle(title);
+        return board;}
 }
 

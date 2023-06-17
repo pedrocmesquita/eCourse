@@ -17,7 +17,6 @@ import java.util.Set;
 public class CreateBoardController {
     private final AuthorizationService authz;
 
-    //temporario
     private final BoardRepository repository = PersistenceContext.repositories().boards();
 
     private final BoardService boardSvc = new BoardService(PersistenceContext.repositories().boards());

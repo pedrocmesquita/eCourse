@@ -2,6 +2,8 @@ package eapli.ecourse.boardmanagement.newdomain;
 
 import eapli.ecourse.AppSettings;
 import eapli.ecourse.Application;
+import eapli.ecourse.boardmanagement.domain.BoardEntry;
+import eapli.ecourse.boardmanagement.domain.BoardPermission;
 import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.coursemanagement.domain.Name;
 import eapli.ecourse.exammanagement.domain.Exam;
@@ -34,13 +36,19 @@ public class Board implements AggregateRoot<BoardTitle> {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Log> logs;
 
+    @OneToMany
+    private Set<BoardCell> cells;
+
+    @OneToMany
+    private Set<BoardPermission> boardPermissions;
+
 
 
     protected Board() {
         //ORM
     }
 
-    protected Board(BoardTitle boardTitle, int valueRows, int valueColumns, SystemUser owner) {
+    protected Board(BoardTitle boardTitle, int valueRows, int valueColumns, final Set<BoardCell> allBoardCell, SystemUser owner) {
         this.boardTitle = boardTitle;
         this.numberRows = valueRows;
         this.numberColumns = valueColumns;
@@ -48,11 +56,32 @@ public class Board implements AggregateRoot<BoardTitle> {
         this.createdOn = Calendar.getInstance();
         this.boardOwner = owner;
         this.logs = new HashSet<>();
+        this.cells= allBoardCell;
+        this.boardPermissions = new HashSet<>();
         this.logs.add(new Log("Initial board creation."));
     }
     public void addLog(Log log)
     {
         //logs.add(log);
+    }
+    public Set<Log> getLogs()
+    {
+        return logs;
+    }
+
+    /**
+     * Add Permissions to board.
+     * @param boardPermissionp board permission.
+     */
+    public void addPermission(final BoardPermission boardPermissionp)
+    {
+        this.boardPermissions.add(boardPermissionp);
+        logs.add(new Log("Permissions added: " + boardPermissions.toString()));
+    }
+    public BoardCell getCellByRowColumn(int row, int column)
+    {
+        BoardCell[] cells1 = cells.toArray(new BoardCell[cells.size()]);
+        return cells1[(row * numberColumns )* column];
     }
 
 
@@ -81,6 +110,7 @@ public class Board implements AggregateRoot<BoardTitle> {
 
         return boardTitle.equals(that.boardTitle) && state.equals(that.state);
     }
+
     @Override
     public String toString() {
         return
