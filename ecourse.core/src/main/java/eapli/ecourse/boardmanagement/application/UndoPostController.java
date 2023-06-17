@@ -14,18 +14,13 @@ import java.util.Optional;
 
 public class UndoPostController
 {
+    /*
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final BoardRepository repo = PersistenceContext.repositories().boards();
     
     Optional<UserSession> session = authz.session();
     SystemUser user = session.get().authenticatedUser();
-    
-    /**
-     * Attempts to restore the backup of a post
-     * @param boardTitle
-     * @param row
-     * @param column
-     */
+
     public void rollbackPost(BoardTitle boardTitle, int row, int column)
     {
         Board board = repo.getBoardByTitle(boardTitle);
@@ -44,4 +39,5 @@ public class UndoPostController
         Preconditions.ensure(board.getCellByRowColumn(row, column).getPost().rollbackPost(),
                 "Failure undoing changes to post.");
     }
+    */
 }

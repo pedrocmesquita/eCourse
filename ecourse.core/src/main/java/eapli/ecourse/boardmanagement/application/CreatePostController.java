@@ -15,16 +15,10 @@ import java.util.Optional;
 
 public class CreatePostController
 {
+    /*
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final BoardRepository repo = PersistenceContext.repositories().boards();
-    
-    /**
-     * Attempts to create a post with content
-     * @param boardTitle
-     * @param row
-     * @param column
-     * @return
-     */
+
     public void attemptCreatePost(BoardTitle boardTitle, int row, int column, String text, String image)
     {
         Optional<UserSession> session = authz.session();
@@ -55,4 +49,5 @@ public class CreatePostController
         
         new PostIt(board, board.getCellByRowColumn(row, column), user, cont);
     }
+    */
 }

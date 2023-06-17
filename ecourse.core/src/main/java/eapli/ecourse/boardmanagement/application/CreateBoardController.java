@@ -1,8 +1,6 @@
 package eapli.ecourse.boardmanagement.application;
 
-import eapli.ecourse.boardmanagement.domain.Board;
-import eapli.ecourse.boardmanagement.domain.BoardEntry;
-import eapli.ecourse.boardmanagement.domain.BoardEntryFactory;
+import eapli.ecourse.boardmanagement.newdomain.*;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -14,22 +12,15 @@ import eapli.framework.validations.Preconditions;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class CreateBoardController {
-    /**
-     * Authorization service instance.
-     */
     private final AuthorizationService authz;
-
 
     //temporario
     private final BoardRepository repository = PersistenceContext.repositories().boards();
 
-    /**
-     * Create a board service with repository injection.
-     */
-    private final BoardService boardSvc = new BoardService(
-            PersistenceContext.repositories().boards());
+    private final BoardService boardSvc = new BoardService(PersistenceContext.repositories().boards());
 
     public CreateBoardController() {
         authz = AuthzRegistry.authorizationService();
@@ -37,40 +28,21 @@ public class CreateBoardController {
         SystemUser user = session.get().authenticatedUser();
     }
 
-
-    /**
-     * Create shared board.
-     * @param boardTitlep Board Title
-     * @param boardNRowp Board number of rows
-     * @param boardNColp Board number of columns
-     * @param allBoardEntrys Board entrys
-     * @return Board
-     */
     public Board createBoard(final String boardTitlep,
-                             final String boardNRowp,
-                             final String boardNColp,
-                             final List<BoardEntry> allBoardEntrys) {
+                             final int boardNRowp,
+                             final int boardNColp,
+                             final Set<BoardCell> allBoardEntrys) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
 
-        Board board = boardSvc.createBoard(boardTitlep, boardNRowp, boardNColp,
-                allBoardEntrys, authz.session().get().authenticatedUser());
+        Board board = boardSvc.createBoard(boardTitlep, boardNRowp, boardNColp, allBoardEntrys, authz.session().get().authenticatedUser());
         repository.save(board);
         return board;
     }
 
-    /**
-     * Create shared board.
-     * @param boardTitlep Board Title
-     * @param boardNRowp Board number of rows
-     * @param boardNColp Board number of columns
-     * @param allBoardEntrys Board entrys
-     * @param authUser authenticated user
-     * @return Board
-     */
     public Board createBoard(final String boardTitlep,
-                             final String boardNRowp,
-                             final String boardNColp,
-                             final List<BoardEntry> allBoardEntrys,
+                             final int boardNRowp,
+                             final int boardNColp,
+                             final Set<BoardCell> allBoardEntrys,
                              final SystemUser authUser) {
         Preconditions.ensure(authUser != null,
                 "You need to authenticate first");
@@ -79,62 +51,18 @@ public class CreateBoardController {
                 allBoardEntrys, authUser);
     }
 
-    /**
-     * Create board entry.
-     * @param entryNumberp Entry number
-     * @param boardRowp Row position
-     * @param boardColp Column position
-     * @param entryTitlep Entry Title
-     * @param boardNRowp Board number of rows
-     * @param boardNColps Board number of columns
-     * @return BoardEntry
-     */
-    public BoardEntry createBoardEntry(final String entryNumberp,
-                                       final String boardRowp,
-                                       final String boardColp,
-                                       final String entryTitlep,
-                                       final String boardNRowp,
-                                       final String boardNColps
-                                       ) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
 
-        return new BoardEntryFactory().create(
-                entryNumberp,
-                boardRowp,
-                boardColp,
-                entryTitlep,
-                boardNRowp,
-                boardNColps
-        );
+    public BoardCell createBoardCell(BoardRow row, BoardCol column) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
+        return new BoardCell(row,column);
     }
 
-    /**
-     * Create board entry.
-     * @param entryNumberp Entry number
-     * @param boardRowp Row position
-     * @param boardColp Column position
-     * @param entryTitlep Entry Title
-     * @param boardNRowp Board number of rows
-     * @param boardNColps Board number of columns
-     * @return BoardEntry
-     */
-    public BoardEntry createBoardEntry(final String entryNumberp,
-                                       final String boardRowp,
-                                       final String boardColp,
-                                       final String entryTitlep,
-                                       final String boardNRowp,
-                                       final String boardNColps,
+    public BoardCell createBoardEntry(final BoardRow boardRowp,
+                                       final BoardCol boardColp,
                                        final SystemUser authUser ) {
         Preconditions.ensure(authUser != null,
                 "You need to authenticate first");
 
-        return new BoardEntryFactory().create(
-                entryNumberp,
-                boardRowp,
-                boardColp,
-                entryTitlep,
-                boardNRowp,
-                boardNColps
-        );
+        return new BoardCell(boardRowp, boardColp);
     }
 }

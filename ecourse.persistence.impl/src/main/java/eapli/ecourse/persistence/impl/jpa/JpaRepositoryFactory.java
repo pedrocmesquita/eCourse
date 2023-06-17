@@ -21,7 +21,10 @@
 package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
+import eapli.ecourse.boardmanagement.repositories.BoardCellRepository;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.boardmanagement.repositories.LogRepository;
+import eapli.ecourse.boardmanagement.repositories.PostItRepository;
 import eapli.ecourse.classmanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestRepository;
@@ -170,6 +173,35 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public TransactionalContext newTransactionalContext() {
         return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
                 Application.settings().getExtendedPersistenceProperties());
+    }
+
+    @Override
+    public LogRepository logs(final TransactionalContext autoTx) {
+        return new JpaLogRepository(autoTx);
+    }
+
+    @Override
+    public LogRepository logs() {
+        return new JpaLogRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public BoardCellRepository cells(final TransactionalContext autoTx) {
+        return new JpaBoardCellRepository(autoTx);
+    }
+
+    @Override
+    public BoardCellRepository cells() {
+        return new JpaBoardCellRepository(Application.settings().getPersistenceUnitName());
+    }
+    @Override
+    public PostItRepository postIts(final TransactionalContext autoTx) {
+        return new JpaPostItRepository(autoTx);
+    }
+
+    @Override
+    public PostItRepository postIts() {
+        return new JpaPostItRepository(Application.settings().getPersistenceUnitName());
     }
 
 }

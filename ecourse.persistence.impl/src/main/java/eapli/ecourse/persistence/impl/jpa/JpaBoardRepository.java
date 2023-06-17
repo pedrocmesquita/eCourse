@@ -1,11 +1,9 @@
 package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
-import eapli.ecourse.boardmanagement.domain.Board;
-import eapli.ecourse.boardmanagement.domain.BoardTitle;
+import eapli.ecourse.boardmanagement.newdomain.Board;
+import eapli.ecourse.boardmanagement.newdomain.BoardTitle;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
-import eapli.ecourse.coursemanagement.domain.Course;
-import eapli.ecourse.coursemanagement.domain.State;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 

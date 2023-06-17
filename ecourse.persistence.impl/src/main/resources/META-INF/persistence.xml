@@ -20,6 +20,10 @@
         <class>eapli.ecourse.exammanagement.domain.Question</class>
         <class>eapli.ecourse.classmanagement.domain.SchClass</class>
         <class>eapli.ecourse.enrollmentmanagement.domain.EnrollmentRequest</class>
+        <class>eapli.ecourse.boardmanagement.newdomain.Board</class>
+        <class>eapli.ecourse.boardmanagement.newdomain.Log</class>
+        <class>eapli.ecourse.boardmanagement.newdomain.BoardCell</class>
+        <class>eapli.ecourse.boardmanagement.newdomain.PostIt</class>
 
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->

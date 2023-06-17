@@ -20,7 +20,11 @@
  */
 package eapli.ecourse.infrastructure.persistence;
 
+import eapli.ecourse.boardmanagement.newdomain.BoardCell;
+import eapli.ecourse.boardmanagement.repositories.BoardCellRepository;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.boardmanagement.repositories.LogRepository;
+import eapli.ecourse.boardmanagement.repositories.PostItRepository;
 import eapli.ecourse.classmanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestRepository;
@@ -169,4 +173,13 @@ public interface RepositoryFactory {
 
     BoardRepository boards(TransactionalContext autoTx);
     BoardRepository boards();
+
+    LogRepository logs(TransactionalContext autoTx);
+    LogRepository logs();
+
+    BoardCellRepository cells(TransactionalContext autoTx);
+    BoardCellRepository cells();
+
+    PostItRepository postIts(TransactionalContext autoTx);
+    PostItRepository postIts();
 }
