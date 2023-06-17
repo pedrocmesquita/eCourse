@@ -1,4 +1,4 @@
-function checkUserAuth()
+function login()
 {
 	const request = new XMLHttpRequest();
 
@@ -10,7 +10,7 @@ function checkUserAuth()
         }
     };
 
-  	request.open("GET", "/user", true);
+  	request.open("POST", "/auth", true);
 	request.timeout = 5000;
 
     const token = getTokenCookie();

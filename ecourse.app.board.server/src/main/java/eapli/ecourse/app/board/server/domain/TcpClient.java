@@ -48,7 +48,7 @@ public class TcpClient
         
         try
         {
-            sock = new Socket(serverIP, 9999);
+            sock = new Socket(serverIP, Shared.PORT_TCP);
         } catch (IOException ex)
         {
             System.out.println("Failed to establish TCP connection");

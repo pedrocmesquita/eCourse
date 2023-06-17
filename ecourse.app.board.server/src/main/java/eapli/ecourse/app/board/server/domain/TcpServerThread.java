@@ -24,7 +24,7 @@ class TcpServerThread implements Runnable
         
         try
         {
-            TcpClient tcpCli = new TcpClient(sock);
+            TcpClient tcpCli = new TcpClient();
             Message msg;
     
             do

@@ -10,7 +10,6 @@ class TcpServer
     
     public static void main(String args[]) throws Exception
     {
-        Socket cliSock;
         open(Shared.PORT_TCP);
         open(Shared.PORT_HTTP);
     }
