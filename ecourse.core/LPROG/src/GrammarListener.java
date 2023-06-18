@@ -1,4 +1,4 @@
-// Generated from C:/Users/Joao Torres/Documents/Lprog/Lprog\Grammar.g4 by ANTLR 4.12.0
+package eapli.ecourse.app.teacher.console.presentation.exam;// Generated from C:/Users/Joao Torres/Documents/sem4pi-22-23-68-master1.2/ecourse.core/LPROG\Grammar.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -137,6 +137,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitMatchingPair(GrammarParser.MatchingPairContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#answer}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnswer(GrammarParser.AnswerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#answer}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnswer(GrammarParser.AnswerContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#multipleChoiceQuestion}.
 	 * @param ctx the parse tree
 	 */
@@ -156,6 +166,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOption(GrammarParser.OptionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#weight}.
+	 * @param ctx the parse tree
+	 */
+	void enterWeight(GrammarParser.WeightContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#weight}.
+	 * @param ctx the parse tree
+	 */
+	void exitWeight(GrammarParser.WeightContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#shortAnswerQuestion}.
 	 * @param ctx the parse tree
@@ -177,6 +197,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitShortAnswer(GrammarParser.ShortAnswerContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#grade}.
+	 * @param ctx the parse tree
+	 */
+	void enterGrade(GrammarParser.GradeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#grade}.
+	 * @param ctx the parse tree
+	 */
+	void exitGrade(GrammarParser.GradeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#numericalQuestion}.
 	 * @param ctx the parse tree
 	 */
@@ -196,6 +226,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumericalAnswer(GrammarParser.NumericalAnswerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#acceptedError}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcceptedError(GrammarParser.AcceptedErrorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#acceptedError}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcceptedError(GrammarParser.AcceptedErrorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#selectMissingWordsQuestion}.
 	 * @param ctx the parse tree
