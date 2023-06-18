@@ -1,4 +1,4 @@
-function login()
+function login(name, pass)
 {
 	const request = new XMLHttpRequest();
 
@@ -23,7 +23,7 @@ function login()
   	request.send();
 }
 
-function loadBoard()
+function loadBoard(option)
 {
     var request = new XMLHttpRequest();
     request.onload = function upDate()
@@ -41,13 +41,13 @@ function loadBoard()
         setTimeout(loadBoard, 1000);
     };
 
-    this.refreshPosts();
-    request.open("GET", "/board-view/");
+    this.refreshPosts(option);
+    request.open("GET", "/board-view/option");
     request.timeout = 5000;
     request.send();
 }
 
-function refreshPosts()
+function refreshPosts(option)
 {
     var request = new XMLHttpRequest();
     request.onload = function upDate()
@@ -66,7 +66,7 @@ function refreshPosts()
         setTimeout(refreshPosts, 1000);
     };
 
-    request.open("GET", "/board-posts/");
+    request.open("GET", "/board-posts/option");
     request.timeout = 5000;
     request.send();
 }

@@ -10,7 +10,20 @@ class TcpServer
     
     public static void main(String args[]) throws Exception
     {
-        open(Shared.PORT_TCP);
+        new Thread(() ->
+        {
+            try
+            {
+                System.out.println("TCP Server is ON");
+                open(Shared.PORT_TCP);
+            } catch (Exception e)
+            {
+                System.out.println("Error in threads.");
+                System.exit(1);
+            }
+        }).start();
+    
+        System.out.println("HTTP Server is ON");
         open(Shared.PORT_HTTP);
     }
     

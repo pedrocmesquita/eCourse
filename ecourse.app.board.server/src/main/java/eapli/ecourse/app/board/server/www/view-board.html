@@ -13,17 +13,54 @@
 		border-style: solid;
 		color: #000000;
 	}
+
+    search-container
+    {
+        float: right;
+    }
+
+    input[type=text]
+    {
+        padding: 6px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+    }
+
+	search-container button
+	{
+        float: right;
+        padding: 6px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background: #ddd;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .search-container button:hover
+    {
+        background: #ccc;
+    }
 	</style>
     <script src="script.js"></script>
 </head>
 
-<body onload = "loadBoard()">
-<div style = "text-align: center" id = "title">
-    <h1>Loading Board Title...</h1>
+<body>
+<div class="search-container">
+        <form>
+            <input type="text" placeholder="Enter board title..." name="search" id="searchbar">
+            <button type="submit" onclick="loadBoard(document.getElementById('searchbar').value)">Search</button>
+        </form>
 </div>
 
-<div id = "board">
-    <h3>Loading Posts...</h3>
+<div style="text-align: center" id="title">
+    <h1>Search for a board by typing in it's title.</h1>
+</div>
+
+<div id="board">
+    <h3>It's posts will show up here.</h3>
 </div>
 </body>
 </html>
