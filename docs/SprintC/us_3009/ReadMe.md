@@ -1,6 +1,6 @@
 # US 3009 - View Board History
 
-As User, I want to view the history of updates on a board.
+*As User, I want to view the history of updates on a board.*
 
 ## 1. Context
 
@@ -49,51 +49,77 @@ Information in Forum
 
 ### 5. Implementation
 
-ViewBoardUI
+**ViewBoardHistoryUI**
+
+```java
+public class ViewBoardHistoryUI extends AbstractUI {
+    private final ViewBoardHistoryController controller = new ViewBoardHistoryController();
+    private final SelectBoardWidget boardWidget = new SelectBoardWidget(controller.findBoardsByOwner(controller.getUser()));
+    private final UserRepository repository = PersistenceContext.repositories().users();
 
     @Override
-    protected boolean doShow()
-    {
+    protected boolean doShow() {
         System.out.println("Choose a Board to view the history of:");
-        
+
         final Board selectedBoard = boardWidget.selectBoard();
-        
-        if (selectedBoard == null)
-        {
+
+        if (selectedBoard == null) {
             return false;
         }
-        
-        try
-        {
+
+        try {
             Iterable<Log> logs = controller.listBoardLogs(selectedBoard);
-            
-            if (logs.iterator().hasNext())
-            {
-                for (Log log : logs)
-                {
+
+            if (logs.iterator().hasNext()) {
+                for (Log log : logs) {
                     System.out.println(log.toString());
                 }
             }
-            else
-            {
+            else {
                 System.out.println("There are no logs on this Board.");  //shouldnt happen, theres a log for creation
             }
-            
-        } catch (IllegalArgumentException iae)
-        {
+
+        } catch (IllegalArgumentException iae) {
             System.out.println(iae.getMessage());
         }
-        
         return true;
     }
-
-ViewBoardController
-
-    public Iterable<Log> listBoardLogs(Board board)
+    @Override
+    public String headline()
     {
+        return "View The History of Changes in a Board";
+    }
+}
+   ```
+
+**ViewBoardHistoryController**
+
+```java
+public class ViewBoardHistoryController {
+    
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final BoardRepository repo = PersistenceContext.repositories().boards();
+    public ViewBoardHistoryController(){}
+
+    public Iterable<Log> listBoardLogs(Board board) {
         return board.getLogs();
     }
-
+    
+    public Iterable<Board> findBoardsByOwner(SystemUser user) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.TEACHER, BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.STUDENT);
+        return repo.findByOwner(user);
+    }
+    
+    public SystemUser getUser() {
+        Optional<UserSession> session = authz.session();
+        if (session.isEmpty()) {
+            throw new IllegalArgumentException("No user authentication");
+        }
+        SystemUser user = session.get().authenticatedUser();
+        return user;
+    }
+}
+```
 ### 6. Integration/Demonstration
 
 ### 7. Observations
