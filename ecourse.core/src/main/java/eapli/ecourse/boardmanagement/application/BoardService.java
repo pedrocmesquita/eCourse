@@ -22,7 +22,6 @@ public class BoardService {
                              final SystemUser boardOwner)
     {
         BoardFactory boardFactory = new BoardFactory();
-
         Board newBoard = boardFactory.create(boardTitlep, boardNRowp,
                 boardNColp, allBoardEntrys, boardOwner);
 

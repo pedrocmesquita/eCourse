@@ -26,6 +26,7 @@ package eapli.ecourse.app.student.console.presentation;
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
+import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
 import eapli.ecourse.app.student.console.presentation.enrollment.RequestEnrollmentUI;
 import eapli.ecourse.app.student.console.presentation.exam.ListStudentExamsUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -39,6 +40,7 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
 
 /**
  * @author Paulo Gandra Sousa
@@ -74,7 +76,8 @@ class MainMenu extends StudentUserBaseUI
     
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
-    private static final int SET_USER_CREATE_BOARD_OPTION = 2;
+    private static final int SET_USER_CREATE_BOARD_OPTION = 1;
+    private static final int SHARE_BOARD_OPTION = 2;
     
     //COURSE
 
@@ -172,6 +175,8 @@ class MainMenu extends StudentUserBaseUI
 
         menu.addItem(SET_USER_CREATE_BOARD_OPTION, "Create Board",
                 new CreateBoardUI()::show);
+
+        menu.addItem(SHARE_BOARD_OPTION, "Share Board", new ShareBoardUI()::show);
 
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 

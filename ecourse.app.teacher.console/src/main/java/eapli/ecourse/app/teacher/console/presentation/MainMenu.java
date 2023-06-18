@@ -25,6 +25,7 @@ package eapli.ecourse.app.teacher.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
+import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
 import eapli.ecourse.app.teacher.console.presentation.course.ListCourseExamsUI;
 import eapli.ecourse.app.teacher.console.presentation.exam.CreateExamUI;
 import eapli.ecourse.app.teacher.console.presentation.classes.ScheduleClassUI;
@@ -64,6 +65,7 @@ public class MainMenu extends AbstractUI {
 
     //SETTINGS
     private static final int SET_USER_CREATE_BOARD_OPTION = 1;
+    private static final int SHARE_BOARD_OPTION = 2;
 
 
     //COURSE
@@ -117,6 +119,9 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(SET_USER_CREATE_BOARD_OPTION, "Create Board",
                 new CreateBoardUI()::show);
+
+        menu.addItem(SHARE_BOARD_OPTION, "Share Board",
+                new ShareBoardUI()::show);
 
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 

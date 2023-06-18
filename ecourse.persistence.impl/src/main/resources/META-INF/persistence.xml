@@ -24,6 +24,7 @@
         <class>eapli.ecourse.boardmanagement.newdomain.Log</class>
         <class>eapli.ecourse.boardmanagement.newdomain.BoardCell</class>
         <class>eapli.ecourse.boardmanagement.newdomain.PostIt</class>
+        <class>eapli.ecourse.boardmanagement.newdomain.BoardPermission</class>
 
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
