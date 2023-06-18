@@ -1,6 +1,7 @@
 package eapli.ecourse.boardmanagement.application;
 
 import eapli.ecourse.boardmanagement.newdomain.*;
+import eapli.ecourse.boardmanagement.repositories.BoardCellRepository;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -17,9 +18,11 @@ import java.util.Set;
 public class CreateBoardController {
     private final AuthorizationService authz;
 
-    private final BoardRepository repository = PersistenceContext.repositories().boards();
-
     private final BoardService boardSvc = new BoardService(PersistenceContext.repositories().boards());
+
+    private final BoardCellRepository boardCellRepository = PersistenceContext.repositories().cells();
+
+    private final BoardRepository boardRepository = PersistenceContext.repositories().boards();
 
     public CreateBoardController() {
         authz = AuthzRegistry.authorizationService();
@@ -32,10 +35,7 @@ public class CreateBoardController {
                              final int boardNColp,
                              final Set<BoardCell> allBoardEntrys) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
-
-        Board board = boardSvc.createBoard(boardTitlep, boardNRowp, boardNColp, allBoardEntrys, authz.session().get().authenticatedUser());
-        repository.save(board);
-        return board;
+        return boardSvc.createBoard(boardTitlep, boardNRowp, boardNColp, allBoardEntrys, authz.session().get().authenticatedUser());
     }
 
     public Board createBoard(final String boardTitlep,
@@ -53,7 +53,13 @@ public class CreateBoardController {
 
     public BoardCell createBoardCell(BoardRow row, BoardCol column) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
-        return new BoardCell(row,column);
+        return boardCellRepository.save(new BoardCell(row,column));
+    }
+    public BoardCell createBoardCell(BoardRow row, BoardCol column,Board board) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
+        board.addCell(new BoardCell(row,column));
+        boardRepository.save(board);
+        return this.boardCellRepository.save(new BoardCell(row,column));
     }
 
     public BoardCell createBoardEntry(final BoardRow boardRowp,

@@ -10,15 +10,17 @@ public class Content {
         image = null;
     }
 
-    public void createContentText(String content)
+    public Content createContentText(String content)
     {
         text = content;
         image = null;
+        return this;
     }
 
-    public void createContentImage(String content)
+    public Content createContentImage(String content)
     {
         text = null;
         image = content;
+        return this;
     }
 }

@@ -1,6 +1,5 @@
 package eapli.ecourse.boardmanagement;
 
-import eapli.ecourse.boardmanagement.domain.*;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import org.junit.jupiter.api.Test;

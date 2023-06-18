@@ -13,7 +13,7 @@ public class PostIt implements AggregateRoot<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long postItId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Board board;
     @OneToOne
     private BoardCell cell;
@@ -26,7 +26,7 @@ public class PostIt implements AggregateRoot<Long> {
     @OneToOne
     private PostIt backup;
 
-public PostIt(Board Board, BoardCell cell, SystemUser owner, Content content){
+public PostIt(Board board, BoardCell cell, SystemUser owner, Content content){
     cell.setPost(this);
     this.cell = cell;
     this.board = board;
@@ -34,7 +34,7 @@ public PostIt(Board Board, BoardCell cell, SystemUser owner, Content content){
     this.content = content;
     this.date = CurrentTimeCalendars.now();
     this.backup = null;
-    board.addLog(new Log("Post-it added: " + this.toString()));
+
 
 }
 
@@ -85,5 +85,91 @@ public PostIt(Board Board, BoardCell cell, SystemUser owner, Content content){
     @Override
     public Long identity() {
         return this.postItId;
+    }
+
+    public SystemUser getOwner() {
+    return owner;
+    }
+
+    /**
+     * Attempt to relocate a post
+     * @return true if successful, false otherwise
+     */
+    public boolean relocate(BoardCell newCell)
+    {
+        //attempted to relocate to same cell, which is weird
+        if (newCell.getPost() == this)
+        {
+            return false;
+        }
+
+        //attempted to relocate to space filled by another cell
+        if (newCell.getPost() != null)
+        {
+            return false;
+        }
+
+        cell.setPost(null);
+        cell = newCell;
+        newCell.setPost(this);
+        board.addLog(new Log("Post-it relocated: " + this.toString()));
+        return true;
+    }
+
+    public void setContent(Content newContent) {
+    this.content = newContent;
+    }
+
+    public void setBackup(PostIt post) {
+        this.backup = post;
+    }
+
+    public Content getContent() {
+        return content;
+    }
+    private void replacePostWithBackup()
+    {
+        PostIt temp = backup;
+        this.cell.setPost(null);
+        saveBackup();
+        this.cell = temp.getCell();
+        this.cell.setPost(this);
+        this.content = temp.getContent();
+        board.addLog(new Log("Post-it changes undone: " + this.toString()));
+    }
+    public boolean rollbackPost()
+    {
+        PostIt post = backup.getCell().getPost();
+
+        if (post != null)   //if the backup cell has a post
+        {
+            if (post != this)   //and its not the current one
+            {
+                return false;   //dont rollback
+            }
+        }
+
+        replacePostWithBackup();    //rollback the post
+        board.addLog(new Log("Post-it rolled back: " + this.toString()));
+        return true;
+    }
+    private void saveBackup() {
+        this.backup = this;
+    }
+
+    private BoardCell getCell() {
+        return cell;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public BoardCol getColumn() {
+        return cell.getColumn();
+    }
+
+    public BoardRow getRow() {
+        return cell.getRow();
     }
 }

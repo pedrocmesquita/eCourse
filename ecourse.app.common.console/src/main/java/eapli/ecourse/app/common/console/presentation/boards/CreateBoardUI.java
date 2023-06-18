@@ -26,21 +26,17 @@ public class CreateBoardUI extends AbstractUI {
         final int boardNCols = Console.readInteger("Board Number of Columns:");
         final int boardNRows = Console.readInteger("Board Number of Rows:");
 
-        Set<BoardCell> allBoardEntrys = new HashSet<>();
 
 
         try{
-
+            Board board = theController.createBoard(boardTitle, boardNRows, boardNCols, null);
             for(int i = 1; i <= boardNRows; i++) {
                 for (int j = 1; j <= boardNCols; j++) {
                     System.out.println("Board Row position -> " + i);
                     System.out.println("Board Column position -> " + j);
-                    BoardCell boardCell = theController.createBoardCell(new BoardRow(Integer.toString(i),Integer.toString(boardNRows)),new BoardCol(Integer.toString(j),Integer.toString(boardNCols)));
-                    allBoardEntrys.add(boardCell);
+                    theController.createBoardCell(new BoardRow(Integer.toString(i),Integer.toString(boardNRows)),new BoardCol(Integer.toString(j),Integer.toString(boardNCols)),board);
                 }
             }
-
-            Board board = theController.createBoard(boardTitle, boardNRows, boardNCols, allBoardEntrys);
 
             System.out.println("Board successfully created!");
         } catch (IllegalArgumentException e){

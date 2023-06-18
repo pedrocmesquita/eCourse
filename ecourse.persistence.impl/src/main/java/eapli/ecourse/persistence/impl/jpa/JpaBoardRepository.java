@@ -2,6 +2,7 @@ package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.boardmanagement.newdomain.Board;
+import eapli.ecourse.boardmanagement.newdomain.BoardPermission;
 import eapli.ecourse.boardmanagement.newdomain.BoardTitle;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -18,6 +19,13 @@ public class JpaBoardRepository extends JpaAutoTxRepository<Board, Long, BoardTi
 
     public JpaBoardRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "boardId");
+    }
+    @Override
+    public Board findByBoardPermission(BoardPermission permission) {
+        final TypedQuery<Board> query = entityManager().createQuery(
+                "SELECT b FROM Board b WHERE b.boardPermissions = :boardPermissionParam", Board.class);
+        query.setParameter("boardPermissionParam", permission);
+        return query.getSingleResult();
     }
     @Override
     public Board getBoardByTitle(BoardTitle title) {

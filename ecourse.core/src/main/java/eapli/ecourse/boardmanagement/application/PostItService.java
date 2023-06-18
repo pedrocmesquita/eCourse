@@ -20,9 +20,7 @@ public class PostItService {
         return postItRepository.save(newPostIt);
     }
     public PostIt getPostItByBoardCell(BoardCell cell){
-        PostIt postIt = postItRepository.getPostItByBoardCell(cell);
-        return postIt;
+        return postItRepository.getPostItByBoardCell(cell);
     }
-
 
 }

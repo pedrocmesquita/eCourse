@@ -2,7 +2,6 @@ package eapli.ecourse.boardmanagement.newdomain;
 
 import eapli.ecourse.AppSettings;
 import eapli.ecourse.Application;
-import eapli.ecourse.boardmanagement.domain.BoardEntry;
 import eapli.ecourse.boardmanagement.newdomain.BoardPermission;
 import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.coursemanagement.domain.Name;
@@ -36,7 +35,7 @@ public class Board implements AggregateRoot<BoardTitle> {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Log> logs;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BoardCell> cells;
 
     @OneToMany
@@ -100,6 +99,15 @@ public class Board implements AggregateRoot<BoardTitle> {
     public BoardState state() {
         return state;
     }
+    public boolean userHasPermission(SystemUser SystemUser, AccessLevel accessLevel){
+        for (BoardPermission boardPermission : this.boardPermissions) {
+            if(boardPermission.userWithPermission().sameAs(SystemUser) && boardPermission.accessLevel().equals(accessLevel)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     @Override
     public boolean equals(final Object o) {
@@ -148,5 +156,12 @@ public class Board implements AggregateRoot<BoardTitle> {
 
     public Set<BoardCell> getBoardCells() {
         return cells;
+    }
+
+    public void addCells(Set<BoardCell> allBoardEntrys) {
+        this.cells.addAll(allBoardEntrys);
+    }
+    public void addCell(BoardCell boardCell) {
+        this.cells.add(boardCell);
     }
 }

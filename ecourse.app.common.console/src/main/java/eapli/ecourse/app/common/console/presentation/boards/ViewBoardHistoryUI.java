@@ -10,7 +10,7 @@ import eapli.framework.presentation.console.AbstractUI;
 public class ViewBoardHistoryUI extends AbstractUI
 {
     private final ViewBoardHistoryController controller = new ViewBoardHistoryController();
-    private final SelectBoardWidget boardWidget = new SelectBoardWidget(controller.findBoardsByOwner(controller.getUser()));
+    private final SelectBoardWidget boardWidget = new SelectBoardWidget(controller.findBoards(controller.getUser()));
     private final UserRepository repository = PersistenceContext.repositories().users();
     
     @Override

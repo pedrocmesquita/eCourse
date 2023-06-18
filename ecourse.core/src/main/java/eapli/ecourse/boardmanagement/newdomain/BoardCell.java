@@ -71,4 +71,16 @@ public class BoardCell implements AggregateRoot<Long> {
     public Long identity() {
         return this.cellId;
     }
+
+    public PostIt getPost() {
+        return postIt;
+    }
+
+    public BoardCol getColumn() {
+        return column;
+    }
+
+    public BoardRow getRow() {
+        return row;
+    }
 }
