@@ -93,6 +93,9 @@ public class Board implements AggregateRoot<BoardTitle> {
     public int getNumberRows() {
         return numberRows;
     }
+    public Set<BoardPermission> getBoardPermissions() {
+        return boardPermissions;
+    }
 
     public BoardState state() {
         return state;

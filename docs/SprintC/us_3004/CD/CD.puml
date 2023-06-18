@@ -1,0 +1,87 @@
+@startuml
+
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+package ecourse{
+class ShareBoardUI <<presentation>> {
+    doShow()
+}
+class SelectBoardWidget <<presentation>> {
+selectBoard()
+}
+
+
+class ShareBoardController <<application>> {
+    findBoardsByOwner(SystemUser user)
+    getUser()
+    shareBoard(Board, SystemUser, boolean)
+    addPermission(Board, BoardPermission)
+}
+class BoardPermission <<domain>> {
+    BoardPermission(SystemUser, AccessLevel)
+}
+enum AccessLevel {
+    READ
+    WRITE
+}
+
+
+class AuthorizationService <<service>> {
+    ensureAuthenticatedUserHasAnyOf(Role..)
+    session()
+}
+
+class UserSession {
+    authenticatedUser()
+}
+
+class Board <<domain>> {
+Board(BoardTitle, int, int, SystemUser)
+}
+class BoardRepository <<repository>> {
+}
+
+
+
+class PersistenceContext <<persistence>> {
+    repositories()
+}
+
+class RepositoryFactory <<factory>> {
+}
+
+class UserRepository <<repository>> {
+findByActive()
+}
+
+class BoardRepository <<repository>> {
+findBoardsByOwner(SystemUser user)
+}
+
+class BoardPermissionRepository <<repository>> {
+}
+
+
+
+Board --> BoardPermission
+ShareBoardController --> AuthorizationService : authz
+ShareBoardController ..> BoardRepository : repository
+ShareBoardController ..> UserRepository : repository
+ShareBoardController ..> BoardPermissionRepository : repository
+ShareBoardController --> Board
+AuthorizationService --> UserSession : session
+PersistenceContext --> RepositoryFactory : factory
+ShareBoardController --> PersistenceContext : persistence
+ShareBoardUI --> ShareBoardController : controller
+Board -> BoardRepository : save
+RepositoryFactory --> UserRepository : repository
+RepositoryFactory --> BoardRepository : repository
+RepositoryFactory --> BoardPermissionRepository : repository
+ShareBoardUI --> SelectBoardWidget
+SelectBoardWidget --> Board
+BoardPermission --> AccessLevel
+BoardPermission --> BoardPermissionRepository
+
+@enduml

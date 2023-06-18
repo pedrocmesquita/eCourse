@@ -15,6 +15,9 @@ import eapli.framework.presentation.console.AbstractUI;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type Share board ui.
+ */
 public class ShareBoardUI extends AbstractUI {
     private final ShareBoardController controller = new ShareBoardController();
     private final SelectBoardWidget boardWidget = new SelectBoardWidget(controller.findBoardsByOwner(controller.getUser()));
@@ -48,10 +51,11 @@ public class ShareBoardUI extends AbstractUI {
             if (option.equalsIgnoreCase("R")){
                 controller.shareBoard(selectedBoard, shareUser, false);
                 selectedBoard.addPermission(new BoardPermission(controller.getUser(), AccessLevel.READ));
-            System.out.println("Board sucessfully shared with" + shareUser.username() + "with" + AccessLevel.READ + "permissions."); }
+            System.out.println("Board sucessfully shared with " + shareUser.username() + " with " + AccessLevel.READ + " permissions."); }
             else if (option.equalsIgnoreCase("W")){
+                controller.shareBoard(selectedBoard, shareUser, true);
                 selectedBoard.addPermission(new BoardPermission(controller.getUser(), AccessLevel.WRITE));
-            System.out.println("Board sucessfully shared with" + shareUser.username().toString() + "with" + AccessLevel.WRITE + "permissions."); }
+            System.out.println("Board sucessfully shared with " + shareUser.username().toString() + " with " + AccessLevel.WRITE + " permissions."); }
             else {
                 throw new IllegalArgumentException("Invalid option");
             }

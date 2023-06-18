@@ -1,0 +1,82 @@
+@startuml
+
+participant User as Actor
+participant ShareBoardUI as UI <<presentation>>
+participant SelectBoardWidget as SelectBoardWidget <<presentation>>
+
+participant ShareBoardController as Controller <<application>>
+participant AuthenticationService as Autzh <<service>>
+participant UserSession as UserSession <<session>>
+participant PersistenceContext as Context <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+participant Board as Board <<domain>>
+database BoardRepository as BoardRepository <<repository>>
+
+Actor --> UI : asks to share a board
+activate UI
+UI -> Controller : create()
+
+activate Controller
+
+Controller -> Autzh : create()
+Controller -> Autzh : ensureAuthenticatedUserHasAnyOf(CourseRoles.TEACHER, \nCourseRoles.STUDENT, CourseRoles.MANAGER)
+Autzh -> UserSession : create()
+
+activate Autzh
+Controller -> Autzh : session()
+Autzh -> Controller : session
+deactivate Autzh
+
+Controller -> Context : repositories()
+
+activate Context
+Context -> Factory : create()
+Context -> Controller : factory
+deactivate Context
+
+deactivate Controller
+
+
+UI -> SelectBoardWidget : selectBoard()
+activate SelectBoardWidget
+
+SelectBoardWidget --> Controller: getUser()
+activate Controller
+Controller -> UserSession : authenticatedUser()
+activate UserSession
+UserSession -> Controller : user
+deactivate UserSession
+Controller --> SelectBoardWidget: user
+
+deactivate Controller
+
+SelectBoardWidget --> Controller: findBoardsByOwner(user)
+activate Controller
+Controller --> BoardRepository: findByOwner(user)
+activate BoardRepository
+BoardRepository --> Controller: boards
+deactivate BoardRepository
+
+Controller --> SelectBoardWidget: boards
+deactivate Controller
+SelectBoardWidget --> UI : selectedBoard
+deactivate SelectBoardWidget
+
+
+UI -> Controller : shareBoard(selectedBoard)
+activate Controller
+Controller -> Board: addPermission(board, boardPermission)
+activate Board
+Board -> Board: addPermission(boardPermission)
+Board -> Controller
+deactivate Board
+
+
+Controller -> UI
+deactivate Controller
+
+
+UI -> Actor : displays success message
+deactivate UI
+
+@enduml

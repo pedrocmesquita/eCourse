@@ -12,6 +12,11 @@ public class SelectBoardWidget {
 
     private final Iterable<Board> boards;
 
+    /**
+     * Instantiates a new Select board widget.
+     *
+     * @param boards the boards
+     */
     public SelectBoardWidget(Iterable<Board> boards) {
         this.boards = boards;
     }

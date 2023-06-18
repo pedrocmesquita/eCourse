@@ -1,0 +1,123 @@
+@startuml
+hide methods
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam classFontColor automatic
+skinparam classHeaderBackgroundColor #4
+skinparam packageStyle rectangle
+
+
+'//--//--//--//--//--/ User /--//--//--//--//--//--//
+
+package "User Aggregate"{
+
+    Entity User <<Root>> {
+    }
+
+    Object email <<Identity>> {
+    }
+
+    Object personaInformation {
+        birthdate
+        taxNumber
+    }
+
+    Object password{
+    }
+
+}
+
+package "Teacher Aggregate" {
+
+    Entity designationTeacher as "name"{
+    firstName
+    lastName
+    }
+
+    Entity Teacher {
+    }
+
+    Object acronym <<Identity>>{
+    }
+
+    Teacher "1" -l-> "1" designationTeacher
+}
+
+package "Student Aggregate"{
+
+    Entity designationStudent as "name"{
+    firstName
+    lastName
+    }
+
+    Entity Student {
+    }
+
+    Object mechanographicNumber <<Identity>>{
+    }
+}
+
+package "Manager Aggregate"{
+    Entity Manager {
+    }
+}
+
+'//--//--//--//--//--/ Board /--//--//--//--//--//--//
+package "Board Aggregate" <<Rectangle>> {
+    Entity Board <<Root>>{
+
+    }
+
+    Entity Post
+    {
+        timestamp
+    }
+
+    Object Content {
+
+    }
+    Entity Cell
+    {
+    }
+
+    Object BoardID {
+    }
+
+    Object BoardTitle <<Identity>> {
+    }
+
+    Object CellTitle <<Identity>> {
+    }
+
+    Object Changes {
+    }
+
+}
+
+'//--//--//--//--//--/ User /--//--//--//--//--//--//
+
+    User "1" <-- "1" Teacher
+    User "1" <-l- "1" Student
+    User "1" <-r- "1" Manager
+    User "1" --> "1" password
+    Teacher "1" --> "1"acronym
+    Student "1" --> "1" mechanographicNumber
+    User "1"-->"1" email
+
+    Student "1" --> "1" designationStudent
+    Teacher "1" --> "1" personaInformation
+    Student "1" --> "1" personaInformation
+
+'//--//--//--//--//--/ Board /--//--//--//--//--//--//
+
+    User "1" -u----> "*" Board : creates
+    User "1" --> "*" Post : creates
+    Post "1" --> "0..1" Content : has
+    Board "1" --> "1..*" Cell : has
+    Board "1" --> "1" BoardID
+    Board "1" -l-> "1" BoardTitle
+    Post "1" --> "*" Cell : is in
+    Cell "1" --> "1" CellTitle
+    Board "1" --> "*" Changes : has
+
+@enduml
