@@ -116,6 +116,9 @@ public class Exam implements AggregateRoot<Designation> {
     {
         return date;
     }
+    public Set<Grade> getGrades() {
+        return grades;
+    }
 
     @Override
     public String toString() {

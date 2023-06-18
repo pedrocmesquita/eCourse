@@ -29,8 +29,7 @@ public class JpaExamsInCourseRepository
     }
 
     @Override
-    public Iterable<Exam> findAllExamsInCourse(Name name)
-    {
+    public Iterable<Exam> findAllExamsInCourse(Name name) {
         String jpql = "SELECT e FROM Exam e " +
                 "JOIN ExamsInCourse x ON e.examId = x.exam.id " +
                 "WHERE x.course.id = :courseId";

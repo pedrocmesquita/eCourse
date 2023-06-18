@@ -2,6 +2,7 @@ package eapli.ecourse.exammanagement.application;
 
 import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.exammanagement.domain.Exam;
+import eapli.ecourse.exammanagement.domain.Grade;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -14,8 +15,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 
 @UseCaseController
 public class ListTeacherExamGradesController
@@ -25,23 +25,24 @@ public class ListTeacherExamGradesController
     private final ExamsInCourseRepository examsInCourseRepository = PersistenceContext.repositories().examsInCourse();
     private final TeacherUserRepository teacherUserRepository = PersistenceContext.repositories().teacherUsers();
     
-    public Iterable<Exam> findAllTeacherExams()
-    {
+    public Iterable<Exam> findAllTeacherExams() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.TEACHER);
-        
-        for (Course x : teachersInCourseRepository.findAllCoursesTeacherIsAssign(getUserAcronym().acronym()))
-        {
-            for (Exam e : examsInCourseRepository.findAllExamsInCourse(x.name()))
-            {
-                //return iterable of exam grades
+        List<Exam> teacherExams = new ArrayList<>();
+
+        for (Course x : teachersInCourseRepository.findAllCoursesTeacherIsAssign(getUserAcronym().acronym())) {
+            System.out.println(x.name().toString());
+            for (Exam e : x.getExams()) {
+                System.out.println(e.toString());
+                for (Grade g : e.getGrades()) {
+                    System.out.println(g.identity().toString());
+                }
+                teacherExams.add(e);
             }
         }
-        
-        return null;
+        return teacherExams;
     }
     
-    public TeacherUser getUserAcronym()
-    {
+    public TeacherUser getUserAcronym() {
         Optional<UserSession> session = authz.session();
         SystemUser user = session.get().authenticatedUser();
         return teacherUserRepository.getTeacherUserFromSystemUser(user);

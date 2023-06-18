@@ -31,6 +31,7 @@ import eapli.ecourse.app.teacher.console.presentation.course.ListCourseExamsUI;
 import eapli.ecourse.app.teacher.console.presentation.exam.CreateExamUI;
 import eapli.ecourse.app.teacher.console.presentation.classes.ScheduleClassUI;
 import eapli.ecourse.app.teacher.console.presentation.course.ListAssignCoursesUI;
+import eapli.ecourse.app.teacher.console.presentation.exam.ListExamGradesUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -77,6 +78,7 @@ public class MainMenu extends AbstractUI {
     //EXAM
     private static final int CREATE_EXAM_OPTION = 1;
     private static final int LIST_EXAMS = 2;
+    private static final int LIST_EXAM_GRADES = 3;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -181,6 +183,7 @@ public class MainMenu extends AbstractUI {
 
         examsMenu.addItem(CREATE_EXAM_OPTION, "Create a Exam", new CreateExamUI()::show);
         examsMenu.addItem(LIST_EXAMS, "List all exams in a course", new ListCourseExamsUI()::show);
+        examsMenu.addItem(LIST_EXAM_GRADES, "List all exams grades", new ListExamGradesUI()::show);
         examsMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return examsMenu;
