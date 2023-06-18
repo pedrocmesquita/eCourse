@@ -1,6 +1,9 @@
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+
+
+
 public class Auth
 {
     private final AuthenticationService authService = AuthzRegistry.authenticationService();
