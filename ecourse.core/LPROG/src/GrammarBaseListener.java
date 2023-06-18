@@ -1,5 +1,7 @@
-// Generated from C:/Users/Joao Torres/Documents/Lprog/Lprog\Grammar.g4 by ANTLR 4.12.0
+package eapli.ecourse.app.teacher.console.presentation.exam;// Generated from C:/Users/Joao Torres/Documents/sem4pi-22-23-68-master1.2/ecourse.core/LPROG\Grammar.g4 by ANTLR 4.12.0
 
+import eapli.ecourse.app.teacher.console.presentation.exam.GrammarListener;
+import eapli.ecourse.app.teacher.console.presentation.exam.GrammarParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -172,6 +174,18 @@ public class GrammarBaseListener implements GrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAnswer(GrammarParser.AnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnswer(GrammarParser.AnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMultipleChoiceQuestion(GrammarParser.MultipleChoiceQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -191,6 +205,18 @@ public class GrammarBaseListener implements GrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOption(GrammarParser.OptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWeight(GrammarParser.WeightContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWeight(GrammarParser.WeightContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -220,6 +246,18 @@ public class GrammarBaseListener implements GrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterGrade(GrammarParser.GradeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGrade(GrammarParser.GradeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumericalQuestion(GrammarParser.NumericalQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -239,6 +277,18 @@ public class GrammarBaseListener implements GrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumericalAnswer(GrammarParser.NumericalAnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAcceptedError(GrammarParser.AcceptedErrorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAcceptedError(GrammarParser.AcceptedErrorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
