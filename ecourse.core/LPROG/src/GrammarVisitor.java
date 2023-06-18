@@ -1,4 +1,4 @@
-// Generated from C:/Users/Joao Torres/Documents/Lprog/Lprog\Grammar.g4 by ANTLR 4.12.0
+package eapli.ecourse.app.teacher.console.presentation.exam;// Generated from C:/Users/Joao Torres/Documents/sem4pi-22-23-68-master1.2/ecourse.core/LPROG\Grammar.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -88,6 +88,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMatchingPair(GrammarParser.MatchingPairContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GrammarParser#answer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnswer(GrammarParser.AnswerContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GrammarParser#multipleChoiceQuestion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -99,6 +105,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOption(GrammarParser.OptionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GrammarParser#weight}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWeight(GrammarParser.WeightContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GrammarParser#shortAnswerQuestion}.
 	 * @param ctx the parse tree
@@ -112,6 +124,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitShortAnswer(GrammarParser.ShortAnswerContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GrammarParser#grade}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGrade(GrammarParser.GradeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GrammarParser#numericalQuestion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -123,6 +141,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNumericalAnswer(GrammarParser.NumericalAnswerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GrammarParser#acceptedError}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAcceptedError(GrammarParser.AcceptedErrorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GrammarParser#selectMissingWordsQuestion}.
 	 * @param ctx the parse tree
