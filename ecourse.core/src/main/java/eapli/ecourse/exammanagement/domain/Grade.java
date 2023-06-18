@@ -32,9 +32,7 @@ public class Grade implements AggregateRoot<Long> {
 
     @Override
     public String toString() {
-        return "ID: " + gradeId +
-                "Grade: " + grade;
-    }
+        return "ID: " + gradeId + " | Grade: " + grade +"/20";}
 
     @Override
     public boolean equals(Object o) {

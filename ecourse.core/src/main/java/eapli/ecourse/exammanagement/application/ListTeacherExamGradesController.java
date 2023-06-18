@@ -18,11 +18,9 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import java.util.*;
 
 @UseCaseController
-public class ListTeacherExamGradesController
-{
+public class ListTeacherExamGradesController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final TeachersInCourseRepository teachersInCourseRepository = PersistenceContext.repositories().teachersInCourse();
-    private final ExamsInCourseRepository examsInCourseRepository = PersistenceContext.repositories().examsInCourse();
     private final TeacherUserRepository teacherUserRepository = PersistenceContext.repositories().teacherUsers();
     
     public Iterable<Exam> findAllTeacherExams() {
@@ -30,18 +28,17 @@ public class ListTeacherExamGradesController
         List<Exam> teacherExams = new ArrayList<>();
 
         for (Course x : teachersInCourseRepository.findAllCoursesTeacherIsAssign(getUserAcronym().acronym())) {
-            System.out.println(x.name().toString());
+            System.out.println("Course: "+ x.name().toString());
             for (Exam e : x.getExams()) {
-                System.out.println(e.toString());
+                System.out.println("    Exam: " + e.getTitle().toString());
                 for (Grade g : e.getGrades()) {
-                    System.out.println(g.identity().toString());
+                    System.out.println("        Grade: " + g.toString());
                 }
                 teacherExams.add(e);
             }
         }
         return teacherExams;
     }
-    
     public TeacherUser getUserAcronym() {
         Optional<UserSession> session = authz.session();
         SystemUser user = session.get().authenticatedUser();

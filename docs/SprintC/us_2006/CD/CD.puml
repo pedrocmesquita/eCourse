@@ -1,0 +1,85 @@
+@startuml
+
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+class ListExamGrades <<presentation>> {
+    doShow()
+}
+
+class ListTeacherExamGradesController <<application>> {
+    allCoursesTeacherIsAssigned(acronym)
+    getUserAcronym()
+    listCourseExams(course)
+}
+
+class AuthorizationService <<service>> {
+    ensureAuthenticatedUserHasAnyOf(TEACHER)
+    session()
+}
+
+class UserSession {
+    authenticatedUser()
+}
+
+class Course <<domain>> {
+Course(Name, Description, EnrollLimit, State)
+getExams()
+}
+class Exam <<domain>> {
+    Exam(Designation, Description, Setting, Date)
+    getGrades()
+}
+class Grade <<domain>> {
+    Grade(Double)
+}
+
+class CourseRepository <<repository>> {
+save()
+}
+
+
+
+class PersistenceContext <<persistence>> {
+    repositories()
+}
+
+class RepositoryFactory <<factory>> {
+}
+
+class TeacherUserRepository <<repository>> {
+getTeacherUserFromSystemUser(user)
+}
+
+class TeacherInCourseRepository <<repository>> {
+findAllCoursesTeacherIsAssign(acronym)
+}
+
+class ExamRepository <<repository>> {
+save()
+}
+
+class GradeRepository <<repository>> {
+save()
+}
+
+
+
+Course --> Exam
+ListTeacherExamGradesController --> AuthorizationService : authz
+AuthorizationService --> UserSession : session
+PersistenceContext --> RepositoryFactory : factory
+ListTeacherExamGradesController --> PersistenceContext : persistence
+ListExamGrades --> ListTeacherExamGradesController : controller
+Course -> CourseRepository : save
+RepositoryFactory --> CourseRepository : repository
+RepositoryFactory --> TeacherUserRepository : repository
+RepositoryFactory --> TeacherInCourseRepository : repository
+ListTeacherExamGradesController ..> TeacherUserRepository : repository
+ListTeacherExamGradesController ..> TeacherInCourseRepository : repository
+Exam --> Grade
+Exam -> ExamRepository
+Grade -> GradeRepository
+
+@enduml

@@ -1,0 +1,86 @@
+@startuml
+
+participant Teacher as Actor
+participant ListExamGradesUI as UI <<presentation>>
+participant ListTeacherExamGradesController as Controller <<application>>
+participant AuthenticationService as Autzh <<service>>
+participant UserSession as UserSession <<session>>
+participant PersistenceContext as Context <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+participant Course as Course <<domain>>
+participant Exam as Exam <<domain>>
+participant Grade as Grade <<domain>>
+database TeachersInCourseRepository as TeacherCourseRepository <<repository>>
+database TeacherUserRepository as TeacherRepository <<repository>>
+
+Actor --> UI : asks to list grades of\nall exams available to me
+activate UI
+UI -> Controller : create()
+
+UI -> Controller : listCourseExams()
+activate Controller
+
+Controller -> Autzh : create()
+Controller -> Autzh : ensureAuthenticatedUserHasAnyOf(CourseRoles.TEACHER)
+Autzh -> UserSession : create()
+
+activate Autzh
+Controller -> Autzh : session()
+Autzh -> Controller : session
+deactivate Autzh
+
+Controller -> UserSession : authenticatedUser()
+activate UserSession
+UserSession -> Controller : user
+deactivate UserSession
+
+Controller -> Controller : create()
+Controller -> Controller : listCourseExams()
+
+
+Controller -> Context : repositories()
+
+activate Context
+Context -> Factory : create()
+Context -> Controller : factory
+deactivate Context
+
+Controller -> Factory : getUserAcronym()
+
+activate Factory
+Factory -> TeacherRepository : getTeacherUserFromSystemUser(user)
+activate TeacherRepository
+TeacherRepository -> Factory : acronym
+deactivate TeacherRepository
+Factory -> Controller : acronym
+deactivate Factory
+
+
+Controller -> Factory : allCoursesTeacherIsAssigned()
+activate Factory
+Factory -> TeacherCourseRepository : findAllCoursesTeacherIsAssign(acronym)()
+activate TeacherCourseRepository
+TeacherCourseRepository -> Factory : courses
+deactivate TeacherCourseRepository
+Factory -> Controller : courses
+deactivate Factory
+
+Controller -> Course: getExams()
+activate Course
+Course -> Controller : exams
+Course -> Exam : getGrades()
+deactivate Course
+activate Exam
+Exam -> Controller : grades
+deactivate Exam
+
+
+Controller --> UI : grades
+deactivate Controller
+
+
+
+UI -> Actor : show list of grades\nof courses user teaches
+deactivate UI
+
+@enduml
