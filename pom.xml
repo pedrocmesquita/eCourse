@@ -30,7 +30,7 @@
         <module>ecourse.core</module>
         <module>ecourse.persistence.impl</module>
         <module>eCourse.util.ci</module>
-        <module>ecourse.shared.board.server</module>
+        <module>ecourse.board.server</module>
     </modules>
 
     <dependencies>
