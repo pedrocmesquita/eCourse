@@ -17,7 +17,6 @@ public class Auth
         //ACK if exists, ERR otherwise
         return (authService.authenticate(data.substring(0, split), data.substring(split)).isPresent()) ?
                 MessageCodes.ACK : MessageCodes.ERR;
-
     }
     
     public boolean authenticateUser(String data)

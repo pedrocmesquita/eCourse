@@ -23,16 +23,27 @@ public class ViewBoardInServerController {
         Optional<UserSession> session = authz.session();
         SystemUser user = session.get().authenticatedUser();
     }
-    public String getBoardtoStringByTitle(String title){
-        String output = "";
+    public String getBoardtoStringByTitle(String title)
+    {
+        //String output = "";
         BoardTitle title1 = new BoardTitle(title);
         Board board = boardSvc.getBoardByTitle(title1);
+        
+        return board.toStringStatic();
+    }
+    
+    public String getPostsToStringByTitle(String title)
+    {
+        StringBuilder output = new StringBuilder();
+        Board board = boardSvc.getBoardByTitle(new BoardTitle(title));
         Set<BoardCell> cells = board.getBoardCells();
-        output = board.toStringStatic();
-        for (BoardCell i : cells) {
-            output = output + postitSvc.getPostItByBoardCell(i).toString();
+        
+        for (BoardCell i : cells)
+        {
+            output.append(postitSvc.getPostItByBoardCell(i).toString());
         }
-        return output;
+        
+        return output.toString();
     }
     public Board getBoardByTitle(String title){
         BoardTitle title1 = new BoardTitle(title);

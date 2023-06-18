@@ -21,17 +21,17 @@ class TcpServerThread implements Runnable
         
         try
         {
-            TcpClient tcpCli = new TcpClient();
+            TcpShared tcp = new TcpShared(sock);
             Message msg;
     
             do
             {
-                msg = tcpCli.recieve();
+                msg = tcp.recieve();
                 
                 switch (msg.getCode())
                 {
                     case MessageCodes.COMMTEST:
-                        tcpCli.send(Shared.CURR_VERSION, MessageCodes.ACK, "");
+                        tcp.send(Shared.CURR_VERSION, MessageCodes.ACK, "");
                         break;
     
                     //case MessageCodes.DISCONN:    //handled by exiting while
@@ -46,11 +46,10 @@ class TcpServerThread implements Runnable
                     case MessageCodes.AUTH:
                         try
                         {
-                            tcpCli.send(Shared.CURR_VERSION, auth.authenticateUser(msg), "");
+                            tcp.send(Shared.CURR_VERSION, auth.authenticateUser(msg), "");
                         } catch (IllegalArgumentException e)
                         {
-                            tcpCli.send(Shared.CURR_VERSION, MessageCodes.ERR,
-                                    e.getMessage());
+                            tcp.send(Shared.CURR_VERSION, MessageCodes.ERR, e.getMessage());
                         }
                         break;
     

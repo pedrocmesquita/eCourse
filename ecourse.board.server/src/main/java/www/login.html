@@ -7,10 +7,11 @@
 
 <body>
     <form>
-        Username: <input type="text" placeholder="Username..." name="search" id="searchbar">
-        Password: <input type="password" placeholder="Password..." name="search" id="searchbar">
-        <button type="submit" onclick="login()">Log In</button>
+        Username: <input type="text" placeholder="Username..." name="searchbar1" id="name">
+        Password: <input type="password" placeholder="Password..." name="searchbar2" id="pass">
+        <button type="submit" onclick="login(document.getElementById('name').value, document.getElementById('pass').value)">Log In</button>
     </form>
 
+    <div id="info"></div>
 </body>
 </html>

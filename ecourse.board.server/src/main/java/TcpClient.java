@@ -6,31 +6,9 @@ public class TcpClient
     private static InetAddress serverIP;
     private static Socket sock;
     
-    private static final int fullByte = 256;
-    
-    private static DataOutputStream sOut;
-    private static DataInputStream sIn;
-    
-    /*
-    public TcpClient(Socket sock)
+    public static void main(String args[])
     {
-        this.sock = sock;
-        
-        try
-        {
-            sOut = new DataOutputStream(sock.getOutputStream());
-            sIn = new DataInputStream(sock.getInputStream());
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
-    */
-    
-    public static void main(String args1[]) throws Exception
-    {
-        String args[] = new String[1];
-        args[0]= "localhost";
+        args[0]= "localhost";   //temp
         if (args.length != 1)
         {
             System.out.println("Server IPv4/IPv6 address or DNS name is required as argument");
@@ -55,52 +33,7 @@ public class TcpClient
             System.exit(1);
         }
         
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        DataOutputStream sOut = new DataOutputStream(sock.getOutputStream());
-        DataInputStream sIn = new DataInputStream(sock.getInputStream());
-    }
-    
-    public void send(byte version, byte code, String text)
-    {
-        byte data[] = text.getBytes();
-        int size = data.length;
-        
-        int d_length_1 = size % fullByte;
-        int d_length_2 = size / fullByte;
-        
-        try
-        {
-            sOut.writeByte(version);
-            sOut.writeByte(code);
-            sOut.writeByte(d_length_1);
-            sOut.writeByte(d_length_2);
-            sOut.write(data, 0, size);
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
-    
-    public Message recieve()
-    {
-        try
-        {
-            byte version = (byte) sIn.readUnsignedByte();
-            byte code = (byte) sIn.readUnsignedByte();
-            byte d_length_1 = (byte) sIn.readUnsignedByte();
-            byte d_length_2 = (byte) sIn.readUnsignedByte();
-            
-            byte data[] = new byte[d_length_1 + (d_length_2 * fullByte)];
-            
-            if (data.length > 0)
-            {
-                sIn.readFully(data);
-            }
-            
-            return new Message(version, code, d_length_1, d_length_2, data);
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
+        //TcpShared tcp = new TcpShared(sock);
+        //tcp.send(Shared.CURR_VERSION, MessageCodes.COMMTEST, "hello");
     }
 }

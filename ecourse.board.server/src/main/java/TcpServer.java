@@ -16,8 +16,7 @@ class TcpServer
                 open(Shared.PORT_TCP);
             } catch (Exception e)
             {
-                System.out.println("Error in threads.");
-                System.exit(1);
+                System.exit(0);
             }
         }).start();
     

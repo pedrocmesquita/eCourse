@@ -4,21 +4,11 @@ function login(name, pass)
 
     request.onload = function()
     {
-        if(request.status !== 401)
-        {
-            window.location.href = window.location.origin + '/myboards';
-        }
+        document.getElementById("info").innerHTML = this.responseText;
     };
 
   	request.open("POST", "/auth", true);
 	request.timeout = 5000;
-
-    const token = getTokenCookie();
-
-    if(token)
-    {
-        request.setRequestHeader("Authorization", token);
-    }
 
   	request.send();
 }
@@ -66,7 +56,7 @@ function refreshPosts(option)
         setTimeout(refreshPosts, 1000);
     };
 
-    request.open("GET", "/board-posts/option");
+    request.open("GET", "/board-posts/" + option);
     request.timeout = 5000;
     request.send();
 }

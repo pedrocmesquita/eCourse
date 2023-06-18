@@ -32,19 +32,27 @@ public class Request extends Thread
             // System.out.println(request.getURI());
             
             HttpServerAjax ajax = new HttpServerAjax();
+            String uri = request.getURI();
             
             //client wants to GET something
             if (request.getMethod().equals("GET"))
             {
-                //view a specific board
-                if (request.getURI().startsWith(Shared.URI_BOARD_VIEW))
+                //view a specific board, static elements
+                if (uri.startsWith(Shared.URI_BOARD_VIEW))
                 {
-                        ajax.ViewBoard(Shared.FILE_BOARD_VIEW);
-                        response.setResponseStatus(Shared.RESPONSE_STATUS_OK);
-
+                    String temp = uri.replace(Shared.URI_BOARD_VIEW, "");
+                    response.setContentFromString(ajax.ViewBoard(temp), Shared.CONTENT_TEXT);
+                    response.setResponseStatus(Shared.RESPONSE_STATUS_OK);
+                }
+                //view a specific board, posts
+                if (uri.startsWith(Shared.URI_BOARD_POSTS))
+                {
+                    String temp = uri.replace(Shared.URI_BOARD_POSTS, "");
+                    response.setContentFromString(ajax.ViewPosts(temp), Shared.CONTENT_TEXT);
+                    response.setResponseStatus(Shared.RESPONSE_STATUS_OK);
                 }
                 //view a list of my boards
-                if (request.getURI().equals(Shared.URI_BOARD_LIST))
+                if (uri.equals(Shared.URI_BOARD_LIST))
                 {
                     if (response.setContentFromFile(Shared.FILE_BOARD_LIST))
                     {
@@ -58,7 +66,7 @@ public class Request extends Thread
                     }
                 }
                 //create a board
-                if (request.getURI().equals(Shared.URI_BOARD_CREATE))
+                if (uri.equals(Shared.URI_BOARD_CREATE))
                 {
                     if (response.setContentFromFile(Shared.FILE_BOARD_CREATE))
                     {
@@ -72,7 +80,7 @@ public class Request extends Thread
                     }
                 }
                 //view a specific board's history
-                if (request.getURI().startsWith(Shared.URI_BOARD_LOGS))
+                if (uri.startsWith(Shared.URI_BOARD_LOGS))
                 {
                     if (response.setContentFromFile(Shared.FILE_BOARD_LOGS))
                     {
@@ -90,7 +98,7 @@ public class Request extends Thread
             else if (request.getMethod().equals("POST"))
             {
                 //user logging in
-                if (request.getURI().equals(Shared.URI_AUTH))
+                if (uri.equals(Shared.URI_AUTH))
                 {
                     Auth auth = new Auth();
                     if (!auth.authenticateUser(request.getContentAsString()))
@@ -101,7 +109,7 @@ public class Request extends Thread
                     
                     else
                     {
-                        response.setContentFromFile(Shared.FILE_HOME);
+                        //response.setContentFromFile(Shared.FILE_HOME);
                         response.setResponseStatus(Shared.RESPONSE_STATUS_OK);
                     }
                 }

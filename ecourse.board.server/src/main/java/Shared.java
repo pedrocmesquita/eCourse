@@ -20,6 +20,7 @@ public final class Shared
     //only leave a trailing / on non board specific ones
     public static final String URI_AUTH =          "/auth";
     public static final String URI_BOARD_VIEW =    "/board-view/";
+    public static final String URI_BOARD_POSTS =    "/board-posts/";
     public static final String URI_BOARD_LIST =    "/board-list";
     public static final String URI_BOARD_CREATE =  "/board-create";
     public static final String URI_BOARD_SHARE =   "/board-share/";
