@@ -1,5 +1,3 @@
-package eapli.ecourse.app.board.server.domain;
-
 public final class Shared
 {
     public static final byte PORT_TCP = (byte) 9999;

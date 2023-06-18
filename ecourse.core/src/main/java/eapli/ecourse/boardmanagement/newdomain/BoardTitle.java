@@ -16,7 +16,7 @@ public class BoardTitle implements ValueObject, Comparable<BoardTitle> {
         //ORM only
     }
 
-    protected BoardTitle(String name) {
+    public BoardTitle(String name) {
         setBoardTitle(name);
     }
 

@@ -1,5 +1,3 @@
-package eapli.ecourse.app.board.server.domain;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;

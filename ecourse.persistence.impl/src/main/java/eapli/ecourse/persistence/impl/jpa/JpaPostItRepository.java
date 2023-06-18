@@ -2,6 +2,7 @@ package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.boardmanagement.newdomain.Board;
+import eapli.ecourse.boardmanagement.newdomain.BoardCell;
 import eapli.ecourse.boardmanagement.newdomain.Log;
 import eapli.ecourse.boardmanagement.newdomain.PostIt;
 import eapli.ecourse.boardmanagement.repositories.LogRepository;
@@ -16,5 +17,10 @@ public class JpaPostItRepository extends JpaAutoTxRepository<PostIt, Long, Long>
 
     public JpaPostItRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "logId");
+    }
+
+    @Override
+    public PostIt getPostItByBoardCell(BoardCell cell) {
+        return null;
     }
 }

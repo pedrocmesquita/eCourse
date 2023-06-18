@@ -1,5 +1,3 @@
-package eapli.ecourse.app.board.server.domain;
-
 public final class MessageCodes
 {
     public static final byte COMMTEST = 0;   //communications test

@@ -1,5 +1,3 @@
-package eapli.ecourse.app.board.server.domain;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -42,17 +40,9 @@ public class Request extends Thread
                 //view a specific board
                 if (request.getURI().startsWith(Shared.URI_BOARD_VIEW))
                 {
-                    //if file found
-                    if (response.setContentFromFile(Shared.HTML_FOLDER + Shared.FILE_BOARD_VIEW))
-                    {
+                        ajax.ViewBoard(Shared.FILE_BOARD_VIEW);
                         response.setResponseStatus(Shared.RESPONSE_STATUS_OK);
-                    }
-                    
-                    else
-                    {
-                        response.setContentFromString(Shared.RESPONSE_CONTENT_NOTFOUND, Shared.CONTENT_TEXT);
-                        response.setResponseStatus(Shared.RESPONSE_STATUS_NOTFOUND);
-                    }
+
                 }
                 //view a list of my boards
                 if (request.getURI().equals(Shared.URI_BOARD_LIST))

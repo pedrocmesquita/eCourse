@@ -1,5 +1,12 @@
 package eapli.ecourse.boardmanagement.newdomain;
 
+import eapli.ecourse.AppSettings;
+import eapli.ecourse.Application;
+import eapli.ecourse.boardmanagement.domain.BoardEntry;
+import eapli.ecourse.boardmanagement.newdomain.BoardPermission;
+import eapli.ecourse.coursemanagement.domain.Course;
+import eapli.ecourse.coursemanagement.domain.Name;
+import eapli.ecourse.exammanagement.domain.Exam;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -32,7 +39,7 @@ public class Board implements AggregateRoot<BoardTitle> {
     @OneToMany
     private Set<BoardCell> cells;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany
     private Set<BoardPermission> boardPermissions;
 
 
@@ -116,7 +123,14 @@ public class Board implements AggregateRoot<BoardTitle> {
 
         return boardTitle.equals(that.boardTitle) && state.equals(that.state);
     }
+    public String toStringStatic() {
 
+        return
+                        "<h2>Title:</h2> " + boardTitle +
+                        "<h2>Number of Rows:</h2> " + numberRows +
+                        "<h2>Number of Columns:</h2> " + numberColumns ;
+
+    }
     @Override
     public String toString() {
         return
@@ -127,5 +141,9 @@ public class Board implements AggregateRoot<BoardTitle> {
                 "State: " + state +
                 "Created on: " + createdOn +
                 "Logs: "; //logs;
+    }
+
+    public Set<BoardCell> getBoardCells() {
+        return cells;
     }
 }

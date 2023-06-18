@@ -1,5 +1,3 @@
-package eapli.ecourse.app.board.server.domain;
-
 import java.io.*;
 import java.net.*;
 
@@ -29,8 +27,10 @@ public class TcpClient
     }
     */
     
-    public static void main(String args[]) throws Exception
+    public static void main(String args1[]) throws Exception
     {
+        String args[] = new String[1];
+        args[0]= "localhost";
         if (args.length != 1)
         {
             System.out.println("Server IPv4/IPv6 address or DNS name is required as argument");

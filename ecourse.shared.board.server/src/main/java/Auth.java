@@ -1,5 +1,3 @@
-package eapli.ecourse.app.board.server.domain;
-
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 

@@ -37,7 +37,7 @@ function loadBoard(option)
     };
     request.onerror = function errorCase()
     {
-        document.getElementById("title").innerHTML = "<h1>Loading Board Title...</h1>"";
+        document.getElementById("title").innerHTML = "<h1>Loading Board Title...</h1>";
         setTimeout(loadBoard, 1000);
     };
 

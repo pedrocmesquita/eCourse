@@ -1,5 +1,3 @@
-package eapli.ecourse.app.board.server.domain;
-
 public class Message
 {
     private byte version;
