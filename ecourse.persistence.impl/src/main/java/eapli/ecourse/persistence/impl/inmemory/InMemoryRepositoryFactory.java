@@ -222,6 +222,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         return null;
     }
 
+
     @Override
     public TransactionalContext newTransactionalContext() {
         // in memory does not support transactions...

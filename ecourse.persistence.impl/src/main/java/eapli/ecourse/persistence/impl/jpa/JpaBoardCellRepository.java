@@ -1,9 +1,7 @@
 package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
-import eapli.ecourse.boardmanagement.newdomain.BoardCell;
-import eapli.ecourse.boardmanagement.newdomain.Log;
-import eapli.ecourse.boardmanagement.newdomain.PostIt;
+import eapli.ecourse.boardmanagement.newdomain.*;
 import eapli.ecourse.boardmanagement.repositories.BoardCellRepository;
 import eapli.ecourse.boardmanagement.repositories.LogRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -22,11 +20,12 @@ public class JpaBoardCellRepository extends JpaAutoTxRepository<BoardCell, Long,
     }
 
     @Override
-    public BoardCell getBoardCellByRowAndCol(int row, int col) {
+    public BoardCell getBoardCellByRowAndCol(BoardRow row, BoardCol col, PostIt post) {
         final TypedQuery<BoardCell> query = entityManager().createQuery(
-                "SELECT b FROM BoardCell b WHERE b.row = :rowParam AND b.column = :colParam", BoardCell.class);
+                "SELECT b FROM BoardCell b WHERE b.row = :rowParam AND b.column = :colParam AND b.postIt= : post", BoardCell.class);
         query.setParameter("rowParam", row);
         query.setParameter("colParam", col);
+        query.setParameter("post", post);
         return query.getSingleResult();
     }
     }

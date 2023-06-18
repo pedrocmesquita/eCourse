@@ -29,11 +29,13 @@ public class ChangePostItController
 
     private final BoardCellRepository cellRepo = PersistenceContext.repositories().cells();
 
+
     private final PostItService postSvc = new PostItService(PersistenceContext.repositories().postIts());
-    public void changePostContent(SystemUser user, BoardTitle boardTitle, int row, int column, Content newContent)
+    public void changePostContent(SystemUser user, BoardTitle boardTitle, int row, int column, Content newContent, PostIt post)
     {
         System.out.println("1");
-        BoardCell cell = cellRepo.getBoardCellByRowAndCol(row, column);
+
+        BoardCell cell = cellRepo.getBoardCellByRowAndCol(new BoardRow(Integer.toString(row),"50"), new BoardCol(Integer.toString(column), "50"),post);
         System.out.println("2");
         cell.getPost().setContent(newContent);
         System.out.println("3");
@@ -42,7 +44,7 @@ public class ChangePostItController
         repo2.save(cell.getPost());
     }
     
-    public void changePostPosition(SystemUser user,BoardTitle boardTitle, int row, int column, int rownew, int columnnew)
+    public void changePostPosition(SystemUser user,BoardTitle boardTitle, int row, int column, int rownew, int columnnew, PostIt post1)
     {
         Board board = repo.getBoardByTitle(boardTitle);
         

@@ -29,18 +29,18 @@ public class ChangePostItUI extends AbstractUI {
         if(option.equals("p")){
             final int col = Console.readInteger("New rolumn of postit:");
             final int row = Console.readInteger("New row of postit:");
-            theController.changePostPosition(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), row, col);
+            theController.changePostPosition(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), row, col,selectedPostIt);
         }
         else if(option.equals("c")){
             final String option1 = Console.readLine("Is the new content text or image? (t/i)");
             final Content content = new Content();
             if(option1.equals("t")){
                 final String text = Console.readLine("Text of postit:");
-                theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(text));
+                theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(text),selectedPostIt);
             }
             else if(option1.equals("i")){
                 final String image = Console.readLine("Image of postit:");
-                theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(image));
+                theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(image),selectedPostIt);
             }
             else{
                 System.out.println("Invalid option");
