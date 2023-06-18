@@ -21,23 +21,27 @@ description: 'Description:' STRING;
 question: matchingQuestion | multipleChoiceQuestion | shortAnswerQuestion | numericalQuestion | selectMissingWordsQuestion | trueFalseQuestion;
 
 matchingQuestion: 'Matching:' STRING matchingPair+;
-matchingPair: 'Question:' STRING (';Answer:' STRING)?;
+matchingPair: 'Question:' STRING answer;
+answer: 'Answer:' STRING;
 
 multipleChoiceQuestion: 'MultipleChoice:' STRING option+;
-option: 'Option:' STRING (';Weight: ' INT)? ;
+option: 'Option:' STRING weight?;
+weight: 'Weight: ' INT ;
 
-shortAnswerQuestion: 'ShortAnswer:' STRING shortAnswer+;
-shortAnswer: 'Answer:' STRING (';Grade: ' INT)?;
+shortAnswerQuestion: 'ShortQuestion:' STRING shortAnswer+;
+shortAnswer: 'Answer:' STRING grade?;
+grade: 'Grade: ' INT;
 
 numericalQuestion: 'Numerical:' STRING numericalAnswer+;
-numericalAnswer: 'Answer:' FLOAT (';AcceptedError: ' FLOAT)?;
+numericalAnswer: 'Answer:' FLOAT acceptedError?;
+acceptedError: 'AcceptedError: ' FLOAT;
 
 selectMissingWordsQuestion: 'SelectMissingWords:' STRING itemGroup+;
-itemGroup: 'Group:' STRING item+;
+itemGroup: 'Group:' STRING item;
 item: 'Item:' STRING;
 
 trueFalseQuestion: 'TrueFalse' STRING trueFalseAnswer;
-trueFalseAnswer: ';Answer:' ('True' | 'False')?;
+trueFalseAnswer: 'Answer:' ('True' | 'False');
 
 STRING: [ a-zA-Z.]+;
 FLOAT: DIGIT+ '.' DIGIT+;
