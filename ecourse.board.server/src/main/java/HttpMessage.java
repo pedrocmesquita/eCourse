@@ -245,7 +245,7 @@ public class HttpMessage
         }
         if (contentType == null)
         {
-            contentType = "text/html";
+            contentType = Shared.CONTENT_TEXT;
         }
         
         int cLen = (int) f.length();

@@ -30,6 +30,9 @@ public final class Shared
     
     public static final String RESPONSE_STATUS_OK =             "200 Ok";
     
+    public static final String RESPONSE_STATUS_BADREQUEST =   "400 Bad request";
+    public static final String RESPONSE_CONTENT_BADREQUEST =  "<html><body><h1>400 Bad Request</h1></body></html>";
+    
     public static final String RESPONSE_STATUS_UNAUTHORIZED =   "401 Unauthorized";
     public static final String RESPONSE_CONTENT_UNAUTHORIZED =  "<html><body><h1>401 Access Unauthorized</h1></body></html>";
     
@@ -37,7 +40,7 @@ public final class Shared
     public static final String RESPONSE_CONTENT_FORBIDDEN =     "<html><body><h1>403 Access Forbidden</h1></body></html>";
     
     public static final String RESPONSE_STATUS_NOTFOUND =       "404 Not Found";
-    public static final String RESPONSE_CONTENT_NOTFOUND =      "<html><body><h1>404 File not found</h1></body></html>";
+    public static final String RESPONSE_CONTENT_NOTFOUND =      "<html><body><h1>404 File not Found</h1></body></html>";
     
     public static final String RESPONSE_STATUS_NOMETHOD =       "405 Invalid Method";
     public static final String RESPONSE_CONTENT_NOMETHOD =      "<html><body><h1>ERROR: 405 Method Not Allowed</h1></body></html>";
