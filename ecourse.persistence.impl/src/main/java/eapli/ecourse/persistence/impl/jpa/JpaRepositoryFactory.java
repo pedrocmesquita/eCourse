@@ -27,6 +27,7 @@ import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestRepository;
 import eapli.ecourse.exammanagement.repositories.ExamRepository;
 import eapli.ecourse.exammanagement.repositories.ExamsInCourseRepository;
+import eapli.ecourse.exammanagement.repositories.GradeRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.ClientInExamRepository;
 import eapli.ecourse.usertypemanagement.studentusermanagement.repositories.StudentsInCourseRepository;
 import eapli.ecourse.usertypemanagement.teacherusermanagement.repositories.TeachersInCourseRepository;
@@ -211,4 +212,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaBoardPermissionRepository(Application.settings().getPersistenceUnitName());
     }
 
+    @Override
+    public GradeRepository grades(final TransactionalContext autoTx) {
+        return new JpaGradeRepository(autoTx);
+    }
+
+    @Override
+    public GradeRepository grades() {
+        return new JpaGradeRepository(Application.settings().getPersistenceUnitName());
+    }
 }

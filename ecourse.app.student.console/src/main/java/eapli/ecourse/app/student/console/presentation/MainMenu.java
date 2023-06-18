@@ -30,6 +30,7 @@ import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
 import eapli.ecourse.app.common.console.presentation.boards.ViewBoardHistoryUI;
 import eapli.ecourse.app.student.console.presentation.enrollment.RequestEnrollmentUI;
 import eapli.ecourse.app.student.console.presentation.exam.ListStudentExamsUI;
+import eapli.ecourse.app.student.console.presentation.exam.TakeExamUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -89,6 +90,7 @@ class MainMenu extends StudentUserBaseUI
 
     //EXAM
     private static final int LIST_EXAMS_OPTION = 1;
+    private static final int TAKE_EXAM_OPTION = 2;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     
@@ -193,6 +195,7 @@ class MainMenu extends StudentUserBaseUI
         final Menu examsMenu = new Menu("Exams  >");
         
         examsMenu.addItem(LIST_EXAMS_OPTION, "View List of my future Exams", new ListStudentExamsUI()::show);
+        examsMenu.addItem(TAKE_EXAM_OPTION, "Take an Exam", new TakeExamUI()::show);
         examsMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
         
         return examsMenu;

@@ -212,6 +212,15 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public JpaBoardPermissionRepository boardPermissions() {
         return null;
     }
+    @Override
+    public JpaGradeRepository grades(final TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JpaGradeRepository grades() {
+        return null;
+    }
 
     @Override
     public TransactionalContext newTransactionalContext() {

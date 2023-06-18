@@ -18,6 +18,7 @@
         <class>eapli.ecourse.exammanagement.domain.Exam</class>
         <class>eapli.ecourse.exammanagement.domain.Section</class>
         <class>eapli.ecourse.exammanagement.domain.Question</class>
+        <class>eapli.ecourse.exammanagement.domain.Grade</class>
         <class>eapli.ecourse.classmanagement.domain.SchClass</class>
         <class>eapli.ecourse.enrollmentmanagement.domain.EnrollmentRequest</class>
         <class>eapli.ecourse.boardmanagement.newdomain.Board</class>

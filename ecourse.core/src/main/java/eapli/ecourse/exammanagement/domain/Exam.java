@@ -8,6 +8,7 @@ import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Exam implements AggregateRoot<Designation> {
@@ -40,6 +41,9 @@ public class Exam implements AggregateRoot<Designation> {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Section> sections;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Grade> grades;
+
     protected Exam() {
         //ORM only
     }
@@ -62,6 +66,9 @@ public class Exam implements AggregateRoot<Designation> {
         this.setting = setting;
         this.date = date;
         this.sections = sections;
+    }
+    public boolean addGrade(Grade grade) {
+        return this.grades.add(grade);
     }
 
     @Override
