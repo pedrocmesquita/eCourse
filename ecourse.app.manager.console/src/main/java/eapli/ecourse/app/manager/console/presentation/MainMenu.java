@@ -25,6 +25,7 @@ package eapli.ecourse.app.manager.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
+import eapli.ecourse.app.common.console.presentation.boards.ViewBoardHistoryUI;
 import eapli.ecourse.app.manager.console.presentation.authz.AddUserUI;
 import eapli.ecourse.app.manager.console.presentation.authz.DeactivateUserAction;
 import eapli.ecourse.app.manager.console.presentation.authz.ListUsersAction;
@@ -74,8 +75,11 @@ public class MainMenu extends AbstractUI {
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
+    
+    // BOARDS
     private static final int SET_USER_CREATE_BOARD_OPTION = 1;
     private static final int SHARE_BOARD_OPTION = 2;
+    private static final int VIEW_BOARD_HISTORY_OPTION = 3;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
@@ -151,6 +155,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(SET_USER_CREATE_BOARD_OPTION, "Create Board",
                 new CreateBoardUI()::show);
         menu.addItem(SHARE_BOARD_OPTION, "Share Board", new ShareBoardUI()::show);
+        menu.addItem(VIEW_BOARD_HISTORY_OPTION, "View Board History", new ViewBoardHistoryUI()::show);
 
 
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);

@@ -27,6 +27,7 @@ import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
 import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
 import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
+import eapli.ecourse.app.common.console.presentation.boards.ViewBoardHistoryUI;
 import eapli.ecourse.app.student.console.presentation.enrollment.RequestEnrollmentUI;
 import eapli.ecourse.app.student.console.presentation.exam.ListStudentExamsUI;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
@@ -76,8 +77,11 @@ class MainMenu extends StudentUserBaseUI
     
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
+    
+    //BOARDS
     private static final int SET_USER_CREATE_BOARD_OPTION = 1;
     private static final int SHARE_BOARD_OPTION = 2;
+    private static final int VIEW_BOARD_HISTORY_OPTION = 3;
     
     //COURSE
 
@@ -177,6 +181,7 @@ class MainMenu extends StudentUserBaseUI
                 new CreateBoardUI()::show);
 
         menu.addItem(SHARE_BOARD_OPTION, "Share Board", new ShareBoardUI()::show);
+        menu.addItem(VIEW_BOARD_HISTORY_OPTION, "View Board History", new ViewBoardHistoryUI()::show);
 
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 

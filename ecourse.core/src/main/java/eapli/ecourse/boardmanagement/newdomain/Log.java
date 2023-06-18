@@ -51,9 +51,8 @@ public class Log implements AggregateRoot<Long> {
     @Override
     public String toString() {
         return
-                "LogID: " + logId +
-                "Description: " + description +
-                "Created on:" + createdOn;
+                //logId + ": " +
+                createdOn.getTime() + ": " + description;
     }
 
     @Override
