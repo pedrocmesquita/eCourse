@@ -30,7 +30,7 @@ public class Log implements AggregateRoot<Long> {
         //ORM
     }
 
-    protected Log(String description) {
+    public Log(String description) {
         this.description = description;
         this.createdOn = CurrentTimeCalendars.now();
     }

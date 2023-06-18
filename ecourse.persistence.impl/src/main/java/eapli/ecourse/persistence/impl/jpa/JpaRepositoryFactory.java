@@ -21,10 +21,7 @@
 package eapli.ecourse.persistence.impl.jpa;
 
 import eapli.ecourse.Application;
-import eapli.ecourse.boardmanagement.repositories.BoardCellRepository;
-import eapli.ecourse.boardmanagement.repositories.BoardRepository;
-import eapli.ecourse.boardmanagement.repositories.LogRepository;
-import eapli.ecourse.boardmanagement.repositories.PostItRepository;
+import eapli.ecourse.boardmanagement.repositories.*;
 import eapli.ecourse.classmanagement.repositories.ClassRepository;
 import eapli.ecourse.coursemanagement.repositories.CourseRepository;
 import eapli.ecourse.enrollmentmanagement.repositories.EnrollmentRequestRepository;
@@ -202,6 +199,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public PostItRepository postIts() {
         return new JpaPostItRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public BoardPermissionRepository boardPermissions(final TransactionalContext autoTx) {
+        return new JpaBoardPermissionRepository(autoTx);
+    }
+
+    @Override
+    public BoardPermissionRepository boardPermissions() {
+        return new JpaBoardPermissionRepository(Application.settings().getPersistenceUnitName());
     }
 
 }

@@ -204,6 +204,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public JpaBoardPermissionRepository boardPermissions(final TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JpaBoardPermissionRepository boardPermissions() {
+        return null;
+    }
+
+    @Override
     public TransactionalContext newTransactionalContext() {
         // in memory does not support transactions...
         return null;

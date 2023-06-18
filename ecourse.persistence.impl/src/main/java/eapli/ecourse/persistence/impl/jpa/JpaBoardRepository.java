@@ -5,6 +5,7 @@ import eapli.ecourse.boardmanagement.newdomain.Board;
 import eapli.ecourse.boardmanagement.newdomain.BoardTitle;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import javax.persistence.TypedQuery;
@@ -24,6 +25,14 @@ public class JpaBoardRepository extends JpaAutoTxRepository<Board, Long, BoardTi
                 "SELECT b FROM Board b WHERE b.boardTitle = :boardTitleParam", Board.class);
         query.setParameter("boardTitleParam", title);
         return query.getSingleResult();
+    }
+
+    @Override
+    public Iterable<Board> findByOwner(SystemUser boardOwner) {
+        final TypedQuery<Board> query = entityManager().createQuery(
+                "SELECT b FROM Board b WHERE b.boardOwner = :boardOwnerParam", Board.class);
+        query.setParameter("boardOwnerParam", boardOwner);
+        return query.getResultList();
     }
 
 }

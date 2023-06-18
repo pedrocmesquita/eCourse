@@ -1,8 +1,11 @@
 package eapli.ecourse.boardmanagement.application;
 
-import eapli.ecourse.boardmanagement.domain.*;
+import eapli.ecourse.boardmanagement.newdomain.*;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.coursemanagement.domain.Course;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
+import eapli.ecourse.usermanagement.domain.BaseRoles;
+import eapli.ecourse.usertypemanagement.teacherusermanagement.domain.Acronym;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
@@ -11,31 +14,34 @@ import eapli.framework.validations.Preconditions;
 
 import java.util.Optional;
 
-public class ShareBoardController
-{
-    /*
+public class ShareBoardController{
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final BoardRepository repo = PersistenceContext.repositories().boards();
-    
-    Optional<UserSession> session = authz.session();
-    SystemUser user = session.get().authenticatedUser();
 
-    public void shareBoard(BoardTitle boardTitle, String username, boolean write)
-    {
-        Board board = repo.getBoardByTitle(boardTitle);
-        
-        //if board found
-        Preconditions.ensure(board != null, "Board with title " + boardTitle + " not found.");
-        
-        //if user is board owner
-        Preconditions.ensure(board.boardOwner().equals(user),
-                "You must own the board to share it with another user.");
-        
-        //when sharing a board, assume READ permissions by default
-        AccessLevel al = write ? new AccessLevel(AccessLevelType.WRITE.toString()) :
-                new AccessLevel(AccessLevelType.READ.toString());
-        
-        board.addPermission(new BoardPermission(user, al));
+    public Iterable<Board> findBoardsByOwner(SystemUser user) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.TEACHER, BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.STUDENT);
+        return repo.findByOwner(user);
     }
-    */
+
+    public SystemUser getUser(){
+        Optional<UserSession> session = authz.session();
+        if(session.isEmpty())
+            throw new IllegalArgumentException("No user authentication");
+        SystemUser user = session.get().authenticatedUser();
+        return user;
+    }
+
+    public void shareBoard(Board board, SystemUser user, boolean write){
+        if (write == true) {
+            addPermission(board, new BoardPermission(user, AccessLevel.WRITE));
+        } else if (write == false){
+            addPermission(board, new BoardPermission(user, AccessLevel.READ));
+        }
+    }
+
+    public void addPermission(Board board, final BoardPermission boardPermissionp) {
+        board.addPermission(boardPermissionp);
+        board.addLog(new Log("Permissions added: " + boardPermissionp.toString()));
+        repo.save(board);
+    }
 }
