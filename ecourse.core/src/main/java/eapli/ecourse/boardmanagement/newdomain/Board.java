@@ -80,7 +80,7 @@ public class Board implements AggregateRoot<BoardTitle> {
     public BoardCell getCellByRowColumn(int row, int column)
     {
         BoardCell[] cells1 = cells.toArray(new BoardCell[cells.size()]);
-        return cells1[(row * numberColumns )- (numberColumns-column)];
+        return cells1[(row * numberColumns )- (numberColumns-column)-1];//-1 because array starts at 0
     }
 
     public SystemUser boardOwner() {
