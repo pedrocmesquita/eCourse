@@ -18,7 +18,7 @@ public class BoardPermission implements AggregateRoot<Long> {
     /**
      * SystemUser that have permission in specific board.
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private SystemUser SystemUser;
 

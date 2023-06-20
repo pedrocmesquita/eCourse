@@ -38,7 +38,7 @@ public class Board implements AggregateRoot<BoardTitle> {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BoardCell> cells;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BoardPermission> boardPermissions;
 
 
