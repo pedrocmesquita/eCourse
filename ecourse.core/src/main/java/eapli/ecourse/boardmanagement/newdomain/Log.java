@@ -18,7 +18,7 @@ public class Log implements AggregateRoot<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Board id;
 
     private String description;

@@ -55,11 +55,12 @@ public class CreateBoardController {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
         return boardCellRepository.save(new BoardCell(row,column));
     }
-    public BoardCell createBoardCell(BoardRow row, BoardCol column,Board board) {
+    public String createBoardCell(BoardRow row, BoardCol column,Board board) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.nonUserValues());
         board.addCell(new BoardCell(row,column));
         boardRepository.save(board);
-        return this.boardCellRepository.save(new BoardCell(row,column));
+        this.boardCellRepository.save(new BoardCell(row,column));
+        return board.toString();
     }
 
     public BoardCell createBoardEntry(final BoardRow boardRowp,

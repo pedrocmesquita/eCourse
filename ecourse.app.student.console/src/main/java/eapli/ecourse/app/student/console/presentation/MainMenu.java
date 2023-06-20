@@ -25,9 +25,7 @@ package eapli.ecourse.app.student.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
-import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
-import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
-import eapli.ecourse.app.common.console.presentation.boards.ViewBoardHistoryUI;
+import eapli.ecourse.app.common.console.presentation.boards.*;
 import eapli.ecourse.app.student.console.presentation.enrollment.RequestEnrollmentUI;
 import eapli.ecourse.app.student.console.presentation.exam.ListStudentExamsUI;
 import eapli.ecourse.app.student.console.presentation.exam.TakeExamUI;
@@ -83,7 +81,9 @@ class MainMenu extends StudentUserBaseUI
     private static final int SET_USER_CREATE_BOARD_OPTION = 1;
     private static final int SHARE_BOARD_OPTION = 2;
     private static final int VIEW_BOARD_HISTORY_OPTION = 3;
-    
+    private static final int CREATE_POSTIT_OPTION = 4;
+    private static final int EDIT_POSTIT_OPTION = 5;
+    private static final int UNDO_POSTIT_OPTION = 6;
     //COURSE
 
     private static final int ENROLL_OPTION = 1;
@@ -184,6 +184,9 @@ class MainMenu extends StudentUserBaseUI
 
         menu.addItem(SHARE_BOARD_OPTION, "Share Board", new ShareBoardUI()::show);
         menu.addItem(VIEW_BOARD_HISTORY_OPTION, "View Board History", new ViewBoardHistoryUI()::show);
+        menu.addItem(CREATE_POSTIT_OPTION, "Create PostIt", new CreatePostItsUI()::show);
+        menu.addItem(EDIT_POSTIT_OPTION, "Edit PostIt", new ChangePostItUI()::show);
+        menu.addItem(UNDO_POSTIT_OPTION, "Undo PostIt", new UndoPostItUI()::show);
 
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 

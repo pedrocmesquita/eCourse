@@ -6,6 +6,7 @@ import eapli.ecourse.boardmanagement.newdomain.Log;
 import eapli.ecourse.boardmanagement.newdomain.Board;
 import eapli.ecourse.boardmanagement.repositories.BoardPermissionRepository;
 import eapli.ecourse.boardmanagement.repositories.BoardRepository;
+import eapli.ecourse.boardmanagement.repositories.LogRepository;
 import eapli.ecourse.infrastructure.persistence.PersistenceContext;
 import eapli.ecourse.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -23,6 +24,8 @@ public class ViewBoardHistoryController
     
     private final BoardRepository repo = PersistenceContext.repositories().boards();
     private final BoardPermissionRepository repo1 = PersistenceContext.repositories().boardPermissions();
+
+    private final LogRepository repo3 = PersistenceContext.repositories().logs();
 
     
     public ViewBoardHistoryController(){}

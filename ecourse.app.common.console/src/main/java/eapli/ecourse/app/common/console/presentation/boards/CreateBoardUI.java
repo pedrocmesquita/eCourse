@@ -34,7 +34,7 @@ public class CreateBoardUI extends AbstractUI {
                 for (int j = 1; j <= boardNCols; j++) {
                     System.out.println("Board Row position -> " + i);
                     System.out.println("Board Column position -> " + j);
-                    theController.createBoardCell(new BoardRow(Integer.toString(i),Integer.toString(boardNRows)),new BoardCol(Integer.toString(j),Integer.toString(boardNCols)),board);
+                    System.out.println(theController.createBoardCell(new BoardRow(Integer.toString(i),Integer.toString(boardNRows)),new BoardCol(Integer.toString(j),Integer.toString(boardNCols)),board));
                 }
             }
 

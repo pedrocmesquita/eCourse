@@ -6,9 +6,9 @@ public class TcpClient
     private static InetAddress serverIP;
     private static Socket sock;
     
-    public static void main(String args[])
+    public static void main(String args1[])
     {
-        args[0]= "localhost";   //temp
+        String args[] = {"localhost"};
         if (args.length != 1)
         {
             System.out.println("Server IPv4/IPv6 address or DNS name is required as argument");

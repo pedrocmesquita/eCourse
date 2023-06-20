@@ -31,17 +31,15 @@ public class ChangePostItController
 
 
     private final PostItService postSvc = new PostItService(PersistenceContext.repositories().postIts());
-    public void changePostContent(SystemUser user, BoardTitle boardTitle, int row, int column, Content newContent, PostIt post)
+    public PostIt changePostContent(SystemUser user, BoardTitle boardTitle, int row, int column, Content newContent, PostIt post)
     {
-        System.out.println("1");
 
         BoardCell cell = cellRepo.getBoardCellByRowAndCol(new BoardRow(Integer.toString(row),"50"), new BoardCol(Integer.toString(column), "50"),post);
-        System.out.println("2");
-        cell.getPost().setContent(newContent);
-        System.out.println("3");
+        //cell.getPost().setBackup(cell.getPost());
+        Preconditions.ensure(cell.getPost().setContent(newContent),"Failure in changing post content.");
         cellRepo.save(cell);
-        System.out.println("4");
         repo2.save(cell.getPost());
+        return cell.getPost();
     }
     
     public void changePostPosition(SystemUser user,BoardTitle boardTitle, int row, int column, int rownew, int columnnew, PostIt post1)

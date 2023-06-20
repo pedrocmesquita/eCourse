@@ -25,8 +25,7 @@ package eapli.ecourse.app.teacher.console.presentation;
 
 import eapli.ecourse.Application;
 import eapli.ecourse.app.common.console.presentation.authz.MyUserMenu;
-import eapli.ecourse.app.common.console.presentation.boards.ShareBoardUI;
-import eapli.ecourse.app.common.console.presentation.boards.ViewBoardHistoryUI;
+import eapli.ecourse.app.common.console.presentation.boards.*;
 import eapli.ecourse.app.teacher.console.presentation.course.ListCourseExamsUI;
 import eapli.ecourse.app.teacher.console.presentation.exam.CreateExamUI;
 import eapli.ecourse.app.teacher.console.presentation.classes.ScheduleClassUI;
@@ -44,7 +43,6 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
-import eapli.ecourse.app.common.console.presentation.boards.CreateBoardUI;
 
 /**
  * TODO split this class in more specialized classes for each menu
@@ -69,6 +67,10 @@ public class MainMenu extends AbstractUI {
     private static final int SET_USER_CREATE_BOARD_OPTION = 1;
     private static final int SHARE_BOARD_OPTION = 2;
     private static final int VIEW_BOARD_HISTORY_OPTION = 3;
+
+    private static final int CREATE_POSTIT_OPTION = 4;
+    private static final int EDIT_POSTIT_OPTION = 5;
+    private static final int UNDO_POSTIT_OPTION = 6;
 
 
     //COURSE
@@ -127,6 +129,9 @@ public class MainMenu extends AbstractUI {
         menu.addItem(SHARE_BOARD_OPTION, "Share Board",
                 new ShareBoardUI()::show);
         menu.addItem(VIEW_BOARD_HISTORY_OPTION, "View Board History", new ViewBoardHistoryUI()::show);
+        menu.addItem(CREATE_POSTIT_OPTION, "Create PostIt", new CreatePostItsUI()::show);
+        menu.addItem(EDIT_POSTIT_OPTION, "Edit PostIt", new ChangePostItUI()::show);
+        menu.addItem(UNDO_POSTIT_OPTION, "Undo PostIt", new UndoPostItUI()::show);
 
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 

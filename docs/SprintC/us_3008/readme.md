@@ -1,18 +1,66 @@
-package eapli.ecourse.boardmanagement.application;
+# US 3008 - As a User, I want to undo the last change in a post-it
 
-import eapli.ecourse.boardmanagement.newdomain.*;
-import eapli.ecourse.boardmanagement.repositories.*;
-import eapli.ecourse.infrastructure.persistence.PersistenceContext;
-import eapli.ecourse.usermanagement.domain.BaseRoles;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.application.UserSession;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.validations.Preconditions;
+## 1. Context
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+> In this user story, we will have to undo a post-it which ultimately means that we need to have a history of the changes, so the post-it will hold its past state (a newly created post-it will have that at null).
+
+> There is another case we have to think separately, undoing a deleted post-it, so we will treat this user story as if it was two different user stories.
+
+> For undoing a post-it, it will search its previous reference and insert it in the database as a new one.
+
+> For undoing a deleted post-it, we will click undo post-it in an empty board entry, and if it has a previous reference, the old post-it will pop up in that position.
+
+## 2. Requirements
+
+> In order for the post-it to be undone, we need to have **post-its** in a **board** and a **history** of the changes.
+
+So, the predefined dependencies are:
+
+- US 3005 (we need to view the board in order to undo a post-it)
+- US 3006 (we need to have post-its in the board in order to undo one)
+- US 3007 (we need to have a history of the changes in order to undo a post-it)
+
+> Related to authorization, the only rule we have is that the user must be logged in and have access to the board, which is previously verified in the dependencies.
+Any type of user can undo a post-it, so no need for server-side authorization, just the login.
+## 3. Analysis
+
+## 4. Design
+
+### 4.1. Realization
+
+### 4.2. Class Diagram
+
+### 4.3. Applied Patterns
+
+### 4.4. Tests
+
+
+## 5. Implementation
+```java
+public class UndoPostItUI extends AbstractUI {
+    private final UndoPostItController theController = new UndoPostItController();
+    private final SelectBoardWidget boardWidget = new SelectBoardWidget(theController.findBoards(theController.getUser()));
+@Override
+    protected boolean doShow() {
+        System.out.println("Select a Board to undo a postit in ");
+        final Board selectedBoard = boardWidget.selectBoard();
+        if (selectedBoard == null)
+            return false;
+        final SelectPostItWidget postItWidget = new SelectPostItWidget(theController.findPostItsByOwner(selectedBoard, theController.getUser()));
+        System.out.println("Select a PostIt to undo");
+        final PostIt selectedPostIt = postItWidget.selectPostIts();
+        if (selectedPostIt == null)
+            return false;
+        theController.rollbackPost(selectedBoard, selectedPostIt);
+    System.out.println("PostIt undone");
+        return false;
+    }
+
+    @Override
+    public String headline() {
+        return "Undo changes to PostIt";
+    }
+}
 
 public class UndoPostItController
 {
@@ -87,3 +135,8 @@ public class UndoPostItController
         return repo2.getPostItsByOwner(selectedBoard,user);
     }
 }
+
+```
+```java
+
+## 6. Integration/Demonstration

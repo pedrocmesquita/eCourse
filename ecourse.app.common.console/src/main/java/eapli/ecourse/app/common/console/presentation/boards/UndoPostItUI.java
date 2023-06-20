@@ -20,6 +20,7 @@ public class UndoPostItUI extends AbstractUI {
         if (selectedPostIt == null)
             return false;
         theController.rollbackPost(selectedBoard, selectedPostIt);
+    System.out.println("PostIt undone");
         return false;
     }
 

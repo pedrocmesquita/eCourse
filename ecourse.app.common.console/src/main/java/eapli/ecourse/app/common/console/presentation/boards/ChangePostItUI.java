@@ -36,11 +36,13 @@ public class ChangePostItUI extends AbstractUI {
             final Content content = new Content();
             if(option1.equals("t")){
                 final String text = Console.readLine("Text of postit:");
-                theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(text),selectedPostIt);
+                PostIt post = theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(text),selectedPostIt);
+                System.out.println("PostIt changed to"+ post.toString());
             }
             else if(option1.equals("i")){
                 final String image = Console.readLine("Image of postit:");
-                theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(image),selectedPostIt);
+                PostIt post =theController.changePostContent(theController.getUser(), selectedBoard.identity(),selectedPostIt.getRow().value(),selectedPostIt.getColumn().value(), content.createContentText(image),selectedPostIt);
+                System.out.println("PostIt changed to"+ post.toString());
             }
             else{
                 System.out.println("Invalid option");

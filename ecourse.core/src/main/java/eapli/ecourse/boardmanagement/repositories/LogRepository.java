@@ -6,4 +6,5 @@ import eapli.framework.domain.repositories.DomainRepository;
 
 public interface LogRepository extends DomainRepository<Long, Log> {
 
+    Iterable<Log> getLogByBoard(Board board);
 }

@@ -80,7 +80,7 @@ public class Board implements AggregateRoot<BoardTitle> {
     public BoardCell getCellByRowColumn(int row, int column)
     {
         BoardCell[] cells1 = cells.toArray(new BoardCell[cells.size()]);
-        return cells1[(row * numberColumns )* column];
+        return cells1[(row * numberColumns )- (numberColumns-column)];
     }
 
     public SystemUser boardOwner() {
@@ -146,12 +146,12 @@ public class Board implements AggregateRoot<BoardTitle> {
     public String toString() {
         return
                 "BoardID: " + boardId +
-                "Title: " + boardTitle +
-                "Number of Rows: " + numberRows +
-                "Number of Columns: " + numberColumns +
-                "State: " + state +
-                "Created on: " + createdOn +
-                "Logs: "; //logs;
+                " Title: " + boardTitle +
+                " Number of Rows: " + numberRows +
+                " Number of Columns: " + numberColumns +
+                " State: " + state +
+                " Created on: " + createdOn.getTime() ;
+                //"Logs: "; //logs;
     }
 
     public Set<BoardCell> getBoardCells() {

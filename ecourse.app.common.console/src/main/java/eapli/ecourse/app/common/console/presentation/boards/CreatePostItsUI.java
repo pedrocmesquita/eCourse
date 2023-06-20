@@ -24,11 +24,11 @@ public class CreatePostItsUI extends AbstractUI {
         final String option = Console.readLine("Is the content text or image? (t/i)");
         if(option.equals("t")){
             final String text = Console.readLine("Text of postit:");
-            theController.attemptCreatePost(selectedBoard, row, col, text, null);
+            System.out.println(theController.attemptCreatePost(selectedBoard, row, col, text, null).toString());
         }
         else if(option.equals("i")){
             final String image = Console.readLine("Image of postit:");
-            theController.attemptCreatePost(selectedBoard, row, col, null, image);
+            System.out.println(theController.attemptCreatePost(selectedBoard, row, col, null, image).toString());
         }
         else{
             System.out.println("Invalid option");

@@ -32,7 +32,7 @@ public class CreatePostItController
         Optional<UserSession> session = authz.session();
         SystemUser user = session.get().authenticatedUser();
         //if cell exists
-        //Preconditions.ensure(board.getCellByRowColumn(row, column) != null, "Specified cell in row" + row + "column"+column +" doesn't exist.");
+        Preconditions.ensure(board.getCellByRowColumn(row, column) != null, "Specified cell in row" + row + "column"+column +" doesn't exist.");
         Content cont = new Content();
         //create content with text, if it exists
         if (text != null)

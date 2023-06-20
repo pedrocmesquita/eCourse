@@ -20,4 +20,10 @@ public class JpaLogRepository extends JpaAutoTxRepository<Log, Long, Long> imple
     public JpaLogRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "logId");
     }
+    public Iterable<Log> getLogByBoard(Board board) {
+        final TypedQuery<Log> query = entityManager().createQuery(
+                "SELECT l FROM Log l WHERE l.id = :boardParam", Log.class);
+        query.setParameter("boardParam", board);
+        return query.getResultList();
+    }
 }

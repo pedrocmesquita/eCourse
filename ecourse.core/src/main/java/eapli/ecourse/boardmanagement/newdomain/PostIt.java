@@ -1,5 +1,6 @@
 package eapli.ecourse.boardmanagement.newdomain;
 
+import eapli.ecourse.boardmanagement.repositories.LogRepository;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
@@ -59,12 +60,12 @@ public PostIt(Board board, BoardCell cell, SystemUser owner, Content content){
     public String toString() {
         return
                 "PostIt ID: " + postItId +
-                "Board: " + board +
-                "Cell: " + cell +
-                "Owner: " + owner +
-                "Content: " + content +
-                "Date: " + date +
-                "Backup" + backup;
+                " Board: " + board +
+                " Cell: " + cell.identity() +
+                " Owner: " + owner +
+                " Content: " + content +
+                " Date: " + date.getTime();
+                //"Backup" + backup;
     }
 
     @Override
@@ -116,8 +117,10 @@ public PostIt(Board board, BoardCell cell, SystemUser owner, Content content){
         return true;
     }
 
-    public void setContent(Content newContent) {
+    public boolean setContent(Content newContent) {
     this.content = newContent;
+    this.backup = this;
+    return true;
     }
 
     public void setBackup(PostIt post) {
@@ -131,12 +134,11 @@ public PostIt(Board board, BoardCell cell, SystemUser owner, Content content){
     {
         PostIt temp = backup;
         this.cell.setPost(null);
-        saveBackup();
+        this.backup= this;
         this.cell = temp.getCell();
         this.cell.setPost(this);
         this.content = temp.getContent();
-        board.addLog(new Log("Post-it changes undone: " + this.toString()));
-    }
+        }
     public boolean rollbackPost()
     {
         PostIt post = backup.getCell().getPost();
@@ -148,9 +150,8 @@ public PostIt(Board board, BoardCell cell, SystemUser owner, Content content){
                 return false;   //dont rollback
             }
         }
-
         replacePostWithBackup();    //rollback the post
-        board.addLog(new Log("Post-it rolled back: " + this.toString()));
+        //board.addLog(new Log("Post-it rolled back: " + this));
         return true;
     }
     private void saveBackup() {
