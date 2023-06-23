@@ -1,0 +1,194 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+enum AccessLevel << enumeration >> {
+  + values(): AccessLevel[]
+  + valueOf(String): AccessLevel
+}
+class Board {
+  - numberRows: int
+  - logs: Set<Log>
+  - boardPermissions: Set<BoardPermission>
+  - numberColumns: int
+  + addPermission(BoardPermission): void
+  + boardOwner(): SystemUser
+  + toStringStatic(): String
+  + toString(): String
+  + addCell(BoardCell): void
+  + addLog(Log): void
+  + state(): BoardState
+  + userHasPermission(SystemUser, AccessLevel): boolean
+  + identity(): BoardTitle
+  + equals(Object): boolean
+  + getCellByRowColumn(int, int): BoardCell
+  + addCells(Set<BoardCell>): void
+  + sameAs(Object): boolean
+  + hashCode(): int
+   numberColumns: int
+   boardCells: Set<BoardCell>
+   logs: Set<Log>
+   numberRows: int
+   boardPermissions: Set<BoardPermission>
+}
+class BoardCell {
+  - row: BoardRow
+  - column: BoardCol
+  + hashCode(): int
+  + sameAs(Object): boolean
+  + equals(Object): boolean
+  + toString(): String
+  + identity(): Long
+   row: BoardRow
+   post: PostIt
+   column: BoardCol
+}
+interface BoardCellRepository << interface >> {
+  + getBoardCellByRowAndCol(BoardRow, BoardCol, PostIt): BoardCell
+}
+class BoardCol {
+  + value(): int
+}
+class BoardPermission {
+  + equals(Object): boolean
+  + identity(): Long
+  + accessLevel(): AccessLevel
+  + userWithPermission(): SystemUser
+  + toString(): String
+  + sameAs(Object): boolean
+  + hashCode(): int
+}
+interface BoardPermissionRepository << interface >> {
+  + findBySystemUserAccessLevel(SystemUser, AccessLevel): Iterable<BoardPermission>
+}
+interface BoardRepository << interface >> {
+  + findByBoardPermission(BoardPermission): Board
+  + getBoardByTitle(BoardTitle): Board
+  + findByOwner(SystemUser): Iterable<Board>
+}
+class BoardRow {
+  + value(): int
+}
+enum BoardState << enumeration >> {
+  + values(): BoardState[]
+  + valueOf(String): BoardState
+}
+class BoardTitle {
+  + hashCode(): int
+  + compareTo(BoardTitle): int
+  + toString(): String
+  + of(String): BoardTitle
+  + equals(Object): boolean
+   boardTitle: String
+}
+class Content {
+  + createContentImage(String): Content
+  + createContentText(String): Content
+}
+class CreatePostItController {
+  + findBoardsByUserPermission(SystemUser, AccessLevel): Iterable<Board>
+  + attemptCreatePost(Board, int, int, String, String): PostIt
+  + findBoards(SystemUser, AccessLevel): Iterable<Board>
+  + findBoardsByOwner(SystemUser): Iterable<Board>
+   user: SystemUser
+}
+class CreatePostItsUI {
+  + headline(): String
+  # doShow(): boolean
+}
+class JpaBoardCellRepository {
+  + getBoardCellByRowAndCol(BoardRow, BoardCol, PostIt): BoardCell
+}
+class JpaBoardPermissionRepository {
+  + findBySystemUserAccessLevel(SystemUser, AccessLevel): Iterable<BoardPermission>
+}
+class JpaBoardRepository {
+  + findByBoardPermission(BoardPermission): Board
+  + findByOwner(SystemUser): Iterable<Board>
+  + getBoardByTitle(BoardTitle): Board
+}
+class JpaPostItRepository {
+  + getPostItsByOwner(Board, SystemUser): Iterable<PostIt>
+  + getPostItByBoardCell(BoardCell): PostIt
+  + getPostItsByBoard(Board): Iterable<PostIt>
+}
+class Log {
+  + equals(Object): boolean
+  + toString(): String
+  + hashCode(): int
+  + identity(): Long
+  + sameAs(Object): boolean
+}
+class PostIt {
+  - content: Content
+  - board: Board
+  - cell: BoardCell
+  - backup: PostIt
+  - owner: SystemUser
+  - saveBackup(): void
+  + rollbackPost(): boolean
+  + toString(): String
+  + identity(): Long
+  + sameAs(Object): boolean
+  + relocate(BoardCell): boolean
+  - replacePostWithBackup(): void
+  + equals(Object): boolean
+  + hashCode(): int
+  + setContent(Content): boolean
+   column: BoardCol
+   row: BoardRow
+   owner: SystemUser
+   cell: BoardCell
+   board: Board
+   backup: PostIt
+   content: Content
+}
+class PostItFactory {
+  + create(Board, BoardCell, SystemUser, Content): PostIt
+}
+interface PostItRepository << interface >> {
+  + getPostItsByBoard(Board): Iterable<PostIt>
+  + getPostItsByOwner(Board, SystemUser): Iterable<PostIt>
+  + getPostItByBoardCell(BoardCell): PostIt
+}
+class PostItService {
+  + createPostIt(Board, BoardCell, SystemUser, Content): PostIt
+  + getPostItByBoardCell(BoardCell): PostIt
+  + getBoardCellByRowColumn(BoardRow, BoardCol, PostIt): BoardCell
+}
+
+Board                         -[#595959,dashed]->  BoardCell                    : "«create»"
+Board                        "1" *-[#595959,plain]-> "cells\n*" BoardCell                    
+Board                        "1" *-[#595959,plain]-> "boardPermissions\n*" BoardPermission              
+Board                        "1" *-[#595959,plain]-> "state\n1" BoardState                   
+Board                        "1" *-[#595959,plain]-> "boardTitle\n1" BoardTitle                   
+Board                        "1" *-[#595959,plain]-> "logs\n*" Log                          
+Board                         -[#595959,dashed]->  Log                          : "«create»"
+BoardCell                    "1" *-[#595959,plain]-> "column\n1" BoardCol                     
+BoardCell                    "1" *-[#595959,plain]-> "row\n1" BoardRow                     
+BoardCell                    "1" *-[#595959,plain]-> "postIt\n1" PostIt                       
+BoardPermission              "1" *-[#595959,plain]-> "accessLevel\n1" AccessLevel                  
+CreatePostItController       "1" *-[#595959,plain]-> "cellRepo\n1" BoardCellRepository          
+CreatePostItController       "1" *-[#595959,plain]-> "repo1\n1" BoardPermissionRepository    
+CreatePostItController       "1" *-[#595959,plain]-> "repo\n1" BoardRepository              
+CreatePostItController        -[#595959,dashed]->  Content                      : "«create»"
+CreatePostItController        -[#595959,dashed]->  PostItService                : "«create»"
+CreatePostItController       "1" *-[#595959,plain]-> "postSvc\n1" PostItService                
+CreatePostItsUI              "1" *-[#595959,plain]-> "accessLevel\n1" AccessLevel                  
+CreatePostItsUI              "1" *-[#595959,plain]-> "theController\n1" CreatePostItController       
+CreatePostItsUI               -[#595959,dashed]->  CreatePostItController       : "«create»"
+JpaBoardCellRepository        -[#008200,dashed]-^  BoardCellRepository          
+JpaBoardPermissionRepository  -[#008200,dashed]-^  BoardPermissionRepository    
+JpaBoardRepository            -[#008200,dashed]-^  BoardRepository
+JpaPostItRepository           -[#008200,dashed]-^  PostItRepository
+PostIt                       "1" *-[#595959,plain]-> "board\n1" Board                        
+PostIt                       "1" *-[#595959,plain]-> "cell\n1" BoardCell                    
+PostIt                       "1" *-[#595959,plain]-> "content\n1" Content                      
+PostIt                        -[#595959,dashed]->  Log                          : "«create»"
+PostItFactory                 -[#595959,dashed]->  PostIt                       : "«create»"
+PostItService                "1" *-[#595959,plain]-> "boardCellRepository\n1" BoardCellRepository          
+PostItService                 -[#595959,dashed]->  PostItFactory                : "«create»"
+PostItService                "1" *-[#595959,plain]-> "postItRepository\n1" PostItRepository             
+@enduml

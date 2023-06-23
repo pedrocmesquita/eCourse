@@ -4,15 +4,12 @@
 
 > In this user story, we will have to undo a post-it which ultimately means that we need to have a history of the changes, so the post-it will hold its past state (a newly created post-it will have that at null).
 
-> There is another case we have to think separately, undoing a deleted post-it, so we will treat this user story as if it was two different user stories.
-
 > For undoing a post-it, it will search its previous reference and insert it in the database as a new one.
 
-> For undoing a deleted post-it, we will click undo post-it in an empty board entry, and if it has a previous reference, the old post-it will pop up in that position.
 
 ## 2. Requirements
 
-> In order for the post-it to be undone, we need to have **post-its** in a **board** and a **history** of the changes.
+> In order for the post-it to be undone, we need to have **post-its** in a **board** and a **history** of the changes. We also decided to add a backup postit to postit to represent the last state of the postit.
 
 So, the predefined dependencies are:
 
