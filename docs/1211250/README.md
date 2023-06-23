@@ -8,7 +8,6 @@
 | **A**   | US G004                                 | 
 | **A**   | US G005                                 |
 | **B**   | [US 3002](../SprintB/US_3002/readme.md) |
-| **C**   | [US 2006](../SprintC/US_2006/readme.md) |
 | **C**   | [US 3002](../SprintB/US_3002/readme.md) |
 | **C**   | [US 3006](../SprintC/US_3006/readme.md) |
 | **C**   | [US 3007](../SprintC/US_3007/readme.md) |
